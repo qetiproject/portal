@@ -1,0 +1,112 @@
+<ng-container *ngIf="!viewState.isLoading; else pulsingLoader">
+  <div class="employee-profile-tab-header">
+    <h2 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.payrollBasic}}</h2>
+    <kendo-button *ngIf="viewState.isEmployeePayrollBasicView && viewState.actionPermissions.editPayrollBasic" size="small" rounded="full" icon="edit" (click)="employeePayrollBasicEditButtonClickEvent()"></kendo-button>
+  </div>
+  <ng-container *ngIf="viewState.isEmployeePayrollBasicView">
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.bank}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.bank?.bank}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.bankCode}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.bankCode}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.accountNumber}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.accountNumber}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.residency}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.residency}}</p>
+    </div>
+    <h3 class="employee-salary">{{viewState.employmentModuleResourceModel.employeesSalary}}</h3>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.participationInPension}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.participationInPension}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.netSalary}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.netSalary}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.grossSalary}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.grossSalary}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.incomeTax}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.incomeTax}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.companyPension}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.companyPension}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.employeePension}}</h3>
+      <p class="information-form-row-description">{{viewState.employeePayrollBasicView.employeePension}}</p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!viewState.isEmployeePayrollBasicView">
+    <form class="employee-profile-tab-edit-information-form" [formGroup]="employeePayrollBasicForm">
+      <kendo-formfield>
+        <kendo-label [for]="bank" text="{{viewState.employmentModuleResourceModel.bank}}"></kendo-label>
+        <kendo-dropdownlist [data]="viewState.banksView.banks" [textField]="'bank'" [valueField]="'code'" formControlName="bank" #bank></kendo-dropdownlist>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="bankCode" text="{{viewState.employmentModuleResourceModel.bankCode}}"></kendo-label>
+        <kendo-textbox #bankCode formControlName="bankCode" [clearButton]="false"></kendo-textbox>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="accountNumber" text="{{viewState.employmentModuleResourceModel.accountNumber}}"></kendo-label>
+        <kendo-textbox #accountNumber formControlName="accountNumber" [clearButton]="true"></kendo-textbox>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label text="{{viewState.employmentModuleResourceModel.residency}}"></kendo-label>
+        <ul class="k-radio-list k-list-horizontal" >
+          <li class="k-radio-item" *ngFor="let residency of viewState.residencys">
+            <input kendoRadioButton [id]="residency.value" type="radio" value="{{residency.value}}" formControlName="residency" />
+            <kendo-label class="k-radio-label" [for]="residency.value" text="{{residency.text}}"></kendo-label>
+          </li>
+        </ul>
+      </kendo-formfield>
+      <h3 class="employee-salary">{{viewState.employmentModuleResourceModel.employeesSalary}}</h3>
+      <kendo-formfield>
+        <kendo-label text="{{viewState.employmentModuleResourceModel.participationInPension}}"></kendo-label>
+        <ul class="k-radio-list k-list-horizontal" >
+          <li class="k-radio-item" *ngFor="let participationInPension of viewState.participationInPensions">
+            <input kendoRadioButton [id]="participationInPension.value" type="radio" value="{{participationInPension.value}}" formControlName="participationInPension" (change)="participationInPensionChangeEvent(participationInPension.value)"/>
+            <kendo-label class="k-radio-label" [for]="participationInPension.value" text="{{participationInPension.text}}"></kendo-label>
+          </li>
+        </ul>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="netSalary" text="{{viewState.employmentModuleResourceModel.netSalary}}"></kendo-label>
+        <kendo-numerictextbox #netSalary formControlName="netSalary" (valueChange)="netSalaryValueChangeClickEvent()"></kendo-numerictextbox>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="grossSalary" text="{{viewState.employmentModuleResourceModel.grossSalary}}"></kendo-label>
+        <kendo-textbox [disabled]="viewState.isDisabled" #grossSalary formControlName="grossSalary" [clearButton]="true"></kendo-textbox>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="incomeTax" text="{{viewState.employmentModuleResourceModel.incomeTax}}"></kendo-label>
+        <kendo-textbox [disabled]="viewState.isDisabled" #incomeTax formControlName="incomeTax" [clearButton]="true"></kendo-textbox>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="companyPension" text="{{viewState.employmentModuleResourceModel.companyPension}}"></kendo-label>
+        <kendo-textbox [disabled]="viewState.isDisabled" #companyPension formControlName="companyPension" [clearButton]="true"></kendo-textbox>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="employeePension" text="{{viewState.employmentModuleResourceModel.employeePension}}"></kendo-label>
+        <kendo-textbox [disabled]="viewState.isDisabled"#employeePension formControlName="employeePension" [clearButton]="true"></kendo-textbox>
+      </kendo-formfield>
+      <kendo-dialog-actions>
+        <button kendoButton themeColor="primary" [disabled]="employeePayrollBasicFormValueChecker(employeePayrollBasicForm.value)" (click)="saveEmployeePayrollBasicButtonClickEvent(employeePayrollBasicForm.value)">{{viewState.employmentModuleResourceModel.save}}</button>
+        <button kendoButton (click)="cancelEmployeePayrollBasicButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+      </kendo-dialog-actions>
+    </form>
+  </ng-container>
+</ng-container>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

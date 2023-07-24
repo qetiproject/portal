@@ -1,0 +1,84 @@
+.education {
+  margin: 0 0 36px 0;
+  &:last-child {
+    margin: 0;
+  }
+  &-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 12px 0;
+    h3 {
+      margin: 0;
+      color: #323130;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+      opacity: 0.7;
+    }
+    kendo-button {
+      background: #ffffff;
+      border: 1px solid #dbdbdb;
+      ::ng-deep {
+        .k-icon {
+          color: #652574;
+        }
+      }
+    }
+  }
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .training {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      p {
+        margin: 0;
+        color: #323130;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px;
+      }
+    }
+    .university {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      .name {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        p {
+          color: #323130;
+          margin: 0;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 20px;
+        }
+      }
+      .faculty {
+        display: flex;
+        gap: 12px;
+        span {
+          color: #323130;
+          font-weight: 400;
+          font-size: 15px;
+          line-height: 20px;
+          opacity: 0.48;
+        }
+      }
+    }
+    kendo-button {
+      background: #ffffff;
+      border: 1px solid #dbdbdb;
+      ::ng-deep {
+        .k-icon {
+          color: #652574;
+          transform: scale(0.75);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+.search-box {
+    position: relative;
+    height: 38px;
+}
+.search-icon {
+    position: absolute;
+    top: 9px;
+    bottom: 13px;
+    left: 12px;
+    z-index: 1;
+}
+
+.search-textbox {
+    padding: 5px 21px 5px 36px;
+}
+
+
+// content icons
+.content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.content span {
+    padding-right: 20px;
+    margin-left: 5px;
+    border-right: 1px solid #DBDBDB;
+}
+
+.content p {
+    max-width: 85px;
+    margin: 6px 0;
+    padding: 0;
+  }
+
+:host ::ng-deep .grid-height {
+    height: calc(100vh - 270px);
+    min-height: 400px;
+}
+
+// content icons
+
+kendo-tabstrip ::ng-deep .k-content.k-active {
+    padding: 24px 0 0;
+    background: transparent;
+  }
+
+.kendo-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.view-button {
+    background: rgba(101, 37, 116, 0.1);
+    color: #652574;
+    border: none;
+}
+
+.group-btn {
+    margin-right: 24px;
+    border: 1px solid #DBDBDB;
+}
+
+// chips
+
+.chips {
+    display: flex;
+    row-gap: 16px;
+    column-gap: 8px;
+    flex-wrap: wrap;
+    }
+    .chip {
+        color: #323130;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        border: 1px solid #dbdbdb;
+        background: none;
+        cursor: default;
+        &:hover {
+            background-color: inherit;
+        }
+        &:focus::after {
+            outline: none;
+        }
+        ::ng-deep {
+            .k-chip-action.k-chip-remove-action {
+            z-index: 2;
+            color: #605e5c;
+            cursor: pointer;
+            }
+    }
+}
+
+// chips
+
+// groupNonCompilanceForm
+
+.groupNonCompilanceForm {
+    margin-top: 24px;
+}
+
+// groupNonCompilanceForm

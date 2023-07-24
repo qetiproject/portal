@@ -1,0 +1,122 @@
+.container {
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+  
+.page-title {
+    margin: 30px 0px 36px;
+}
+
+:host ::ng-deep kendo-breadcrumb.k-breadcrumb {
+    padding-bottom: 10px;
+}
+
+:host ::ng-deep .k-breadcrumb-root-link:active, .k-breadcrumb-root-link.k-active {
+    border: 1px solid #652574;
+    background: rgba(103, 38, 117, 0.1);
+}
+
+.search-box {
+    position: relative;
+    height: 38px;
+}
+.search-icon {
+    position: absolute;
+    top: 9px;
+    bottom: 13px;
+    left: 12px;
+    z-index: 1;
+}
+
+.search-textbox {
+    padding: 5px 21px 5px 36px;
+}
+
+:host ::ng-deep .grid-height {
+    height: calc(100vh - 270px);
+    min-height: 400px;
+}
+
+kendo-dialog-actions {
+    display: flex;
+    padding: 0;
+    button {
+        max-width: 200px;
+    }
+}
+
+.role-detail-title-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 20px;
+    color: #323130;
+}
+
+.role-detail-title-container kendo-button {
+    padding: 9px;
+    background: rgba(101, 37, 116, 0.1);
+    border: none;
+}
+
+.role-detail-title-container h1 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 48px;
+}
+
+.role-detail-description {
+    margin: 12px 0 24px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19px;
+    color: #605E5C;
+}
+
+:host ::ng-deep {
+    kendo-tabstrip > .k-content {
+        padding: 24px 0 0;
+        background-color: transparent;
+    }
+    .k-panelbar {
+        background-color: transparent;
+        border: none;
+    }
+    .k-panelbar-item {
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid #DBDBDB;
+        border-radius: 4px;
+    }
+    .k-panelbar-item .k-link {
+        padding: 16px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 20px;
+        color: #323130;
+        border-radius: 4px;
+    }
+    .k-panelbar > .k-item + .k-item, .k-panelbar > .k-panelbar-header + .k-panelbar-header {
+        border-top-width: 1px;
+    }
+    .k-panelbar .k-content.k-panelbar-content {
+        padding: 24px;
+    }
+    .editRoleForm {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+    kendo-formfield {
+        kendo-label {
+          color: #323130;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 20px;
+        }
+        kendo-textbox {
+          margin: 5px 0 0 0 !important;
+        }
+      }
+}

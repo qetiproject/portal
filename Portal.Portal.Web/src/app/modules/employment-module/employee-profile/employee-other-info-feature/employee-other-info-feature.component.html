@@ -1,0 +1,220 @@
+<ng-container *ngIf="!viewState.isLoading; else pulsingLoader">
+  <div class="employee-profile-tab-header">
+      <h2 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.otherInfo}}</h2>
+      <kendo-button *ngIf="viewState.isEmployeeOtherInfoViewState && viewState.actionPermissions.editOtherInfo" size="small" rounded="full" icon="edit" (click)="employeeOtherInfoEditFormButtonClickEvent()"></kendo-button>
+  </div>
+  <ng-container *ngIf="viewState.isEmployeeOtherInfoViewState">
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.gender}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeOtherInfoViewModel.gender}}</p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.maritalStatus}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeOtherInfoViewModel.maritalStatus}}</p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.actualAddress}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeOtherInfoViewModel.actualAddress}}</p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.legalAddress}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeOtherInfoViewModel.legalAddress}}</p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.conviction}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeOtherInfoViewModel.conviction}}</p>
+      </div>
+      <h3 class="emergency-contact">{{viewState.employmentModuleResourceModel.emergencyContact}}</h3>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.fullName}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeEmergencyContactViewModel.fullName}}</p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.relationship}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeEmergencyContactViewModel.relationship}}</p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.phoneNumber}}</h3>
+          <p class="information-form-row-description">{{viewState.employeeEmergencyContactViewModel.phoneNumber}}</p>
+      </div>
+      <h3 class="files">{{viewState.employmentModuleResourceModel.files}}</h3>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.bloodGroupAndRhesus}}</h3>
+          <p class="information-form-row-description">
+            <span 
+            class="k-icon file-exists"
+            [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.bloodGroupAndRhesus?.type)"
+            (click)="openFileButtonClickEvent(viewState.employeeOtherInfoViewModel.bloodGroupAndRhesus)"></span>
+          </p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.medicalCertificate}}</h3>
+          <p class="information-form-row-description">
+            <span 
+            class="k-icon file-exists"
+            [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.medicalCertificate?.type)"
+            (click)="openFileButtonClickEvent(viewState.employeeOtherInfoViewModel.medicalCertificate)"></span>
+          </p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.alergies}}</h3>
+          <p class="information-form-row-description">
+            <span 
+            class="k-icon file-exists"
+            [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.alergies?.type)"
+            (click)="openFileButtonClickEvent(viewState.employeeOtherInfoViewModel.alergies)"></span>
+          </p>
+      </div>
+      <div class="information-form-row">
+          <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.drivingLicense}}</h3>
+          <p class="information-form-row-description">
+            <span 
+            class="k-icon file-exists"
+            [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.drivingLicense?.type)"
+          (click)="openFileButtonClickEvent(viewState.employeeOtherInfoViewModel.drivingLicense)"></span>
+          </p>
+      </div>
+  </ng-container>
+  <ng-container *ngIf="!viewState.isEmployeeOtherInfoViewState">
+    <form class="employee-profile-tab-edit-information-form" [formGroup]="employeeOtherInfoForm">
+        <kendo-formfield orientation="horizontal">
+          <kendo-label text={{viewState.employmentModuleResourceModel.gender}}></kendo-label>
+          <ul class="k-radio-list k-list-horizontal" >
+            <li class="k-radio-item" *ngFor="let gender of viewState.genders">
+              <input kendoRadioButton [id]="gender.value" type="radio" value={{gender.value}} formControlName="gender" />
+              <kendo-label class="k-radio-label" [for]="gender.value" text={{gender.text}}></kendo-label>
+            </li>
+          </ul>
+        </kendo-formfield>
+        <kendo-formfield orientation="horizontal">
+          <kendo-label text={{viewState.employmentModuleResourceModel.maritalStatus}}></kendo-label>
+          <ul class="k-radio-list k-list-horizontal" >
+            <li class="k-radio-item" *ngFor="let maritalStatus of viewState.maritalStatuses">
+              <input kendoRadioButton [id]="maritalStatus.value" type="radio" value={{maritalStatus.value}} formControlName="maritalStatus" />
+              <kendo-label class="k-radio-label" [for]="maritalStatus.value" text={{maritalStatus.text}}></kendo-label>
+            </li>
+          </ul>
+        </kendo-formfield>
+        <kendo-formfield>
+          <kendo-label [for]="legalAddress" text="{{viewState.employmentModuleResourceModel.legalAddress}}"></kendo-label>
+          <kendo-textbox #legalAddress formControlName="legalAddress" [clearButton]="true"></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield>
+          <kendo-label [for]="actualaddress" text="{{viewState.employmentModuleResourceModel.actualAddress}}"></kendo-label>
+          <kendo-textbox #actualaddress formControlName="actualAddress" [clearButton]="true"></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield orientation="horizontal">
+          <kendo-label text="{{viewState.employmentModuleResourceModel.conviction}}"></kendo-label>
+          <ul class="k-radio-list k-list-horizontal" >
+            <li class="k-radio-item" *ngFor="let conviction of viewState.convictions">
+              <input kendoRadioButton [id]="conviction.value" type="radio" value={{conviction.value}} formControlName="conviction" />
+              <kendo-label class="k-radio-label" [for]="conviction.value" text={{conviction.text}}></kendo-label>
+            </li>
+          </ul>
+        </kendo-formfield>
+        <h3 class="emergency-contact">{{viewState.employmentModuleResourceModel.emergencyContact}}</h3>
+        <kendo-formfield>
+          <kendo-label [for]="fullName" text="{{viewState.employmentModuleResourceModel.fullName}}"></kendo-label>
+          <kendo-textbox #fullName formControlName="fullName" [clearButton]="true"></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield>
+          <kendo-label [for]="relationship" text="{{viewState.employmentModuleResourceModel.relationship}}"></kendo-label>
+          <kendo-textbox #relationship formControlName="relationship" [clearButton]="true"></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield>
+          <kendo-label [for]="phoneNumber" text="{{viewState.employmentModuleResourceModel.phoneNumber}}"></kendo-label>
+          <kendo-textbox #phoneNumber formControlName="phoneNumber" [clearButton]="true"></kendo-textbox>
+        </kendo-formfield>
+        <h3 class="files">{{viewState.employmentModuleResourceModel.files}}</h3>
+        <div class="custom-file-input">
+          <h3>{{viewState.employmentModuleResourceModel.bloodGroupAndRhesus}}</h3>
+          <div class="custom-file-input-right">
+            <ng-container *ngIf="viewState.bloodGroupSelectedFile; else bloodGroupFileExist">
+              <span 
+              class="k-icon"
+              [ngClass]="getFileClassByExtension(viewState.bloodGroupFileExtensionOnUpload)"></span>
+            </ng-container>
+            <ng-template #bloodGroupFileExist>
+              <ng-container *ngIf="viewState.employeeOtherInfoViewModel.bloodGroupAndRhesus?.type">
+                <span 
+                class="k-icon"
+                [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.bloodGroupAndRhesus?.type)"></span>
+              </ng-container>
+            </ng-template>
+            <label for="bloodGroupAndRhesus">{{viewState.employmentModuleResourceModel.upload}}</label>
+            <input id="bloodGroupAndRhesus" type="file" (change)="employeeOtherInfoBloodGroupFileSelectedButtonCliekEvent($event)">
+            <kendo-button *ngIf="viewState.bloodGroupSelectedFile || viewState.employeeOtherInfoViewModel.bloodGroupAndRhesus?.name" size="small" rounded="full" icon="delete" (click)="deleteBloodGroupFileButtonClickEvent()"></kendo-button>
+          </div>
+        </div>
+        <div class="custom-file-input">
+          <h3>{{viewState.employmentModuleResourceModel.medicalCertificate}}</h3>
+          <div class="custom-file-input-right">
+            <ng-container *ngIf="viewState.medicalCertificateSelectedFile; else medicalCertificateFileExist">
+              <span 
+              class="k-icon"
+              [ngClass]="getFileClassByExtension(viewState.medicalCertificateFileExtensionOnUpload)"></span>
+            </ng-container>
+            <ng-template #medicalCertificateFileExist>
+              <ng-container *ngIf="viewState.employeeOtherInfoViewModel.medicalCertificate?.type">
+                <span 
+                class="k-icon"
+                [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.medicalCertificate?.type)"></span>
+              </ng-container>
+            </ng-template>
+            <label for="medicalCertificate">{{viewState.employmentModuleResourceModel.upload}}</label>
+            <input id="medicalCertificate" type="file" (change)="employeeOtherInfoMedicalCertificateFileSelectedButtonCliekEvent($event)">
+            <kendo-button *ngIf="viewState.medicalCertificateSelectedFile || viewState.employeeOtherInfoViewModel.medicalCertificate?.name" size="small" rounded="full" icon="delete" (click)="deleteMedicalCertificateFileButtonClickEvent()"></kendo-button>
+          </div>
+        </div>
+        <div class="custom-file-input">
+          <h3>{{viewState.employmentModuleResourceModel.alergies}}</h3>
+          <div class="custom-file-input-right">
+            <ng-container *ngIf="viewState.alergiesSelectedFile; else alergiesFileExist">
+              <span 
+              class="k-icon"
+              [ngClass]="getFileClassByExtension(viewState.alergiesFileExtensionOnUpload)"></span>
+            </ng-container>
+            <ng-template #alergiesFileExist>
+              <ng-container *ngIf="viewState.employeeOtherInfoViewModel.alergies?.type">
+                <span 
+                class="k-icon"
+                [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.alergies?.type)"></span>
+              </ng-container>
+            </ng-template>
+            <label for="alergies">{{viewState.employmentModuleResourceModel.upload}}</label>
+            <input id="alergies" type="file" (change)="employeeOtherInfoAlergiesFileSelectedButtonClickEvent($event)">
+            <kendo-button *ngIf="viewState.alergiesSelectedFile || viewState.employeeOtherInfoViewModel.alergies?.name" size="small" rounded="full" icon="delete" (click)="deleteAlergiesFileButtonClickEvent()"></kendo-button>
+          </div>
+        </div>
+        <div class="custom-file-input">
+          <h3>{{viewState.employmentModuleResourceModel.drivingLicense}}</h3>
+          <div class="custom-file-input-right">
+            <ng-container *ngIf="viewState.drivingLicenseSelectedFile; else drivingLicenseFileExist">
+              <span 
+              class="k-icon"
+              [ngClass]="getFileClassByExtension(viewState.drivingLicenseFileExtensionOnUpload)"></span>
+            </ng-container>
+            <ng-template #drivingLicenseFileExist>
+              <ng-container *ngIf="viewState.employeeOtherInfoViewModel.drivingLicense?.type">
+                <span 
+                class="k-icon"
+                [ngClass]="getFileClassByExtension(viewState.employeeOtherInfoViewModel.drivingLicense?.type)"></span>
+              </ng-container>
+            </ng-template>
+            <label for="drivingLicense">{{viewState.employmentModuleResourceModel.upload}}</label>
+            <input id="drivingLicense" type="file" (change)="employeeOtherInfoDrivingLicenceFileSelectedButtonCliekEvent($event)">
+            <kendo-button *ngIf="viewState.drivingLicenseSelectedFile || viewState.employeeOtherInfoViewModel.drivingLicense?.name" size="small" rounded="full" icon="delete" (click)="deleteDrivingLicenseFileButtonClickEvent()"></kendo-button>
+          </div>
+        </div>
+        <kendo-dialog-actions>
+            <button kendoButton themeColor="primary" [disabled]="employeeOtherInfoFormValueChecker(employeeOtherInfoForm.value)" (click)="saveEmployeeOtherInfoClickEvent(employeeOtherInfoForm.value)">{{viewState.employmentModuleResourceModel.save}}
+            </button>
+            <button kendoButton (click)="cancelEmployeeOtherInfoButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+        </kendo-dialog-actions>
+    </form>
+  </ng-container>
+</ng-container>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

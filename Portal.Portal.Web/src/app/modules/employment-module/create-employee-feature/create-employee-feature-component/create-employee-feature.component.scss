@@ -1,0 +1,59 @@
+.container {
+    height: 100%;
+    gap: 40px;
+    padding-bottom: 40px;
+}
+.stepper {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 28px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+ .k-button.prev {
+    margin-right: 16px;
+}
+.k-form-separator {
+    margin-top: 40px;
+}
+
+.page {
+    align-self: center;
+}
+
+:host ::ng-deep .k-stepper .k-step-link {
+    overflow: visible;
+}
+
+.k-stepper .k-step-label {
+    display: inline;
+}
+
+.k-buttons-end {
+    justify-content: flex-end;
+    align-content: center;
+}
+.k-buttons-start {
+    justify-content:flex-start;
+    align-content: center;
+}
+
+.stepper-layout {
+    border-radius: 4px;
+    background: none;
+    margin: 0 !important;
+}
+
+.stepper-item {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+

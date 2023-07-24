@@ -1,0 +1,72 @@
+<div class="container">
+    <kendo-breadcrumb [items]="viewState.breadItems" (itemClick)="breadItemsViewState($event)"></kendo-breadcrumb>
+    <h1>{{layoutResource.timeOffRequestResources.sentRequestDetails}}</h1>
+    <div *ngIf="!viewState.loading; else pulsingLoader" class="layout">
+        <div class="view-container">
+            <h2 class="layout-title">{{viewState.timeOffRequestSentHistoryViewModel.title}}</h2>
+            <div class="information-form-row">
+              <h3 class="information-form-row-title">{{layoutResource.timeOffRequestResources.receiver}}</h3>
+              <p class="information-form-row-description">{{viewState.timeOffRequestSentHistoryViewModel.receiver}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.timeOffRequestResources.dateCreated}}</h3>
+                <p class="information-form-row-description">{{viewState.timeOffRequestSentHistoryViewModel.date  | date: 'dd.MM.yyyy' }}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.timeOffRequestResources.deadLIne}}</h3>
+                <p class="information-form-row-description">{{viewState.timeOffRequestSentHistoryViewModel.deadLine | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div *ngIf="viewState.timeOffRequestSentHistoryViewModel.type != viewState.timeOffRequestType['Custom']" class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.timeOffRequestResources.from}}</h3>
+                <p class="information-form-row-description">{{viewState.timeOffRequestSentHistoryViewModel.from | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div *ngIf="viewState.timeOffRequestSentHistoryViewModel.type === viewState.timeOffRequestType['Vacation']" class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.timeOffRequestResources.including}}</h3>
+                <p class="information-form-row-description">{{viewState.timeOffRequestSentHistoryViewModel.including | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.timeOffRequestResources.file}}</h3>
+                <p class="information-form-row-description">
+                    <span
+                        class="k-icon file-exists"
+                        [ngClass]="getFileClassByExtension(viewState.timeOffRequestSentHistoryViewModel.file?.type)" (click)="openFileButtonClickEvent(viewState.timeOffRequestSentHistoryViewModel.file)"></span>
+                </p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.timeOffRequestResources.description}}</h3>
+                <p class="information-form-row-description">{{viewState.timeOffRequestSentHistoryViewModel.description}}</p>
+            </div>
+        </div>
+        <ng-container *ngIf="viewState.redirectHistoryStatusChangeView">
+            <h4>{{viewState.timeOffRequestSentHistoryViewModel.statusChanger}}</h4>
+            <div class="information-form-row">
+                <h4 class="information-form-row-title">{{layoutResource.timeOffRequestResources.status}}</h4>
+                <p class="information-form-row-description">
+                    <kendo-chip *ngIf="viewState.timeOffRequestSentHistoryViewModel.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning">{{layoutResource.timeOffRequestResources.inProgress}}</kendo-chip>
+                    <kendo-chip *ngIf="viewState.timeOffRequestSentHistoryViewModel.status == viewState.statuses['Confirmed'] " size="small" rounded="full" themeColor="success">{{layoutResource.timeOffRequestResources.confirmed}}</kendo-chip>
+                    <kendo-chip *ngIf="viewState.timeOffRequestSentHistoryViewModel.status == viewState.statuses['Rejected'] " size="small" rounded="full" themeColor="error">{{layoutResource.timeOffRequestResources.rejected}}</kendo-chip>
+                </p>
+            </div>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.timeOffRequestResources.statusChangeDate}}</h4>
+                <p class="status-row-view-description">{{viewState.timeOffRequestSentHistoryViewModel.statusChangeDate | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div class="information-form-row">
+                <h4 class="information-form-row-title">{{layoutResource.timeOffRequestResources.file}}</h4>
+                <p class="information-form-row-description">
+                    <span
+                        class="k-icon file-exists"
+                        [ngClass]="getFileClassByExtension(viewState.timeOffRequestSentHistoryViewModel.file?.type)" (click)="openFileButtonClickEvent(viewState.timeOffRequestSentHistoryViewModel.file)"></span>
+                </p>
+            </div>
+            <div class="information-form-row">
+                <h4 class="information-form-row-title">{{layoutResource.timeOffRequestResources.description}}</h4>
+                <p class="information-form-row-description">{{viewState.timeOffRequestSentHistoryViewModel.description}}</p>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #pulsingLoader>
+    <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

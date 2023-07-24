@@ -1,0 +1,30 @@
+<div class="container vertical-between">
+  <div class="stepper">
+    <h1 class="title">{{viewState.employmentModuleResourceModel.addEmployee}}</h1>
+    <kendo-stepper #stepper [steps]="viewState.createEmployeeFeatureStepsModel" stepType="full" [(currentStep)]="viewState.currentStep" (activate)="stepActiveViewState($event)"></kendo-stepper>
+    <form class="k-form" [formGroup]="createEmployeeFeatureForm">
+        <app-employee-information *ngIf="isCurrentStepViewState(0)" [personalInformation]="currentGroup"></app-employee-information>
+        <app-employee-role *ngIf="isCurrentStepViewState(1)" [employeeRole]="currentGroup"></app-employee-role>
+        <div *ngIf="isCurrentStepViewState(2)"> </div>
+    </form>
+  </div>
+  <kendo-tilelayout class="stepper-layout">
+      <kendo-tilelayout-item class="stepper-item" [col]="viewState.stepperColumnModel.stepperItemColumnCount">
+        <div class="k-form-buttons k-buttons-start">
+          <span class="page">Step {{ viewState.currentStep + 1 }} of {{viewState.stepperColumnModel.stepperCount}}</span>
+          <button class="k-button-lg" [size]="viewState.buttonSizeModel" [rounded]="viewState.roundedModel" kendoButton (click)="cancelEmployeeButtonClickEvent()"> {{viewState.employmentModuleResourceModel.cancel}} </button>
+        </div>
+      </kendo-tilelayout-item>
+      <kendo-tilelayout-item class="stepper-item" [col]="viewState.stepperColumnModel.stepperFooterColumnCount">
+        <div class="k-form-buttons k-buttons-end">
+          <button *ngIf="viewState.currentStep !== 0" [size]="viewState.buttonSizeModel"  [rounded]="viewState.roundedModel" kendoButton class="k-button-lg bottom=10" (click)="previousButtonClickEvent()">
+            <span class="k-icon k-i-chevron-left k-icon-md"></span>{{viewState.employmentModuleResourceModel.previous}}
+          </button>
+          <button *ngIf="viewState.currentStep !== viewState.createEmployeeFeatureStepsModel.length - 1" [size]="viewState.buttonSizeModel" [rounded]="viewState.roundedModel" kendoButton class="k-button-lg" themeColor="primary" (click)="nextButtonClickEvent()">{{viewState.employmentModuleResourceModel.nextStep}}
+          </button>
+          <button *ngIf="viewState.currentStep === viewState.createEmployeeFeatureStepsModel.length - 1" [size]="viewState.buttonSizeModel"  [rounded]="viewState.roundedModel" kendoButton class="k-button-lg" themeColor="primary" (click)="createEmployeeButtonClickEvent(createEmployeeFeatureForm.value)">{{viewState.employmentModuleResourceModel.create}}
+          </button>
+        </div>
+      </kendo-tilelayout-item>
+  </kendo-tilelayout>
+</div>

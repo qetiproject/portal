@@ -1,0 +1,52 @@
+.stepper-form{
+    margin-top: 40px;
+    padding: 24px;
+    border: 1px solid #DBDBDB;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.title {
+    color: #101828;
+    font-size: 20px;
+}
+
+.permissions-container {
+    margin-top: 32px;
+}
+
+:host ::ng-deep {
+   .k-content {
+        padding: 24px 0 0;
+        background-color: transparent;
+    }
+    .k-panelbar {
+        background-color: transparent;
+        border: none;
+    }
+    .k-panelbar-item {
+        margin-bottom: 20px;
+        background-color: #fff;
+        border: 1px solid #DBDBDB;
+        border-radius: 4px;
+    }
+    .k-panelbar-item .k-link {
+        padding: 16px;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 20px;
+        color: #323130;
+        border-radius: 4px;
+    }
+    .k-panelbar > .k-item + .k-item, .k-panelbar > .k-panelbar-header + .k-panelbar-header {
+        border-top-width: 1px;
+    }
+    .k-panelbar .k-content.k-panelbar-content {
+        padding: 24px;
+    }
+}
+
+.permission {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,88 @@
+<ng-container *ngIf="!viewState.isLoading; else pulsingLoader">
+  <div class="employee-profile-tab-header">
+    <h2 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.jobInfo}}</h2>
+    <kendo-button *ngIf="viewState.isEmployeeJobInfoView && viewState.actionPermissions.editJobInfo" size="small" rounded="full" icon="edit" (click)="employeeJobInfoEditButtonClickEvent()"></kendo-button>
+  </div>
+  <ng-container *ngIf="viewState.isEmployeeJobInfoView">
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.region}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeJobInfoViewModel.region}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.workAddress}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeJobInfoViewModel.workAddress}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.idDocument}}</h3>
+      <p class="information-form-row-description">
+        <span 
+        class="k-icon file-exists"
+        [ngClass]="getFileClassByExtension(viewState.employeeJobInfoViewModel.idDocument?.type)"
+        (click)="openFileButtonClickEvent(viewState.employeeJobInfoViewModel.idDocument)"></span>
+      </p>
+  </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.idExpirationDate}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeJobInfoViewModel.idExpirationDate?.toString().split('T')[0]}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.department}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeJobInfoViewModel.department}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.timeZone}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeJobInfoViewModel.timeZone?.value}}</p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!viewState.isEmployeeJobInfoView">
+    <form class="employee-profile-tab-edit-information-form" [formGroup]="employeeJobInfoForm">
+      <kendo-formfield>
+          <kendo-label [for]="region" text={{viewState.employmentModuleResourceModel.region}}></kendo-label>
+          <kendo-textbox formControlName="region" [clearButton]="true" #region></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield>
+          <kendo-label [for]="workAddress" text={{viewState.employmentModuleResourceModel.workAddress}}></kendo-label>
+          <kendo-textbox formControlName="workAddress" [clearButton]="true" #workAddress></kendo-textbox>
+        </kendo-formfield>
+        <div class="custom-file-input">
+          <h3>{{viewState.employmentModuleResourceModel.idDocument}}</h3>
+          <div class="custom-file-input-right">
+            <ng-container *ngIf="viewState.idDocumentSelectedFile; else idDocumentFileExist">
+              <span 
+              class="k-icon"
+              [ngClass]="getFileClassByExtension(viewState.idDocumentFileExtensionOnUpload)"></span>
+            </ng-container>
+            <ng-template #idDocumentFileExist>
+              <ng-container *ngIf="viewState.employeeJobInfoViewModel.idDocument?.type">
+                <span 
+                class="k-icon"
+                [ngClass]="getFileClassByExtension(viewState.employeeJobInfoViewModel.idDocument?.type)"></span>
+              </ng-container>
+            </ng-template>
+            <label for="idDocument">{{viewState.employmentModuleResourceModel.upload}}</label>
+            <input id="idDocument" type="file" (change)="employeeJobInfoIdDocumentFileSelectedButtonCliekEvent($event)">
+            <kendo-button *ngIf="viewState.idDocumentSelectedFile || viewState.employeeJobInfoViewModel.idDocument?.name" size="small" rounded="full" icon="delete" (click)="deleteIdDocumentFileButtonClickEvent()"></kendo-button>
+          </div>
+        </div>
+        <kendo-formfield>
+          <kendo-label [for]="idExpirationDate" text={{viewState.employmentModuleResourceModel.idExpirationDate}}></kendo-label>
+          <kendo-datepicker formControlName="idExpirationDate" format="dd/MM/yyyy" #idExpirationDate></kendo-datepicker>
+        </kendo-formfield>
+        <kendo-formfield>
+          <kendo-label [for]="department" text={{viewState.employmentModuleResourceModel.department}}></kendo-label>
+          <kendo-textbox formControlName="department" [clearButton]="true" #department></kendo-textbox>
+        </kendo-formfield>
+        <kendo-formfield orientation="vertical">
+          <kendo-label [for]="timeZone" text={{viewState.employmentModuleResourceModel.timeZone}}></kendo-label>
+          <kendo-dropdownlist [data]="viewState.timeZonesResourceModel.timeZones" [textField]="'value'" [valueField]="'key'" formControlName="timeZone" #timeZone></kendo-dropdownlist>
+        </kendo-formfield>
+        <kendo-dialog-actions>
+          <button kendoButton themeColor="primary" [disabled]="employeeJobInfoFormValueChecker(employeeJobInfoForm.value)" (click)="saveEmployeeJobInfoButtonClickEvent(employeeJobInfoForm.value)">{{viewState.employmentModuleResourceModel.save}}</button>
+          <button kendoButton (click)="cancelEmployeeJobInfoButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+        </kendo-dialog-actions>
+    </form>
+  </ng-container>
+</ng-container>
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

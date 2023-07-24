@@ -1,0 +1,49 @@
+<form class="k-form k-form-horizontal stepper-form" [formGroup]="personalInformation">
+  <h1 class="title">{{viewState.employmentModuleResourceModel.personalInformation}}</h1>
+  <fieldset class="k-form-fieldset">
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="fullName" text={{viewState.employmentModuleResourceModel.fullName}}></kendo-label>
+      <kendo-textbox [rounded]="viewState.rounded" kendoTextBox #fullName required formControlName="fullName"></kendo-textbox>
+      <kendo-formerror>{{viewState.errorResourceList.fullName}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="position" text={{viewState.employmentModuleResourceModel.position}}></kendo-label>
+      <kendo-textbox [rounded]="viewState.rounded" kendoTextBox #position required formControlName="position"></kendo-textbox>
+      <kendo-formerror>{{viewState.errorResourceList.position}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label text={{viewState.employmentModuleResourceModel.jobType}}></kendo-label>
+      <ul class="k-radio-list k-list-horizontal" >
+        <li class="k-radio-item" *ngFor="let jobType of viewState.jobTypes">
+          <input kendoRadioButton [id]="jobType.value" type="radio" value="{{jobType.value}}" formControlName="jobType" />
+          <kendo-label class="k-radio-label" [for]="jobType.value" text="{{jobType.text}}"></kendo-label>
+        </li>
+      </ul>
+      <kendo-formerror>{{viewState.errorResourceList.jobType}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="email" text={{viewState.employmentModuleResourceModel.email}}></kendo-label>
+      <kendo-textbox [rounded]="viewState.rounded" kendoTextBox #email formControlName="email"></kendo-textbox>
+      <kendo-formerror *ngIf="personalInformation.controls['email']?.errors?.['required']">{{viewState.errorResourceList.emailEmpty}}</kendo-formerror>
+      <kendo-formerror *ngIf="personalInformation.controls['email']?.errors?.['email']">{{viewState.errorResourceList.emailValid}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="phoneNumber" text={{viewState.employmentModuleResourceModel.phoneNumber}}></kendo-label>
+      <kendo-maskedtextbox [rounded]="viewState.rounded" [style.width.px]="170" [mask]="viewState.phoneNumberMask" #phoneNumber formControlName="phoneNumber"></kendo-maskedtextbox>
+      <kendo-formerror>{{viewState.errorResourceList.phoneNumber}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="dateOfBirth" text={{viewState.employmentModuleResourceModel.dateOfBirth}}></kendo-label>
+      <kendo-datepicker [rounded]="viewState.rounded" #dateOfBirth required formControlName="dateOfBirth"></kendo-datepicker>
+      <kendo-formerror>{{viewState.errorResourceList.dateOfBirth}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="personalId" text={{viewState.employmentModuleResourceModel.personalId}}></kendo-label>
+      <kendo-textbox [rounded]="viewState.rounded" kendoTextBox #personalId required [maxlength]="11" [minlength]="11" formControlName="personalId"></kendo-textbox>
+      <kendo-formerror>{{viewState.errorResourceList.personalId}}</kendo-formerror>
+    </kendo-formfield>
+  </fieldset>
+</form>
+
+
+

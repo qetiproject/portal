@@ -1,0 +1,232 @@
+.container {
+  padding-top: 30px;
+  padding-bottom: 40px;
+  .page-title {
+    margin: 30px 0px 36px;
+  }
+
+  kendo-tilelayout {
+    padding: 0 !important;
+    gap: 20px !important;
+    kendo-tilelayout-item {
+      box-shadow: none;
+      z-index: auto !important; //in order to work normally delete dialog overlay z-index property;
+      kendo-tilelayout-item-body {
+        padding: 0;
+        .general-personal-information {
+          border: 1px solid #dbdbdb;
+          border-radius: 8px;
+          padding: 24px;
+        }
+      }
+      &:last-of-type {
+        kendo-tilelayout-item-body {
+          background-color: #f9fbfc;
+        }
+      }
+    }
+  }
+
+  .wrap.between {
+    align-items: center;
+    .status {
+      margin: 0;
+      padding: 8px;
+      border-radius: 100px;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      &-active {
+        color: #005c00;
+        background: rgba(78, 217, 100, 0.1);
+      }
+      &-passive {
+        color: #F2994A;
+        background: #FCF4EE;
+      }
+    }
+    kendo-button {
+      padding: 9px;
+      background: rgba(101, 37, 116, 0.1);
+      border: none;
+      ::ng-deep {
+        .k-icon {
+          color: #652574;
+        }
+      }
+    }
+  }
+  .verticalCenter {
+    kendo-avatar {
+      min-width: 100px;
+      min-height: 100px;
+      margin: 0;
+    }
+    h2 {
+      margin: 8px 0px;
+      color: #000000;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 140%;
+    }
+    p {
+      margin: 0;
+      color: #000000;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 140%;
+    }
+  }
+
+  .wrap:not(.verticalCenter) {
+    margin-bottom: 24px;
+    color: #323130;
+    h2 {
+      margin: 0 0 8px;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+      opacity: 0.7;
+    }
+    p {
+      margin: 0;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 20px;
+    }
+  }
+
+  hr {
+    margin: 24px 0px;
+    height: 1px;
+    background: #dbdbdb;
+    border: none;
+  }
+
+  kendo-tabstrip {
+    padding: 24px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+    background: #ffffff;
+    ::ng-deep {
+      .k-content.k-active {
+        display: none;
+      }
+    }
+  }
+
+  .k-tabstrip.router-outlet-container {
+    margin: 20px 0 0 0;
+  }
+
+  .k-tabstrip.router-outlet-container .k-content.k-active {
+    padding: 24px;
+    border: 1px solid #dbdbdb;
+    border-radius: 8px;
+  }
+}
+
+.employee-personal-information-form > h2 {
+  margin: 0;
+  color: #101828;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.employee-personal-information-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  .profile-photo {
+    kendo-avatar {
+      min-width: 100px;
+      min-height: 100px;
+      margin: 0;
+    }
+    label {
+      padding: 6px 20px;
+      color: #652574;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      cursor: pointer;
+    }
+    #profile-avatar-input {
+      display: none;
+    }
+    button:hover {
+      color: #d92d20;
+    }
+  }
+  kendo-formfield {
+    kendo-label {
+      color: #323130;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    kendo-textbox,
+    .k-radio-list {
+      margin: 5px 0 0 0 !important;
+    }
+    .k-radio-item {
+      padding: 0;
+    }
+  }
+  kendo-dialog-actions {
+    display: flex;
+    padding: 0 !important;
+  }
+  .profile-photo-delete-dialog {
+    p {
+      margin: 0;
+    }
+    kendo-dialog-actions {
+      justify-content: flex-end !important;
+      padding: 12px 24px 24px !important;
+    }
+  }
+}
+
+
+// kendo-breadcrumb
+
+:host ::ng-deep .k-breadcrumb-root-link:active, .k-breadcrumb-root-link.k-active {
+  border: 1px solid #652574;
+  background: rgba(103, 38, 117, 0.1);
+}
+
+// kendo-breadcrumb
+
+.fullNameContainer {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.fullName {
+  padding-right: 5px;
+}
+
+.fullNameContainer span, .bullet {
+  opacity: 0.56;
+}
+
+.avatar {
+  position: relative;
+}
+
+.avatar-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+kendo-button.avatar-icon {
+  color: #652574;
+}
+
+.hidePhoto {
+  color: #dbdbdb !important;
+}

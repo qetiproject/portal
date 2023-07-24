@@ -1,0 +1,146 @@
+<div class="container">
+  <kendo-breadcrumb *ngIf="viewState.actionPermissions.viewEmployeesList" [items]="viewState.breadItems" (itemClick)="breadItemsViewState($event)"> </kendo-breadcrumb>
+  <h1 class="page-title">{{viewState.employmentModuleResourceModel.employeeProfile}} </h1>
+
+  <kendo-tilelayout [columns]="3" class="tile">
+    <kendo-tilelayout-item [col]="1" [rowSpan]="1">
+      <kendo-tilelayout-item-body>
+        <ng-container *ngIf="!viewState.isLoadingOnGet; else pulsingLoader">
+          <div class="general-personal-information">       
+            <ng-container *ngIf="viewState.isEmployeePersonalInformationView">
+              <div class="wrap between">
+                <h2 *ngIf="viewState.employeePersonalInformationView.status === viewState.employeeStatus['Active']" class="status status-active">{{viewState.employmentModuleResourceModel.active}}</h2>
+                <h2 *ngIf="viewState.employeePersonalInformationView.status === viewState.employeeStatus['Passive']" class="status status-passive">{{viewState.employmentModuleResourceModel.passive}}</h2>
+                <kendo-button *ngIf="viewState.actionPermissions.editPersonalInformation" size="small" rounded="full" icon="edit" (click)="employeePersonalInformationEditButtonClickEvent()"></kendo-button>
+              </div>
+              <div class="wrap verticalCenter">
+                <div class="avatar">
+                  <kendo-avatar themeColor="base" [imageSrc]="viewState.employeePersonalInformationView.photo"></kendo-avatar>
+                  <kendo-button class="avatar-icon" size="small" rounded="full" icon="eye" [ngClass]="viewState.isHideProfilePhoto ? 'hidePhoto' : '' " (click)="hideEmployeeProfilePhotoEvent()" ></kendo-button>
+                </div>
+                <div class="fullNameContainer">
+                  <h2 class="fullName">{{viewState.employeePersonalInformationView.fullName}}</h2><span>-  #{{viewState.employeePersonalInformationView.employeeNumber}}</span>
+                </div>
+                <p *ngIf="viewState.employeePersonalInformationView.jobType === viewState.jobTypesEnum['FullTime']">{{viewState.employeePersonalInformationView.position}} <span class="bullet">&#x2022;</span> {{viewState.employmentModuleResourceModel.fullTime}}</p>
+                <p *ngIf="viewState.employeePersonalInformationView.jobType === viewState.jobTypesEnum['PartTime']">{{viewState.employeePersonalInformationView.position}} <span class="bullet">&#x2022;</span> {{viewState.employmentModuleResourceModel.partTime}}</p>
+              </div>
+              <hr>
+              <div class="wrap">
+                <h2>{{viewState.employmentModuleResourceModel.email}}</h2>
+                <p>{{viewState.employeePersonalInformationView.email}}</p>
+              </div>
+              <div class="wrap">
+                <h2>{{viewState.employmentModuleResourceModel.phoneNumber}}</h2>
+                <p>{{viewState.employeePersonalInformationView.phoneNumber}}</p>
+              </div>
+              <div class="wrap">
+                <h2>{{viewState.employmentModuleResourceModel.dateOfBirth}}</h2>
+                <p>{{viewState.employeePersonalInformationView.dateOfBirth | date: 'dd.MM.yyyy' }}</p>
+              </div>
+              <div class="wrap">
+                <h2>{{viewState.employmentModuleResourceModel.personalId}}</h2>
+                <p>{{viewState.employeePersonalInformationView.personalId}}</p>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!viewState.isEmployeePersonalInformationView">
+              <ng-container *ngIf="!viewState.isLoadingOnPost; else pulsingLoader">
+                <form [formGroup]="employeePersonalInformationForm" class="employee-personal-information-form">
+                  <h2>{{viewState.employmentModuleResourceModel.personalInformation}}</h2>
+                <div class="between profile-photo" >
+                  <kendo-avatar themeColor="base" [imageSrc]="viewState.employeePersonalInformationView.photo"></kendo-avatar>
+                  <label for="profile-avatar-input">
+                    {{viewState.employmentModuleResourceModel.update}}
+                  </label>
+                  <input type="file" id="profile-avatar-input" (change)="employeeProfilePhotoSelectedButtonCliekEvent($event)">              
+                  <button kendoButton themeColor="error" fillMode="clear" (click)="openProfilePhotoDialogButtonClickEvent()">{{viewState.employmentModuleResourceModel.deleteText}}</button>
+                  <kendo-dialog class="profile-photo-delete-dialog" title={{viewState.employmentModuleResourceModel.deleteProfilePicture}}  *ngIf="viewState.isOpenedProfilePhotoDialog" (close)="closeProfilePhotoDialogButtonCliekEvent()">
+                    <p>{{viewState.employmentModuleResourceModel.deleteProfilePictureText}}</p>
+                    <kendo-dialog-actions>
+                      <button kendoButton (click)="deleteEmployeeProfilePhotoButtonClickEvent(viewState.employeePersonalInformationView.id)" themeColor="error">{{viewState.employmentModuleResourceModel.deleteText}}</button>
+                      <button kendoButton (click)="closeProfilePhotoDialogButtonCliekEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+                    </kendo-dialog-actions>
+                  </kendo-dialog>
+                </div>
+                <kendo-formfield>
+                  <kendo-label [for]="fullName" text={{viewState.employmentModuleResourceModel.fullName}}></kendo-label>
+                  <kendo-textbox formControlName="fullName" [clearButton]="true" #fullName></kendo-textbox>
+                  <kendo-formerror>{{viewState.errorResourceList.fullName}}</kendo-formerror>
+                </kendo-formfield>
+                <kendo-formfield>
+                  <kendo-label [for]="position" text={{viewState.employmentModuleResourceModel.position}}></kendo-label>
+                  <kendo-textbox formControlName="position" [clearButton]="true" #position></kendo-textbox>
+                  <kendo-formerror>{{viewState.errorResourceList.position}}</kendo-formerror>
+                </kendo-formfield>
+                <kendo-formfield orientation="horizontal">
+                  <kendo-label text={{viewState.employmentModuleResourceModel.status}}></kendo-label>
+                  <ul class="k-radio-list k-list-horizontal" >
+                    <li class="k-radio-item" *ngFor="let status of viewState.statuses">
+                      <input kendoRadioButton [id]="status.value" type="radio" value={{status.value}} formControlName="status" />
+                      <kendo-label class="k-radio-label" [for]="status.value" text={{status.text}}></kendo-label>
+                    </li>
+                  </ul>
+                </kendo-formfield>
+                <kendo-formfield orientation="horizontal">
+                  <kendo-label text="{{viewState.employmentModuleResourceModel.jobType}}"></kendo-label>
+                  <ul class="k-radio-list k-list-horizontal" >
+                    <li class="k-radio-item" *ngFor="let jobType of viewState.jobTypes">
+                      <input kendoRadioButton [id]="jobType.value" type="radio" value={{jobType.value}} formControlName="jobType" />
+                      <kendo-label class="k-radio-label" [for]="jobType.value" text={{jobType.text}}></kendo-label>
+                    </li>
+                  </ul>
+                  <kendo-formerror>{{viewState.errorResourceList.jobType}}</kendo-formerror>
+                </kendo-formfield>
+                <kendo-formfield>
+                  <kendo-label [for]="phoneNumber" text={{viewState.employmentModuleResourceModel.phoneNumber}}></kendo-label>
+                  <kendo-textbox formControlName="phoneNumber" [clearButton]="true" #phoneNumber></kendo-textbox>
+                  <kendo-formerror>{{viewState.errorResourceList.phoneNumber}}</kendo-formerror>
+                </kendo-formfield>
+                <kendo-formfield>
+                  <kendo-label [for]="email" text={{viewState.employmentModuleResourceModel.email}}></kendo-label>
+                  <kendo-textbox formControlName="email" [clearButton]="true" #email></kendo-textbox>
+                  <kendo-formerror *ngIf="employeePersonalInformationForm.controls['email']?.errors?.['required']">{{viewState.errorResourceList.emailEmpty}}</kendo-formerror>
+                  <kendo-formerror *ngIf="employeePersonalInformationForm.controls['email']?.errors?.['email']">{{viewState.errorResourceList.emailValid}}</kendo-formerror>
+                </kendo-formfield>
+                <kendo-formfield>
+                  <kendo-label [for]="dateOfBirth" text={{viewState.employmentModuleResourceModel.dateOfBirth}}></kendo-label>
+                  <kendo-datepicker #dateOfBirth required formControlName="dateOfBirth" format="dd/MM/yyyy"></kendo-datepicker>
+                </kendo-formfield>
+                <kendo-formfield>
+                  <kendo-label [for]="personalId" text={{viewState.employmentModuleResourceModel.personalId}}></kendo-label>
+                  <kendo-textbox formControlName="personalId" [clearButton]="true" #personalId></kendo-textbox>
+                  <kendo-formerror>{{viewState.errorResourceList.personalId}}</kendo-formerror>
+                </kendo-formfield>
+                <kendo-dialog-actions>
+                  <button kendoButton themeColor="primary" (click)="saveEmployeePersonalInformationButtonCliclEvent(employeePersonalInformationForm.value)">{{viewState.employmentModuleResourceModel.save}}</button>
+                  <button kendoButton (click)="cancelEmployeePersonalInformationButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+                </kendo-dialog-actions>
+              </form>
+            </ng-container>
+          </ng-container>
+          </div>
+        </ng-container>
+      </kendo-tilelayout-item-body>
+    </kendo-tilelayout-item>
+    <kendo-tilelayout-item [col]="2" [colSpan]="2" [ngStyle]="{'z-index': viewState.isOpenedProfilePhotoDialog ? '-1' : '-1'}">
+      <kendo-tilelayout-item-body>
+        <kendo-tabstrip (tabSelect)="employeeSecondaryInformationTabSelectViewState($event)">
+          <kendo-tabstrip-tab
+            *ngFor="let tab of viewState.employeeSecondaryInformationTabItems; let i = index"
+            [title]="tab.title"
+            [selected]="tab.path === viewState.employeeSecondaryInformationActiveTab"
+          >
+          </kendo-tabstrip-tab>
+        </kendo-tabstrip>
+        <div class="k-tabstrip router-outlet-container">
+          <div class="k-content k-active">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </kendo-tilelayout-item-body>
+    </kendo-tilelayout-item>
+  </kendo-tilelayout>
+</div>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

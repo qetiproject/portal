@@ -1,0 +1,182 @@
+<div class="container">
+    <kendo-breadcrumb [items]="viewState.breadItems" (itemClick)="breadItemsViewState($event)"></kendo-breadcrumb>
+    <h1>{{layoutResource.nonComplianceResources.allNonComplianceDetails}}</h1>
+    <div *ngIf="!viewState.loading; else pulsingLoader" class="layout">
+        <div class="view-container">
+            <h2 class="layout-title">{{viewState.nonCompilanceAllDetailsViewModel.group}}</h2>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.sender}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceAllDetailsViewModel.sender}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.violator}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceAllDetailsViewModel.violator}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.dateCreated}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceAllDetailsViewModel.date | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.approvalDeadLine}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceAllDetailsViewModel.approvalDeadline | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div  class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.fine}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceAllDetailsViewModel.fine}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.file}}</h3>
+                <p class="information-form-row-description">
+                    <span
+                    class="k-icon file-exists"
+                    [ngClass]="getFileClassByExtension(viewState.nonCompilanceAllDetailsViewModel.file?.type)" (click)="openFileButtonClickEvent(viewState.nonCompilanceAllDetailsViewModel.file)"></span>
+                </p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.description}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceAllDetailsViewModel.description}}</p>
+            </div>
+        </div>
+        <ng-container *ngIf="viewState.isViolatorResponse">
+            <h2 class="layout-title">{{layoutResource.nonComplianceResources.violatorResponse}}</h2>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">Attached File</h3>
+                <p class="information-form-row-description">
+                    <span
+                    class="k-icon file-exists"
+                    [ngClass]="getFileClassByExtension(viewState.nonCompilanceAllDetailsViewModel.violatorFile?.type)"></span>
+                </p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.comment}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceAllDetailsViewModel.violatorComment}}</p>
+            </div>
+        </ng-container>
+        <ng-container class="redirect-container" *ngIf="viewState.nonCompilanceAllDetailsViewModel.redirects?.length > 0">
+            <h2 class="layout-title">{{layoutResource.nonComplianceResources.history}}</h2>
+            <kendo-panelbar>
+                <kendo-panelbar-item *ngFor="let redirect of viewState.nonCompilanceAllDetailsViewModel.redirects" title={{redirect.title}} icon="file" [ngClass]="
+                redirect.hasFile ? 'hasFile' : ''
+            ">
+                    <ng-template kendoPanelBarContent>
+                        <div class="information-form-row">
+                            <h4 class="information-form-row-title">{{layoutResource.nonComplianceResources.file}}</h4>
+                            <p class="information-form-row-description">
+                                <span
+                                class="k-icon file-exists"
+                                [ngClass]="getFileClassByExtension(redirect.file?.type)" (click)="openFileButtonClickEvent(redirect.file)"></span>
+                            </p>
+                        </div>
+                        <div class="information-form-row">
+                            <h4 class="information-form-row-title">{{layoutResource.nonComplianceResources.comment}}</h4>
+                            <p class="information-form-row-description">{{redirect.comment}}</p>
+                        </div>
+                    </ng-template>
+                </kendo-panelbar-item>
+            </kendo-panelbar>
+        </ng-container>
+        <ng-container *ngIf="viewState.redirectRequestViewState">
+            <h2 class="redirecting-title">{{layoutResource.nonComplianceResources.redirect}}</h2>
+            <form class="redirect-form" [formGroup]="redirectForm">
+                <kendo-formfield orientation="horizontal">
+                    <kendo-label [for]="receiver" text="{{layoutResource.nonComplianceResources.receiver}}"></kendo-label>
+                    <kendo-autocomplete #receiver formControlName="receiver" [data]="viewState.receivers" (input)="receiverFilterEvent($event)"></kendo-autocomplete>
+                    <kendo-formerror>{{layoutResource.errorResources.receiver}}</kendo-formerror>
+                </kendo-formfield>
+                <div class="custom-file-input">
+                    <h3>{{layoutResource.nonComplianceResources.file}}</h3>
+                    <div class="custom-file-input-right">
+                        <ng-container *ngIf="viewState.statusChangeSelectedFile">
+                            <span 
+                            class="k-icon"
+                            [ngClass]="getFileClassByExtension(viewState.statusChangeSelectedFileExtensionOnUpload)"></span>
+                        </ng-container>
+                      <label for="statusChangeSelectedFile">{{layoutResource.nonComplianceResources.upload}}</label>
+                      <input id="statusChangeSelectedFile" type="file" (change)="statusChangeFileSelectButtonClickEvent($event)">
+                      <kendo-button *ngIf="viewState.statusChangeSelectedFile" size="small" rounded="full" icon="delete" (click)="deleteStatusChangeFileButtonClickEvent()"></kendo-button>
+                    </div>
+                  </div>
+                <kendo-formfield orientation="horizontal">
+                    <kendo-label [for]="comment" text={{layoutResource.nonComplianceResources.comment}}></kendo-label>
+                    <kendo-textbox formControlName="comment" [clearButton]="true" #comment></kendo-textbox>
+                </kendo-formfield>
+                <kendo-formfield *ngIf="!viewState.rightOfStatusChangeHiddenField">
+                    <kendo-label text="{{layoutResource.nonComplianceResources.statusChange}}">
+                    </kendo-label>
+                    <kendo-switch formControlName="rightOfStatusChange"></kendo-switch>
+                </kendo-formfield>
+                <div class="redirect-dialog-actions">
+                    <button kendoButton themeColor="primary" (click)="saveRedirectFormButtonClickEvent(redirectForm.value)">
+                        <kendo-loader *ngIf="viewState.loaderVisible" themeColor="inverse" size="small"></kendo-loader>
+                        {{layoutResource.nonComplianceResources.redirect}}</button>
+                    <button kendoButton  (click)="cancelRedirectFormButtonClickEvent()">{{layoutResource.nonComplianceResources.cancel}}</button>
+                </div>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="viewState.statusChangeView">
+            <h4 class="status-row-title">{{viewState.nonCompilanceAllDetailsViewModel.statusChanger}}</h4>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.status}}</h4>
+                <p class="information-form-row-description">
+                    <kendo-chip *ngIf="viewState.nonCompilanceAllDetailsViewModel.status == viewState.statuses['InProgress']  " size="small" rounded="full" themeColor="warning">{{layoutResource.nonComplianceResources.inProgress}}</kendo-chip>
+                    <kendo-chip *ngIf="viewState.nonCompilanceAllDetailsViewModel.status == viewState.statuses['Excusable']  " size="small" rounded="full" themeColor="success">{{layoutResource.nonComplianceResources.excusable}}</kendo-chip>
+                    <kendo-chip *ngIf="viewState.nonCompilanceAllDetailsViewModel.status == viewState.statuses['Inexcusable']  " size="small" rounded="full" themeColor="error">{{layoutResource.nonComplianceResources.inexcusable}}</kendo-chip>
+                </p>
+            </div>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.statusChangeDate}}</h4>
+                <p class="status-row-view-description">{{viewState.nonCompilanceAllDetailsViewModel.statusChangeDate | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.file}}</h4>
+                <p class="information-form-row-description">
+                    <span
+                    class="k-icon file-exists"
+                    [ngClass]="getFileClassByExtension(viewState.nonCompilanceAllDetailsViewModel?.statusFile?.type)" (click)="openFileButtonClickEvent(viewState.nonCompilanceAllDetailsViewModel.statusFile)"></span>
+                </p>
+            </div>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.comment}}</h4>
+                <p>{{viewState.nonCompilanceAllDetailsViewModel.statusComment}}</p>
+            </div>
+        </ng-container>
+        <div class="kendo-dialog-actions" *ngIf="viewState.statusChangeDialogActionsViewState">
+            <kendo-button class="ongoing-btn" [disabled]="viewState.isDisabledOngoingButton" size="small" rounded="large" icon="edit" (click)="openStatusChangeDialogButtonClickEvent()">{{layoutResource.nonComplianceResources.inProgress}}</kendo-button>
+            <button kendoButton (click)="redirectRequestViewState()" themeColor="primary">{{layoutResource.nonComplianceResources.redirect}}</button>
+        </div>
+    </div> 
+</div>
+
+<kendo-dialog *ngIf="viewState.openStatusChangeDialogViewState" [minWidth]="250" [width]="450" title="status" (close)="closeStatusChangeDialogView()">
+    <form class="" [formGroup]="statusChangeForm">
+        <kendo-formfield orientation="horizontal">
+            <kendo-label text={{layoutResource.nonComplianceResources.status}}></kendo-label>
+            <ul class="k-radio-list k-list-horizontal" >
+                <li class="k-radio-item" >
+                    <input kendoRadioButton #statusForgive type="radio" value="{{viewState.statuses['Excusable']}}"  formControlName="status" />
+                    <kendo-label class="k-radio-label" [for]="statusForgive" text="{{layoutResource.nonComplianceResources.excusable}}"></kendo-label>
+                </li>
+                <li class="k-radio-item" >
+                    <input kendoRadioButton #statusNotForgive type="radio" value="{{viewState.statuses['Inexcusable']}}"  formControlName="status" />
+                    <kendo-label class="k-radio-label" [for]="statusNotForgive" text="{{layoutResource.nonComplianceResources.inexcusable}}"></kendo-label>
+                </li>
+            </ul>
+            <kendo-formerror>{{layoutResource.errorResources.status}}</kendo-formerror>
+        </kendo-formfield>
+        <kendo-formfield>
+            <kendo-label [for]="comment" text={{layoutResource.nonComplianceResources.comment}}></kendo-label>
+            <kendo-textarea [style.height.px]="100"  resizable="auto" formControlName="comment" [clearButton]="true" #comment></kendo-textarea>
+        </kendo-formfield>
+        <kendo-fileselect [multiple]="false" id="medical-certificate" (select)="statusChangeFileSelectButtonClickEvent($event)"></kendo-fileselect>     
+    </form>
+    <kendo-dialog-actions>
+        <button kendoButton themeColor="primary" (click)="saveStatusChangeFormButtonClickEvent(statusChangeForm.value)">
+            <kendo-loader *ngIf="viewState.loaderVisible" themeColor="inverse" size="small"></kendo-loader>
+            {{layoutResource.nonComplianceResources.save}}</button>
+        <button kendoButton  (click)="cancelStatusChangeFormButtonClickEvent()">{{layoutResource.nonComplianceResources.cancel}}</button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<ng-template #pulsingLoader>
+    <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

@@ -1,0 +1,270 @@
+<div class="container">
+    <div class="between">
+      <h1 class="page-title">{{viewState.nonComplanceModuleResourceModel.nonCompliance}}</h1>
+      <button class="k-button-lg" themeColor="primary" [size]="viewState.buttonSize" [rounded]="viewState.rounded" kendoButton (click)="createNonCompilanceButtonClickEvent()">{{viewState.nonComplanceModuleResourceModel.createNew}}</button>
+    </div>
+
+    <kendo-tabstrip (tabSelect)="tabSelectButtonClickEvent($event)">
+      <kendo-tabstrip-tab *ngIf="viewState.actionPermissions.allNonCompliances" title={{viewState.nonComplanceModuleResourceModel.all}} [selected]="viewState.activeAllTab">
+        <ng-template kendoTabContent *ngIf="viewState.isNonCompilanceAllViewState">
+          <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.nonCompilanceAllViewModel.nonCompliances" [data]="viewState.nonCompilanceAllViewModel.nonCompliances" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="nonCompilancePageChangeButtonClickEvent($event)">
+            <ng-template kendoGridToolbarTemplate>
+              <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder={{viewState.nonComplanceModuleResourceModel.search}} (input)="nonCompilanceFilterInputClickEvent($event)"></kendo-textbox>
+              </div>
+            </ng-template>
+              <kendo-grid-column [width]="100" field="group" title={{viewState.nonComplanceModuleResourceModel.group}}></kendo-grid-column>
+              <kendo-grid-column [width]="130" field="date" title={{viewState.nonComplanceModuleResourceModel.dateCreated}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  {{ nonCompilance.date | date: 'dd.MM.yyyy' }}
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="violator" title={{viewState.nonComplanceModuleResourceModel.violator}}></kendo-grid-column>
+              <kendo-grid-column [width]="100" field="sender" title={{viewState.nonComplanceModuleResourceModel.sender}}></kendo-grid-column>
+              <kendo-grid-column [width]="100" field="content" title={{viewState.nonComplanceModuleResourceModel.content}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <div class="content">
+                    <span
+                      class="k-icon file-exists"
+                      [ngClass]="getFileClassByExtension(nonCompilance.content?.file?.type)" (click)="openFileButtonClickEvent(nonCompilance.content.file)"></span>
+                    <p kendoTooltip position="bottom" title="{{nonCompilance.content.descriptionHover}}">
+                      {{ nonCompilance.content.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="status" title={{viewState.nonComplanceModuleResourceModel.status}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning" (click)="statusChangeViewState(nonCompilance.number, true)">{{viewState.nonComplanceModuleResourceModel.inProgress}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Excusable'] " size="small" rounded="full" themeColor="success">{{viewState.nonComplanceModuleResourceModel.excusable}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Inexcusable'] " size="small" rounded="full" themeColor="error">{{viewState.nonComplanceModuleResourceModel.inexcusable}}</kendo-chip>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-command-column [width]="100" [columnMenu]="false">
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <button size="large" [primary]="true" class="view-button" kendoGridEditCommand [routerLink]="['/management/non-compliance/all-non-compliance', nonCompilance.number]">{{viewState.nonComplanceModuleResourceModel.details}}</button>
+                </ng-template>
+              </kendo-grid-command-column>
+          </kendo-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab title={{viewState.nonComplanceModuleResourceModel.sent}} [selected]="viewState.activeSentTab">
+        <ng-template kendoTabContent>
+          <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.nonCompilanceSentViewModel.nonCompliances" [data]="viewState.nonCompilanceSentViewModel.nonCompliances" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="nonCompilanceSentPageChangeButtonClickEvent($event)">
+            <ng-template kendoGridToolbarTemplate>
+              <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder={{viewState.nonComplanceModuleResourceModel.search}} (input)="nonCompilanceSentFilterInputClickEvent($event)"></kendo-textbox>
+              </div>
+            </ng-template>
+              <kendo-grid-column [width]="100" field="group" title={{viewState.nonComplanceModuleResourceModel.group}}></kendo-grid-column>
+              <kendo-grid-column [width]="130" field="date" title={{viewState.nonComplanceModuleResourceModel.dateCreated}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  {{ nonCompilance.date | date: 'dd.MM.yyyy' }}
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="violator" title={{viewState.nonComplanceModuleResourceModel.violator}}></kendo-grid-column>
+              <kendo-grid-column [width]="100" field="content" title={{viewState.nonComplanceModuleResourceModel.content}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <div class="content">
+                    <span
+                      class="k-icon file-exists"
+                      [ngClass]="getFileClassByExtension(nonCompilance.content?.file?.type)" (click)="openFileButtonClickEvent(nonCompilance.content.file)"></span>
+                    <p kendoTooltip position="bottom" title="{{nonCompilance.content.descriptionHover}}">
+                      {{ nonCompilance.content.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="status" title={{viewState.nonComplanceModuleResourceModel.status}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning">{{viewState.nonComplanceModuleResourceModel.inProgress}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Excusable'] " size="small" rounded="full" themeColor="success">{{viewState.nonComplanceModuleResourceModel.excusable}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Inexcusable'] " size="small" rounded="full" themeColor="error">{{viewState.nonComplanceModuleResourceModel.inexcusable}}</kendo-chip>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-command-column [width]="100" [columnMenu]="false">
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <button size="large" [primary]="true" class="view-button" kendoGridEditCommand [routerLink]="['/management/non-compliance/sent-non-compliance', nonCompilance.number]">{{viewState.nonComplanceModuleResourceModel.details}}</button>
+                </ng-template>
+              </kendo-grid-command-column>
+          </kendo-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab title={{viewState.nonComplanceModuleResourceModel.received}} [selected]="viewState.activeRecievedTab">
+        <ng-template kendoTabContent>
+          <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.nonCompilanceRecievedViewModel.nonCompliances" [data]="viewState.nonCompilanceRecievedViewModel.nonCompliances" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="nonCompilanceRecievedPageChangeButtonClickEvent($event)">
+            <ng-template kendoGridToolbarTemplate>
+              <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder={{viewState.nonComplanceModuleResourceModel.search}} (input)="nonCompilanceRecievedFilterInputClickEvent($event)"></kendo-textbox>
+              </div>
+            </ng-template>
+              <kendo-grid-column [width]="100" field="group" title={{viewState.nonComplanceModuleResourceModel.group}}></kendo-grid-column>
+              <kendo-grid-column [width]="130" field="date" title={{viewState.nonComplanceModuleResourceModel.dateCreated}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  {{ nonCompilance.date | date: 'dd.MM.yyyy' }}
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="violator" title={{viewState.nonComplanceModuleResourceModel.violator}}></kendo-grid-column>
+              <kendo-grid-column [width]="100" field="sender" title={{viewState.nonComplanceModuleResourceModel.sender}}></kendo-grid-column>
+              <kendo-grid-column [width]="100" field="content" title={{viewState.nonComplanceModuleResourceModel.content}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <div class="content">
+                    <span
+                      class="k-icon file-exists"
+                      [ngClass]="getFileClassByExtension(nonCompilance.content?.file?.type)" (click)="openFileButtonClickEvent(nonCompilance.content.file)"></span>
+                    <p kendoTooltip position="bottom" title="{{nonCompilance.content.descriptionHover}}">
+                      {{ nonCompilance.content.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="status" title={{viewState.nonComplanceModuleResourceModel.status}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning" (click)="statusChangeViewState(nonCompilance.number, nonCompilance.isStatusChanger)">{{viewState.nonComplanceModuleResourceModel.inProgress}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Excusable'] " size="small" rounded="full" themeColor="success">{{viewState.nonComplanceModuleResourceModel.excusable}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Inexcusable'] " size="small" rounded="full" themeColor="error">{{viewState.nonComplanceModuleResourceModel.inexcusable}}</kendo-chip>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-command-column [width]="100" [columnMenu]="false">
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <button size="large" [primary]="true" class="view-button" kendoGridEditCommand [routerLink]="['/management/non-compliance/recieved-non-compliance', nonCompilance.number]">{{viewState.nonComplanceModuleResourceModel.details}}</button>
+                </ng-template>
+              </kendo-grid-command-column>
+          </kendo-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab title={{viewState.nonComplanceModuleResourceModel.myViolations}} [selected]="viewState.activeMyVolationsTab">
+        <ng-template kendoTabContent>
+          <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.myNonCompilanceViewModel.nonCompliances" [data]="viewState.myNonCompilanceViewModel.nonCompliances" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="myNonCompilancePageChangeButtonClickEvent($event)">
+            <ng-template kendoGridToolbarTemplate>
+              <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder={{viewState.nonComplanceModuleResourceModel.search}} (input)="myNonCompilanceFilterInputClickEvent($event)"></kendo-textbox>
+              </div>
+            </ng-template>
+              <kendo-grid-column [width]="100" field="group" title={{viewState.nonComplanceModuleResourceModel.group}}></kendo-grid-column>
+              <kendo-grid-column [width]="130" field="date" title={{viewState.nonComplanceModuleResourceModel.dateCreated}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  {{ nonCompilance.date | date: 'dd.MM.yyyy' }}
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="sender" title={{viewState.nonComplanceModuleResourceModel.sender}}></kendo-grid-column>
+              <kendo-grid-column [width]="100" field="content" title={{viewState.nonComplanceModuleResourceModel.content}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <div class="content">
+                    <span
+                      class="k-icon file-exists"
+                      [ngClass]="getFileClassByExtension(nonCompilance.content?.file?.type)" (click)="openFileButtonClickEvent(nonCompilance.content.file)"></span>
+                    <p kendoTooltip position="bottom" title="{{nonCompilance.content.descriptionHover}}">
+                      {{ nonCompilance.content.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="status" title={{viewState.nonComplanceModuleResourceModel.status}}>
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning">{{viewState.nonComplanceModuleResourceModel.inProgress}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Excusable'] " size="small" rounded="full" themeColor="success">{{viewState.nonComplanceModuleResourceModel.excusable}}</kendo-chip>
+                  <kendo-chip *ngIf="nonCompilance.status == viewState.statuses['Inexcusable'] " size="small" rounded="full" themeColor="error">{{viewState.nonComplanceModuleResourceModel.inexcusable}}</kendo-chip>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-command-column [width]="100" [columnMenu]="false">
+                <ng-template kendoGridCellTemplate let-nonCompilance>
+                  <button size="large" [primary]="true" class="view-button" kendoGridEditCommand [routerLink]="['/management/non-compliance/my-non-compliance', nonCompilance.number]">{{viewState.nonComplanceModuleResourceModel.details}}</button>
+                </ng-template>
+              </kendo-grid-command-column>
+          </kendo-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+</div>
+
+
+<kendo-dialog *ngIf="viewState.isActiveCreateDialogViewState" [width]="450" (close)="closeCreateNonCompilanceFormClickEvent()">
+  <kendo-dialog-titlebar>{{viewState.nonComplanceModuleResourceModel.create}}</kendo-dialog-titlebar>
+  <div *ngIf="viewState.serverErrorsModel.length > 0" class="k-messagebox k-messagebox-error messagebox-errors">
+    <div class="between">
+      <div class="messagebox-errors-title">
+        <span class="k-icon k-i-close-outline"></span>
+        {{viewState.errorResourceModel.pleaseFillTheFollowingFields}}
+      </div>
+      <span class="k-icon k-i-close" (click)="clearErrorsMessageboxClickEvent()"></span>
+    </div>
+    <ul>
+      <li *ngFor="let error of viewState.serverErrorsModel" class="messagebox-error">{{ error }}</li>
+    </ul>
+  </div>
+  <form novalidate [formGroup]="createNonCompilanceForm">
+    <kendo-formfield>
+      <kendo-label [for]="group" text={{viewState.nonComplanceModuleResourceModel.group}}></kendo-label>
+      <kendo-dropdownlist #group formControlName="group" [data]="viewState.groupListViewData"  textField="group" valueField="id" (valueChange)="groupValueChangeEvent($event)"></kendo-dropdownlist>
+    </kendo-formfield>
+    <kendo-formfield *ngIf="viewState.isViewTitle">
+      <kendo-label [for]="title" text={{viewState.nonComplanceModuleResourceModel.title}}></kendo-label>
+      <kendo-textbox formControlName="title" #title></kendo-textbox>    
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label [for]="violator" text={{viewState.nonComplanceModuleResourceModel.violator}}></kendo-label>
+      <kendo-autocomplete #violator formControlName="violator" [data]="viewState.violatorDataView" [filterable]="true"  (input)="violatorFilterEvent($event)" ></kendo-autocomplete>
+      <kendo-formerror>{{viewState.errorResourceModel.violator}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label [for]="fine" text={{viewState.nonComplanceModuleResourceModel.fine}}></kendo-label>
+      <kendo-textbox class="fine" formControlName="fine" #fine placeholder={{viewState.nonComplanceModuleResourceModel.ifAplicable}}></kendo-textbox>    
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="deadline" text={{viewState.nonComplanceModuleResourceModel.approvalDeadLine}}></kendo-label>
+      <kendo-datepicker [rounded]="viewState.rounded" #deadline formControlName="deadline"></kendo-datepicker>
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label [for]="description" text={{viewState.nonComplanceModuleResourceModel.description}}></kendo-label>
+      <kendo-textarea [style.height.px]="100" resizable="auto" formControlName="description" #description></kendo-textarea>
+      <kendo-formerror>{{viewState.errorResourceModel.description}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-fileselect [multiple]="false" (select)="fileSelectButtonClickEvent($event)"></kendo-fileselect>  
+  </form>
+  <kendo-dialog-actions>
+    <button kendoButton themeColor="primary" (click)="createNonCompilanceFormButtonClickEvent(createNonCompilanceForm.value)">
+      <kendo-loader *ngIf="viewState.isLoadingOnPost" themeColor="inverse" size="small"></kendo-loader>
+      {{viewState.nonComplanceModuleResourceModel.create}}
+    </button>
+    <button kendoButton (click)="cancelCreateNonCompilanceClickEvent()">{{viewState.nonComplanceModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog *ngIf="viewState.openStatusChangeDialogViewState" [minWidth]="250" [width]="450" title="status" (close)="closeStatusChangeDialogView()">
+  <form class="" [formGroup]="statusChangeForm">
+      <kendo-formfield orientation="horizontal">
+          <kendo-label text={{viewState.nonComplanceModuleResourceModel.status}}></kendo-label>
+          <ul class="k-radio-list k-list-horizontal" >
+              <li class="k-radio-item" >
+                  <input kendoRadioButton #statusExcusable type="radio" value="{{viewState.statuses['Excusable']}}"  formControlName="status" />
+                  <kendo-label class="k-radio-label" [for]="statusExcusable" text="{{viewState.statuses['Excusable']}}"></kendo-label>
+              </li>
+              <li class="k-radio-item" >
+                  <input kendoRadioButton #statusInexcusable type="radio" value="{{viewState.statuses['Inexcusable']}}"  formControlName="status" />
+                  <kendo-label class="k-radio-label" [for]="statusInexcusable" text="{{viewState.statuses['Inexcusable']}}"></kendo-label>
+              </li>
+          </ul>
+          <kendo-formerror>{{viewState.errorResourceModel.status}}</kendo-formerror>
+      </kendo-formfield>
+      <kendo-formfield>
+          <kendo-label [for]="comment" text={{viewState.nonComplanceModuleResourceModel.comment}}></kendo-label>
+          <kendo-textarea [style.height.px]="100"  resizable="auto" formControlName="comment" [clearButton]="true" #comment></kendo-textarea>
+      </kendo-formfield>
+      <kendo-fileselect [multiple]="false" id="medical-certificate" (select)="statusChangeFileSelectButtonClickEvent($event)"></kendo-fileselect>     
+  </form>
+  <kendo-dialog-actions>
+      <button kendoButton themeColor="primary" (click)="saveStatusChangeFormButtonClickEvent(statusChangeForm.value)">
+          <kendo-loader *ngIf="viewState.loaderVisible" themeColor="inverse" size="small"></kendo-loader>
+          {{viewState.nonComplanceModuleResourceModel.save}}</button>
+      <button kendoButton  (click)="cancelStatusChangeFormButtonClickEvent()">{{viewState.nonComplanceModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

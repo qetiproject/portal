@@ -1,0 +1,143 @@
+<div class="container">
+    <div class="between">
+      <h1 class="page-title">{{layoutResource.parametresResources.parametres}}</h1>
+    </div>
+
+    <kendo-panelbar>
+        <kendo-panelbar-item title={{layoutResource.parametresResources.employeeService}}>
+          <ng-template kendoPanelBarContent>
+            <kendo-tilelayout [columns]="2">
+              <kendo-tilelayout-item [col]="1" [colSpan]="1">
+                <kendo-tilelayout-item-body>
+                  <div class="between">
+                    <div class="admin-chips">
+                        <div class="admin-chips-header">
+                            <h3 class="admin-chips-header-title">{{layoutResource.parametresResources.contractType}}</h3>
+                            <kendo-button *ngIf="viewState.isContractTypeViewState" size="small" rounded="full" icon="edit" (click)="contractTypeEditFormButtonClickEvent()"></kendo-button>
+                        </div>
+                        <div *ngIf="viewState.isContractTypeViewState" class="k-block chips">
+                            <kendo-chip *ngFor="let contractType of viewState.contractTypesListModel" rounded="full" fillMode="outline" class="chip center" [label]="contractType.contractType"></kendo-chip>
+                        </div>
+                        <div *ngIf="!viewState.isContractTypeViewState" class="k-block chips">
+                            <ng-container *ngIf="!viewState.isLoadingOnPostForContractType; else pulsingLoader">
+                              <kendo-chip *ngFor="let contractType of viewState.contractTypesListModel"  rounded="full" fillMode="outline" class="chip center" [label]="contractType.contractType" removeIcon="k-icon k-i-close" [removable]="true" (remove)="deleteContractTypeButtonClickEvent(contractType)">
+                              </kendo-chip>
+                            </ng-container>
+                        </div>
+                        <div *ngIf="!viewState.isContractTypeViewState" class="edit-form">
+                            <form [formGroup]="contractTypeForm">
+                                <kendo-formfield>
+                                    <kendo-label [for]="contractType" text={{layoutResource.parametresResources.contractType}}></kendo-label>
+                                    <kendo-textbox formControlName="contractType" [clearButton]="true" #contractType></kendo-textbox>
+                                    <kendo-formerror>{{layoutResource.errorResources.contractType}}</kendo-formerror>
+                                </kendo-formfield>
+                                <kendo-dialog-actions>
+                                    <button  kendoButton themeColor="primary" (click)="saveContractTypeButtonClickEvent(contractTypeForm.value)">
+                                      <kendo-loader *ngIf="viewState.isLoadingOnPost" themeColor="inverse" size="small"> </kendo-loader>{{layoutResource.parametresResources.save}}
+                                    </button>
+                                    <button kendoButton (click)="cancelContractTypeButtonClickEvent()">{{layoutResource.parametresResources.cancel}}</button>
+                                </kendo-dialog-actions>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </kendo-tilelayout-item-body>
+              </kendo-tilelayout-item>
+              <kendo-tilelayout-item  [colSpan]="1">
+                <kendo-tilelayout-item-body>
+                  <div class="between bordered-box">
+                    <h3 class="admin-chips-header-title">{{layoutResource.parametresResources.employeesExcelImportFile}}</h3>
+                    <div class="between">
+                      <button kendoButton fillMode="flat" (click)="downloadmployeesExcelImportFileButtonClickEvent()">{{layoutResource.parametresResources.download}}</button>
+                      <span class="k-icon file-exists k-i-excel excel-icon"></span>
+                    </div>
+                  </div>
+                </kendo-tilelayout-item-body>
+              </kendo-tilelayout-item>
+            </kendo-tilelayout>
+          </ng-template>
+        </kendo-panelbar-item>
+        <kendo-panelbar-item title={{layoutResource.parametresResources.timeOffRequest}}>
+            <ng-template kendoPanelBarContent>
+              <kendo-tilelayout [columns]="2">
+                <kendo-tilelayout-item [col]="1" [colSpan]="1">
+                  <kendo-tilelayout-item-body>
+                    <div class="between">
+                      <div class="admin-chips">
+                          <div class="admin-chips-header">
+                              <h3 class="admin-chips-header-title">{{layoutResource.parametresResources.hrWhoReceivesTimeOffRequests}}</h3>
+                              <kendo-button *ngIf="viewState.isTimeOffRequestsPanelViewState" size="small" rounded="full" icon="edit" (click)="timeOffRequestsPanelFormEditButtonClickEvent()"></kendo-button>
+                          </div>
+                          <div *ngIf="viewState.isTimeOffRequestsPanelViewState" class="k-block chips">
+                              <p>{{viewState.hrWhoReceivesTimeOffRequests}}</p>
+                          </div>
+                          <div *ngIf="!viewState.isTimeOffRequestsPanelViewState" class="edit-form">
+                              <form [formGroup]="timeOffRequestsPanelForm">
+                                  <kendo-formfield>
+                                    <kendo-label [for]="hrWhoReceivesTimeOffRequests" text={{layoutResource.parametresResources.hr}}></kendo-label>
+                                    <kendo-autocomplete #hrWhoReceivesTimeOffRequests valueField="email" formControlName="hrWhoReceivesTimeOffRequests" [data]="viewState.hrWhoReceivesTimeOffRequestList" [filterable]="true"  (input)="hrListFilterEvent($event)" ></kendo-autocomplete>
+                                  </kendo-formfield>
+                                  <kendo-dialog-actions>
+                                      <button  kendoButton themeColor="primary" (click)="saveTimeOffRequestsPanelFormButtonClickEvent(timeOffRequestsPanelForm.value)">
+                                        <kendo-loader *ngIf="viewState.isLoadingOnPost" themeColor="inverse" size="small"> </kendo-loader>{{layoutResource.parametresResources.save}}
+                                      </button>
+                                      <button kendoButton (click)="cancelTimeOffRequestsPanelFormButtonClickEvent()">{{layoutResource.parametresResources.cancel}}</button>
+                                  </kendo-dialog-actions>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+                  </kendo-tilelayout-item-body>
+                </kendo-tilelayout-item>
+              </kendo-tilelayout>
+            </ng-template>
+        </kendo-panelbar-item>
+        <kendo-panelbar-item title={{layoutResource.parametresResources.nonCompliance}} >
+          <ng-template kendoPanelBarContent>
+            <kendo-tilelayout [columns]="2">
+              <kendo-tilelayout-item [col]="1" [colSpan]="1">
+                <kendo-tilelayout-item-body>
+                  <div class="between">
+                    <div class="admin-chips">
+                        <div class="admin-chips-header">
+                            <h3 class="admin-chips-header-title">{{layoutResource.parametresResources.groups}}</h3>
+                            <kendo-button *ngIf="viewState.isGroupsViewState" size="small" rounded="full" icon="edit" (click)="groupEditFormButtonClickEvent()"></kendo-button>
+                        </div>
+                        <div *ngIf="viewState.isGroupsViewState" class="k-block chips">
+                            <kendo-chip *ngFor="let group of viewState.groupsListModel" rounded="full" fillMode="outline" class="chip" [label]="group.group"></kendo-chip>
+                        </div>
+                        <div *ngIf="!viewState.isGroupsViewState" class="k-block chips">
+                            <ng-container *ngIf="!viewState.isLoadingOnPostForGroup; else pulsingLoader">
+                              <kendo-chip removeIcon="k-icon k-i-close"  *ngFor="let group of viewState.groupsListModel" rounded="full" fillMode="outline" class="chip center" [label]="group.group" [removable]="true" (remove)="deleteGroupButtonClickEvent(group)">
+                              </kendo-chip>
+                            </ng-container>
+                        </div>
+                        <div *ngIf="!viewState.isGroupsViewState" class="edit-form">
+                            <form [formGroup]="groupForm">
+                                <kendo-formfield>
+                                    <kendo-label [for]="group" text={{layoutResource.parametresResources.group}}></kendo-label>
+                                    <kendo-textbox formControlName="group" [clearButton]="true" #group></kendo-textbox>
+                                    <kendo-formerror>{{layoutResource.errorResources.group}}</kendo-formerror>
+                                </kendo-formfield>
+                                <kendo-dialog-actions>
+                                    <button  kendoButton themeColor="primary" (click)="saveGroupButtonClickEvent(groupForm.value)">
+                                      <kendo-loader *ngIf="viewState.isLoadingOnPost" themeColor="inverse" size="small"> </kendo-loader>{{layoutResource.parametresResources.save}}
+                                    </button>
+                                    <button kendoButton (click)="cancelGroupButtonClickEvent()">{{layoutResource.parametresResources.cancel}}</button>
+                                </kendo-dialog-actions>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                </kendo-tilelayout-item-body>
+              </kendo-tilelayout-item>
+            </kendo-tilelayout>
+          </ng-template>
+      </kendo-panelbar-item>
+    </kendo-panelbar>
+
+</div>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

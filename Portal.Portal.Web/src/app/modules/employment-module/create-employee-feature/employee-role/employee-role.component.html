@@ -1,0 +1,24 @@
+<form class="k-form k-form-vertical stepper-form" [formGroup]="employeeRole">
+  <h1 class="title">{{viewState.employmentModuleResourceModel.theRoleOfTheEmployee}}</h1>
+  <fieldset class="k-form-fieldset">
+    <kendo-dropdownlist #role [data]="viewState.employeeRoles" textField="name" valueField="id" [defaultItem]="{name: viewState.defaultRoleName, id: viewState.defaultRoleId}" (valueChange)="roleValueChangeEvent($event)"></kendo-dropdownlist>
+  </fieldset>
+</form>
+
+<div *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="permissions-container">
+  <kendo-panelbar *ngFor="let group of viewState.roleDetailsResponse.groups">
+    <kendo-panelbar-item title={{group.name}} [expanded]="true">
+      <ng-template kendoPanelBarContent >
+        <div *ngFor="let permission of group.permissions" class="permission">
+          <input kendoCheckBox type="checkbox" [checked]="permission.active" disabled="true"/>
+          <kendo-label  text={{permission.description}}></kendo-label>
+        </div>
+      </ng-template>
+    </kendo-panelbar-item>
+  </kendo-panelbar>
+</div>
+
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

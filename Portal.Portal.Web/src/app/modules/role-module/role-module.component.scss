@@ -1,0 +1,92 @@
+.search-box {
+    position: relative;
+    height: 38px;
+}
+.search-icon {
+    position: absolute;
+    top: 9px;
+    bottom: 13px;
+    left: 12px;
+    z-index: 1;
+}
+
+.search-textbox {
+    padding: 5px 21px 5px 36px;
+}
+
+:host ::ng-deep .grid-height {
+    height: calc(100vh - 270px);
+    min-height: 400px;
+}
+
+kendo-panelbar {
+    border-bottom: none;
+}
+kendo-panelbar-item {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid
+        var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+}
+
+.k-panelbar > .k-item > .k-link.k-selected:before,
+.k-panelbar > .k-panelbar-header > .k-link.k-selected:before {
+    display: none;
+}
+
+.k-panelbar > .k-item > .k-link,
+.k-panelbar > .k-panelbar-header > .k-link {
+    padding: 16px;
+    border-radius: 4px;
+    color: #323130;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.k-panelbar > .k-item > .k-link.k-selected,
+.k-panelbar > .k-panelbar-header > .k-link.k-selected {
+    background-color: transparent;
+    color: #323130;
+    font-weight: 600;
+}
+
+.k-panelbar > .k-item > .k-link.k-selected.k-focus,
+.k-panelbar > .k-panelbar-header > .k-link.k-selected.k-focus {
+    box-shadow: none;
+}
+
+.k-panelbar-content {
+    padding: 24px;
+    border-radius: 4px;
+}
+
+:host ::ng-deep .k-panelbar-item .k-link {
+    padding: 9px 9px 24px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+
+kendo-tilelayout {
+  gap: 24px !important;
+  padding: 0 !important;
+}
+kendo-tilelayout-item {
+  box-shadow: none;
+}
+kendo-tilelayout-item-body {
+  padding: 0;
+}
+
+.right {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-left: 18px;
+    input {
+        margin: 5px 0 0;
+    }
+}

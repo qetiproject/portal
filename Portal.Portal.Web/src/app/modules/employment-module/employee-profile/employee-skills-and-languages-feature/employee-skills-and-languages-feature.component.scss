@@ -1,0 +1,76 @@
+.between {
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.computer-skills,
+.languages, .resume {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  .employee-profile-tab-header {
+    margin-bottom: 32px;
+    justify-content: space-between;
+    kendo-button {
+      transform: scale(0.9);
+    }
+  }
+  .employee-profile-tab-header-title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 140%;
+  }
+}
+
+.chips {
+  display: flex;
+  row-gap: 16px;
+  column-gap: 8px;
+  flex-wrap: wrap;
+}
+.chip {
+  color: #323130;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid #dbdbdb;
+  cursor: default;
+  &:hover {
+    background-color: inherit;
+  }
+  &:focus::after {
+    outline: none;
+  }
+  ::ng-deep {
+    .k-chip-action.k-chip-remove-action {
+      z-index: 2;
+      color: #605e5c;
+      cursor: pointer;
+    }
+  }
+}
+
+.edit-form {
+  margin-top: 32px;
+  kendo-label {
+    color: #323130;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  kendo-textbox {
+    margin-top: 5px;
+  }
+  kendo-dialog-actions {
+    padding: 16px 0 0 0;
+    button {
+      max-width: 85px;
+    }
+  }
+}
+
+.resume {
+  margin-top: 48px;
+  width: 50%;
+}

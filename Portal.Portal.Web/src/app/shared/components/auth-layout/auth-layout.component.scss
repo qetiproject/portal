@@ -1,0 +1,122 @@
+my-app {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  
+  kendo-drawer-container {
+    height: calc(100vh - 61px);
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+  
+  kendo-drawer-content {
+    height: 100%;
+    max-height: 100%;
+    overflow-x: auto;
+    overflow-y: scroll;
+  }
+  
+  :host::ng-deep .k-icon {
+    font-size: 20px;
+  }
+  
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    background-color: #672675;
+    padding: 10px 0.5rem;
+    border-bottom: inset;
+    border-bottom-width: 1px;
+    line-height: 10px;
+  }
+  
+  .notification-and-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .vertical-line {
+    width: 1px;
+    height: 16px;
+    border-radius: 0px;
+    background: #c7e0f4;
+  }
+  
+  .avatar {
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+  }
+  .avatar:focus::after {
+    display: none;
+  }
+  
+  .k-link.k-menu-link {
+    padding: 8px 16px;
+    outline: none !important;
+  }
+  .k-menu-link-text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-transform: capitalize;
+    color: #323130;
+  }
+  
+  kendo-icon {
+    cursor: pointer;
+  }
+  
+  .k-drawer-item {
+    --kendo-drawer-item-padding-x: 26px;
+    --kendo-drawer-item-padding-y: 14px;
+    --kendo-drawer-item-text: #323130;
+    --kendo-drawer-item-hover-text: #652574;
+    --kendo-drawer-item-icon-text: #323130;
+    --kendo-drawer-item-hover-icon-text: #652574;
+    --kendo-drawer-item-hover-bg: rgba(101, 37, 116, 0.1);
+    --kendo-drawer-item-selected-font-weight: 600;
+    --kendo-drawer-item-selected-text: #652574;
+    --kendo-drawer-item-selected-hover-text: #652574;
+    --kendo-drawer-item-selected-icon-text: #652574;
+    --kendo-drawer-item-selected-bg: rgba(101, 37, 116, 0.1);
+    --kendo-drawer-item-selected-hover-bg: rgba(101, 37, 116, 0.1);
+    --kendo-drawer-item-focus-shadow: none;
+    --kendo-drawer-item-ripple-border-width: 4px;
+    text-transform: capitalize;
+  }
+  
+  .k-drawer-overlay .k-drawer {
+    top: 61px;
+  }
+  
+  .k-overlay {
+    top: 61px;
+  }
+
+.language {
+  padding: 10px 4px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.active {
+  color: #323130;
+  background: #ffffff;
+}
+
+kendo-popup {
+  margin-top: 15px;
+}

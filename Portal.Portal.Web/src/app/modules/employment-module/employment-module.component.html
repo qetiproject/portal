@@ -1,0 +1,55 @@
+<div *ngIf="!viewState.isCreateEmployeeFeature" class="container">
+  <div class="employeeListHeaderContaner">
+    <h1 class="page-title">{{viewState.employmentModuleResourceModel.employeeList}}</h1>
+    <kendo-dropdownbutton *ngIf="viewState.actionPermissions.addEmployee" [size]="viewState.buttonSize" [rounded]="viewState.rounded" themeColor="primary" [data]="viewState.createEmployeeButtonItems">
+      {{viewState.employmentModuleResourceModel.addEmployee}}<kendo-icon style="margin-left: 8px;" name="arrow-chevron-down"></kendo-icon></kendo-dropdownbutton>
+  </div>
+  <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.employeeListView.employees" [data]="viewState.employeeListView.employees" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="employeePageChangeClickEvent($event)">
+    <ng-template kendoGridToolbarTemplate>
+      <div class="search-box">
+        <i class="bi bi-search search-icon"></i>
+        <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.rounded" kendoTextBox  placeholder={{viewState.employmentModuleResourceModel.searchInAllColumns}} (input)="employeeFilterInputClickEvent($event)"></kendo-textbox>
+      </div>
+      <kendo-grid-spacer></kendo-grid-spacer>
+      <div class="export-excel-btn-box">
+        <span class="k-icon k-i-file-pdf pdf-icon"></span>
+        <button type="button" [size]="viewState.buttonSize" [rounded]="viewState.rounded" kendoGridPDFCommand >{{viewState.employmentModuleResourceModel.exportToPdf}}</button>
+      </div>
+      <div class="export-pdf-btn-box">
+        <span class="k-icon k-i-file-excel excel-icon"></span>
+        <button type="button" [size]="viewState.buttonSize" [rounded]="viewState.rounded"  kendoGridExcelCommand >{{viewState.employmentModuleResourceModel.exportToExcel}}</button>
+      </div>
+    </ng-template>
+      <kendo-grid-column [width]="250" field="fullName" title={{viewState.employmentModuleResourceModel.fullName}}>
+        <ng-template kendoGridCellTemplate let-employee>
+          <img class="customer-photo" src={{viewState.basePath}}{{employee.photo}} />
+          <div class="customer-name">{{ employee.fullName }}</div>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column [width]="150" field="position" title={{viewState.employmentModuleResourceModel.position}}></kendo-grid-column>
+      <kendo-grid-column [width]="150" field="phoneNumber" title={{viewState.employmentModuleResourceModel.phoneNumber}}> </kendo-grid-column>
+      <kendo-grid-column [width]="150" field="email" title={{viewState.employmentModuleResourceModel.email}}></kendo-grid-column>
+      <kendo-grid-column [width]="120" field="department" title={{viewState.employmentModuleResourceModel.department}}></kendo-grid-column>
+      <kendo-grid-column [width]="150" field="contractType" title={{viewState.employmentModuleResourceModel.contractType}}></kendo-grid-column>
+      <kendo-grid-column [width]="100" field="status" title={{viewState.employmentModuleResourceModel.status}}>
+        <ng-template kendoGridCellTemplate let-employee>
+          <kendo-chip *ngIf="employee.status === viewState.statusEnum['Active']" size="small" rounded="full" themeColor="success">{{viewState.employmentModuleResourceModel.active}}</kendo-chip>
+          <kendo-chip *ngIf="employee.status === viewState.statusEnum['Passive']" size="small" rounded="full" themeColor="warning">{{viewState.employmentModuleResourceModel.passive}}</kendo-chip>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-command-column *ngIf="viewState.actionPermissions.viewEmployeeProfile" [width]="100" [columnMenu]="false">
+        <ng-template kendoGridCellTemplate let-employee>
+          <button size="large" [primary]="true" class="employee-view-button" kendoGridEditCommand [routerLink]="['/management/employee-service/employee-profile', employee.id]" >{{viewState.employmentModuleResourceModel.view}}</button>
+        </ng-template>
+      </kendo-grid-command-column>
+    <kendo-grid-pdf fileName="Employees.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
+    <kendo-grid-excel fileName="Employees.xlsx"></kendo-grid-excel>
+  </kendo-grid>
+</div>
+<ng-container *ngIf="viewState.isCreateEmployeeFeature">
+  <app-create-employee-feature></app-create-employee-feature>
+</ng-container>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

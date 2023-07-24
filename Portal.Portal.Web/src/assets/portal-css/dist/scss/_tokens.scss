@@ -1,0 +1,143 @@
+// Compatible with @progress/kendo-theme-fluent v.6.0.3
+
+:root {
+  --tb-kendo-border-radius-md: 0.25rem;
+  --tb-kendo-primary-10: #C197CE;
+  --tb-kendo-primary-20: #B884C8;
+  --tb-kendo-primary-30: #AF70C2;
+  --tb-kendo-primary-40: #A85CBC;
+  --tb-kendo-primary-50: #9F47B8;
+  --tb-kendo-primary-60: #913EA8;
+  --tb-kendo-primary-70: #833597;
+  --tb-kendo-body-bg: #ffffff;
+  --tb-kendo-primary-80: #742D86;
+  --tb-kendo-primary-90: #642574;
+  --tb-kendo-primary-100: #652574;
+  --tb-kendo-primary-110: #672574;
+  --tb-kendo-primary-120: #571D62;
+  --tb-kendo-primary-130: #461650;
+  --tb-kendo-primary-140: #36103C;
+  --tb-kendo-primary-150: #240A29;
+  --tb-kendo-primary-160: #120515;
+  --tb-kendo-primary-170: #000000;
+  --tb-kendo-primary-180: #000000;
+  --tb-kendo-primary-190: #000000;
+  --tb-kendo-primary-200: #000000;
+  --tb-kendo-primary-210: #000000;
+  --tb-kendo-primary-220: #000000;
+  --tb-kendo-neutral-10: #FAFAFA;
+  --tb-kendo-neutral-20: #EDEDED;
+  --tb-kendo-neutral-30: #E0E0E0;
+  --tb-kendo-neutral-40: #D4D4D4;
+  --tb-kendo-neutral-50: #C7C7C7;
+  --tb-kendo-neutral-60: #BABABA;
+  --tb-kendo-neutral-70: #ADADAD;
+  --tb-kendo-neutral-80: #A1A1A1;
+  --tb-kendo-neutral-90: #969492;
+  --tb-kendo-neutral-100: #979593;
+  --tb-kendo-neutral-110: #969492;
+  --tb-kendo-neutral-120: #8C8782;
+  --tb-kendo-neutral-130: #827B73;
+  --tb-kendo-neutral-140: #766E65;
+  --tb-kendo-neutral-150: #6B6257;
+  --tb-kendo-neutral-160: #5E554A;
+  --tb-kendo-neutral-170: #51483D;
+  --tb-kendo-neutral-180: #443C31;
+  --tb-kendo-neutral-190: #362F26;
+  --tb-kendo-neutral-200: #28221B;
+  --tb-kendo-neutral-210: #191510;
+  --tb-kendo-neutral-220: #090806;
+  --tb-kendo-tertiary-100: #2b88d8;
+  --tb-kendo-error-100: #f58791;
+  --tb-kendo-success-100: #5fd255;
+  --tb-kendo-warning-100: #ffc80a;
+  --tb-kendo-info-100: #0a7eff;
+  --tb-kendo-series-a-100: #0099bc;
+  --tb-kendo-series-b-100: #e74856;
+  --tb-kendo-series-c-100: #ffb900;
+  --tb-kendo-series-d-100: #0078d7;
+  --tb-kendo-series-e-100: #8764b8;
+  --tb-kendo-series-f-100: #00cc6a;
+
+  --kendo-border-radius-md: var(--tb-kendo-border-radius-md);
+  --kendo-primary-10: var(--tb-kendo-primary-10);
+  --kendo-primary-20: var(--tb-kendo-primary-20);
+  --kendo-primary-30: var(--tb-kendo-primary-30);
+  --kendo-primary-40: var(--tb-kendo-primary-40);
+  --kendo-primary-50: var(--tb-kendo-primary-50);
+  --kendo-primary-60: var(--tb-kendo-primary-60);
+  --kendo-primary-70: var(--tb-kendo-primary-70);
+  --kendo-body-bg: var(--tb-kendo-body-bg);
+  --kendo-primary-80: var(--tb-kendo-primary-80);
+  --kendo-primary-90: var(--tb-kendo-primary-90);
+  --kendo-primary-100: var(--tb-kendo-primary-100);
+  --kendo-primary-110: var(--tb-kendo-primary-110);
+  --kendo-primary-120: var(--tb-kendo-primary-120);
+  --kendo-primary-130: var(--tb-kendo-primary-130);
+  --kendo-primary-140: var(--tb-kendo-primary-140);
+  --kendo-primary-150: var(--tb-kendo-primary-150);
+  --kendo-primary-160: var(--tb-kendo-primary-160);
+  --kendo-primary-170: var(--tb-kendo-primary-170);
+  --kendo-primary-180: var(--tb-kendo-primary-180);
+  --kendo-primary-190: var(--tb-kendo-primary-190);
+  --kendo-primary-200: var(--tb-kendo-primary-200);
+  --kendo-primary-210: var(--tb-kendo-primary-210);
+  --kendo-primary-220: var(--tb-kendo-primary-220);
+  --kendo-neutral-10: var(--tb-kendo-neutral-10);
+  --kendo-neutral-20: var(--tb-kendo-neutral-20);
+  --kendo-neutral-30: var(--tb-kendo-neutral-30);
+  --kendo-neutral-40: var(--tb-kendo-neutral-40);
+  --kendo-neutral-50: var(--tb-kendo-neutral-50);
+  --kendo-neutral-60: var(--tb-kendo-neutral-60);
+  --kendo-neutral-70: var(--tb-kendo-neutral-70);
+  --kendo-neutral-80: var(--tb-kendo-neutral-80);
+  --kendo-neutral-90: var(--tb-kendo-neutral-90);
+  --kendo-neutral-100: var(--tb-kendo-neutral-100);
+  --kendo-neutral-110: var(--tb-kendo-neutral-110);
+  --kendo-neutral-120: var(--tb-kendo-neutral-120);
+  --kendo-neutral-130: var(--tb-kendo-neutral-130);
+  --kendo-neutral-140: var(--tb-kendo-neutral-140);
+  --kendo-neutral-150: var(--tb-kendo-neutral-150);
+  --kendo-neutral-160: var(--tb-kendo-neutral-160);
+  --kendo-neutral-170: var(--tb-kendo-neutral-170);
+  --kendo-neutral-180: var(--tb-kendo-neutral-180);
+  --kendo-neutral-190: var(--tb-kendo-neutral-190);
+  --kendo-neutral-200: var(--tb-kendo-neutral-200);
+  --kendo-neutral-210: var(--tb-kendo-neutral-210);
+  --kendo-neutral-220: var(--tb-kendo-neutral-220);
+  --kendo-tertiary-100: var(--tb-kendo-tertiary-100);
+  --kendo-error-100: var(--tb-kendo-error-100);
+  --kendo-success-100: var(--tb-kendo-success-100);
+  --kendo-warning-100: var(--tb-kendo-warning-100);
+  --kendo-info-100: var(--tb-kendo-info-100);
+  --kendo-series-a-100: var(--tb-kendo-series-a-100);
+  --kendo-series-b-100: var(--tb-kendo-series-b-100);
+  --kendo-series-c-100: var(--tb-kendo-series-c-100);
+  --kendo-series-d-100: var(--tb-kendo-series-d-100);
+  --kendo-series-e-100: var(--tb-kendo-series-e-100);
+  --kendo-series-f-100: var(--tb-kendo-series-f-100);
+
+  --kendo-font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  --kendo-font-size: 14px;
+  --kendo-font-weight: 400;
+  --kendo-line-height: 1.4285714286;
+}
+
+$tb-typography: (
+  kendo-default-typography: (
+      font-family: '"Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif',
+      font-size: 14px,
+      font-weight: 400,
+      line-height: 1.4285714286,
+  ),
+);
+
+@mixin typography-classes ($typography) {
+  @each $selector, $property in $typography {
+    &-#{$selector} {
+      @each $propName, $propValue in $property {
+        #{$propName}: #{$propValue};
+      }
+    }
+  }
+}

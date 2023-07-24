@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="between">
+      <h1 class="page-title">{{layoutResource.rolesResources.roles}}</h1>
+      <button class="k-button-lg" themeColor="primary" [size]="viewState.buttonSize" [rounded]="viewState.rounded" kendoButton (click)="createRoleButtonClickView()">{{layoutResource.rolesResources.createNewRole}}</button>
+    </div>
+    <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.roleListViewModel" [data]="viewState.roleListViewModel" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="rolePageChangeClickEvent($event)">
+        <ng-template kendoGridToolbarTemplate>
+          <div class="search-box">
+            <i class="bi bi-search search-icon"></i>
+            <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder="search" (input)="roleFilterInputClickEvent($event)"></kendo-textbox>
+          </div>
+        </ng-template>
+          <kendo-grid-column [width]="250" field="name" title="{{layoutResource.rolesResources.name}}"></kendo-grid-column>
+          <kendo-grid-column [width]="400" field="description" title="{{layoutResource.rolesResources.description}}"></kendo-grid-column>
+          <kendo-grid-column [width]="140" field="numberOfEmployees" title="{{layoutResource.rolesResources.numberOfEmployees}}"></kendo-grid-column>
+          <kendo-grid-command-column [width]="100" [columnMenu]="false">
+            <ng-template kendoGridCellTemplate let-role>
+              <button size="large" [primary]="true" class="view-button" kendoGridEditCommand [routerLink]="['/management/roles/role-detail', role.id]">{{layoutResource.rolesResources.view}}</button>
+            </ng-template>
+          </kendo-grid-command-column>
+    </kendo-grid>
+</div>
+
+<kendo-dialog *ngIf="viewState.isActiveCreateRoleViewState" width="40%" height="70%" (close)="closeCreateRoleFormClickEvent()">
+  <kendo-dialog-titlebar>{{layoutResource.rolesResources.createNewRole}}</kendo-dialog-titlebar>
+  <form novalidate [formGroup]="createRoleForm">
+    <kendo-formfield>
+      <kendo-label [for]="roleName" text="{{layoutResource.rolesResources.newRole}}"></kendo-label>
+      <kendo-textbox formControlName="roleName" #roleName></kendo-textbox>    
+      <kendo-formerror>{{layoutResource.errorResources.roleName}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label [for]="description" text="{{layoutResource.rolesResources.description}}"></kendo-label>
+      <kendo-textbox formControlName="description" #description></kendo-textbox>    
+      <kendo-formerror>{{layoutResource.errorResources.description}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="vertical">
+      <kendo-label [for]="roleBased" text="{{layoutResource.rolesResources.roleBasedOn}}"></kendo-label>
+      <kendo-dropdownlist [data]="viewState.roleListViewModel" [textField]="'name'" [valueField]="'id'" formControlName="roleBased"  (valueChange)="roleChangeEvent($event)" #roleBased></kendo-dropdownlist>
+    </kendo-formfield>
+    <kendo-panelbar *ngIf="!viewState.isLoadingPermissions; else pulsingLoader" >
+      <kendo-panelbar-item title="{{layoutResource.rolesResources.employeeModule}}" [expanded]="true">
+          <ng-template kendoPanelBarContent>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #addEmployeePermission formControlName="addEmployeePermission" checked="viewState.permissionsResponse.employeeModule.addEmployeePermission.active" />
+              <kendo-label [for]="addEmployeePermission" text="{{viewState.permissionsResponse.employeeModule.addEmployeePermission.description}}" ></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #editPersonalInformationPermission formControlName="editPersonalInformationPermission" />
+              <kendo-label [for]="editPersonalInformationPermission" text="{{viewState.permissionsResponse.employeeModule.editPersonalInformationPermission.description}}"></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #editJobInfoPermission formControlName="editJobInfoPermission" />
+              <kendo-label [for]="editJobInfoPermission" text="{{viewState.permissionsResponse.employeeModule.editJobInfoPermission.description}}"></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #editEducationPermission formControlName="editEducationPermission" />
+              <kendo-label [for]="editEducationPermission" text="{{viewState.permissionsResponse.employeeModule.editEducationPermission.description}}"></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #editPayrollBasicPermission formControlName="editPayrollBasicPermission" />
+              <kendo-label [for]="editPayrollBasicPermission" text="{{viewState.permissionsResponse.employeeModule.editPayrollBasicPermission.description}}"></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #editEmploymentHistoryPermission formControlName="editEmploymentHistoryPermission" />
+              <kendo-label [for]="editEmploymentHistoryPermission" text="{{viewState.permissionsResponse.employeeModule.editEmploymentHistoryPermission.description}}"></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #editSkillsAndLanguagesPermission formControlName="editSkillsAndLanguagesPermission" />
+              <kendo-label [for]="editSkillsAndLanguagesPermission" text="{{viewState.permissionsResponse.employeeModule.editSkillsAndLanguagesPermission.description}}"></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #editOtherInfoPermission formControlName="editOtherInfoPermission" />
+              <kendo-label [for]="editOtherInfoPermission" text="{{viewState.permissionsResponse.employeeModule.editOtherInfoPermission.description}}"></kendo-label>
+            </div>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #viewEmployeesListPermission formControlName="viewEmployeesListPermission"/>
+              <kendo-label [for]="viewEmployeesListPermission" text="{{viewState.permissionsResponse.employeeModule.viewEmployeesListPermission.description}}"></kendo-label>
+            </div>
+          </ng-template>
+      </kendo-panelbar-item>
+      <kendo-panelbar-item title="{{layoutResource.rolesResources.nonComlianceModule}}" [expanded]="true">
+        <ng-template kendoPanelBarContent>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #allNonComliancesPermission formControlName="allNonComliancesPermission" />
+              <kendo-label [for]="allNonComliancesPermission" text="{{viewState.permissionsResponse.nonComlianceModule.allNonComliancesPermission.description}}" ></kendo-label>
+            </div>
+        </ng-template>
+      </kendo-panelbar-item>
+      <kendo-panelbar-item title="{{layoutResource.rolesResources.timeOffReqeustModule}}" [expanded]="true">
+        <ng-template kendoPanelBarContent>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #allTimeOffRequestsPermission formControlName="allTimeOffRequestsPermission" />
+              <kendo-label [for]="allTimeOffRequestsPermission" text="{{viewState.permissionsResponse.timeOffRequestModule.allTimeOffRequestsPermission.description}}" ></kendo-label>
+            </div>
+        </ng-template>
+      </kendo-panelbar-item>
+      <kendo-panelbar-item title="{{layoutResource.rolesResources.adminPanelModule}}" [expanded]="true">
+        <ng-template kendoPanelBarContent>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #viewAdminPanelPermission formControlName="viewAdminPanelPermission" />
+              <kendo-label [for]="viewAdminPanelPermission" text="{{viewState.permissionsResponse.adminPanelModule.viewAdminPanelPermission.description}}" ></kendo-label>
+            </div>
+        </ng-template>
+      </kendo-panelbar-item>
+      <kendo-panelbar-item title="{{layoutResource.rolesResources.rolesModule}}" [expanded]="true">
+        <ng-template kendoPanelBarContent>
+            <div class="right">
+              <input kendoCheckBox type="checkbox" #viewRolesPermission formControlName="viewRolesPermission" />
+              <kendo-label [for]="viewRolesPermission" text="{{viewState.permissionsResponse.rolesModel.viewRolesPermission.description}}" ></kendo-label>
+            </div>
+        </ng-template>
+      </kendo-panelbar-item>
+    </kendo-panelbar>
+  </form>
+  <kendo-dialog-actions>
+    <button kendoButton themeColor="primary" (click)="createRoleButtonClickEvent(createRoleForm.value)">
+      <kendo-loader *ngIf="viewState.isLoadingOnPost" themeColor="inverse" size="small"></kendo-loader>
+      {{layoutResource.rolesResources.createRole}}
+    </button>
+    <button kendoButton (click)="cancelCreateRoleClickEvent()">{{layoutResource.rolesResources.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

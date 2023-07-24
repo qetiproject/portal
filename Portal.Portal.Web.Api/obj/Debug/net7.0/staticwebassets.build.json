@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "c8Bzn+JKiE26WOfpgqbpc/ynZT4iVz+oqGrmZhgfkvs=",
+  "Source": "Portal.Portal.Web.Api",
+  "BasePath": "_content/Portal.Portal.Web.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

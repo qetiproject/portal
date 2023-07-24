@@ -1,0 +1,24 @@
+<ng-container>
+    <div class="header">
+      <button kendoButton icon="menu" fillMode="flat" (click)="drawer.toggle()"></button>
+      <div class="notification-and-avatar">
+        <kendo-badge-container>
+          <kendo-icon name="bell"></kendo-icon>
+          <kendo-badge [align]="viewState.notificationBadgeAlign" themeColor="error" rounded="full">1</kendo-badge>
+        </kendo-badge-container>
+        <div class="vertical-line"></div>
+          <kendo-dropdownbutton [buttonClass]="['avatar']" [data]="viewState.avatarClickViewStateData" [popupSettings]="viewState.avatarPopupSettings">
+            <kendo-avatar themeColor="base" size="medium" [imageSrc]="viewState.avatarSrc" ></kendo-avatar>
+          </kendo-dropdownbutton>
+        <div class="vertical-line"></div>
+        <kendo-button class="language" [ngClass]="{'active': isEn}" (click)="languageButtonClickEvent('en-US')">ENG</kendo-button>
+        <kendo-button  class="language" [ngClass]="{'active': isKa}" (click)="languageButtonClickEvent('ka-GE')">GEO</kendo-button>
+      </div>
+    </div>
+    <kendo-drawer-container>
+      <kendo-drawer #drawer [items]="viewState.navigationItemsView" index="1" [mini]="viewState.mobileQuery.matches ? false : true" [miniWidth]="68" [expanded]="true" [mode]="viewState.mobileQuery.matches ? 'overlay' : 'push'" [autoCollapse]="false" (select)="navigationItemClickViewState($event)"></kendo-drawer>
+      <kendo-drawer-content>
+        <router-outlet></router-outlet>
+      </kendo-drawer-content>
+    </kendo-drawer-container>
+  </ng-container>  

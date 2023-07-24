@@ -1,0 +1,125 @@
+.former-positions {
+  margin: 48px 0 0 0;
+  &-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0 0 24px 0;
+    h3 {
+      margin: 0;
+      color: #101828;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 27px;
+    }
+    kendo-button {
+      background: rgba(101, 37, 116, 0.1);
+      border: none;
+      ::ng-deep {
+        .k-icon {
+          color: #652574;
+        }
+      }
+    }
+  }
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .former-position {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      &-title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        p {
+          color: #101828;
+          margin: 0;
+          font-weight: 400;
+          font-size: 15px;
+          line-height: 20px;
+        }
+      }
+      &-date-range {
+        span {
+          color: #475467;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 16px;
+          opacity: 0.7;
+        }
+      }
+    }
+    kendo-button {
+      background: #ffffff;
+      border: 1px solid #dbdbdb;
+      ::ng-deep {
+        .k-icon {
+          color: #652574;
+          transform: scale(0.75);
+        }
+      }
+    }
+  }
+}
+
+.chips {
+  display: flex;
+  row-gap: 16px;
+  column-gap: 8px;
+  flex-wrap: wrap;
+}
+.chip {
+  color: #323130;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid #dbdbdb;
+  cursor: default;
+  &:hover {
+    background-color: inherit;
+  }
+  &:focus::after {
+    outline: none;
+  }
+  ::ng-deep {
+    .k-chip-action.k-chip-remove-action {
+      z-index: 2;
+      color: #605e5c;
+      cursor: pointer;
+    }
+  }
+}
+
+.edit-form {
+  margin-top: 32px;
+  kendo-label {
+    color: #323130;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 5px;
+  }
+  kendo-textbox {
+    margin-top: 5px;
+  }
+  kendo-dialog-actions {
+    padding: 16px 0 0 0;
+    button {
+      max-width: 85px;
+    }
+  }
+  kendo-dropdownlist {
+    margin-top: 5px;
+  }
+}
+
+.employee-profile-tab-header-subTitle {
+  margin: 0;
+  color: #323130;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 32px;
+}

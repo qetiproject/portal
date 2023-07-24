@@ -1,0 +1,115 @@
+<ng-container *ngIf="!viewState.isLoadingOnGet; else pulsingLoader">
+    <div class="employee-profile-tab-header">
+        <h2 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.skillsAndLanguages}}</h2>
+    </div>
+    <div class="between">
+        <div class="computer-skills">
+            <div class="employee-profile-tab-header">
+                <h3 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.skills}}</h3>
+                <kendo-button *ngIf="viewState.isEmployeeSkillsViewState && viewState.actionPermissions.editSkillsAndLanguages || viewState.isMyProfile" size="small" rounded="full" icon="edit" (click)="employeeSkillEditFormButtonClickEvent()"></kendo-button>
+            </div>
+            <div *ngIf="viewState.isEmployeeSkillsViewState" class="k-block chips">
+                <kendo-chip *ngFor="let employeeSkill of viewState.employeeSkillsAndLanguagesView.skills" rounded="full" fillMode="outline" class="chip" [label]="employeeSkill.skill"></kendo-chip>
+            </div>
+            <div *ngIf="!viewState.isEmployeeSkillsViewState" class="k-block chips">
+                <ng-container *ngIf="!viewState.isLoadingOnPostForSkills; else pulsingLoader">
+                    <kendo-chip *ngFor="let employeeSkill of viewState.employeeSkillsAndLanguagesView.skills" rounded="full" fillMode="outline" class="chip center" [label]="employeeSkill.skill" removeIcon="k-icon k-i-close" [removable]="true" (remove)="deleteEmployeeSkillButtonClickEvent(employeeSkill)"></kendo-chip>
+                </ng-container>
+            </div>
+            <div *ngIf="!viewState.isEmployeeSkillsViewState" class="edit-form">
+                <form [formGroup]="employeeSkillsForm">
+                    <kendo-formfield>
+                        <kendo-label [for]="skill" text="{{viewState.employmentModuleResourceModel.computerSkill}}"></kendo-label>
+                        <kendo-textbox formControlName="skill" [clearButton]="true" #skill></kendo-textbox>
+                        <kendo-formerror>{{viewState.employmentErrorResourceModel.training}}</kendo-formerror>
+                    </kendo-formfield>
+                    <kendo-dialog-actions>
+                        <button kendoButton themeColor="primary" (click)="saveEmployeeSkillClickEvent(employeeSkillsForm.value)">{{viewState.employmentModuleResourceModel.save}}</button>
+                        <button kendoButton (click)="cancelEmployeeSkillsButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+                    </kendo-dialog-actions>
+                </form>
+            </div>
+        </div>
+        <div class="languages">
+            <div class="employee-profile-tab-header">
+                <h3 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.languages}}</h3>
+                <kendo-button *ngIf="viewState.isEmployeeLanguagesViewState && viewState.actionPermissions.editSkillsAndLanguages || viewState.isMyProfile" size="small" rounded="full" icon="edit" (click)="employeeLanguageEditFormButtonClickEvent()"></kendo-button>
+            </div>
+            <div *ngIf="viewState.isEmployeeLanguagesViewState" class="k-block chips">
+                <kendo-chip *ngFor="let employeeLanguage of viewState.employeeSkillsAndLanguagesView.languages" rounded="full" fillMode="outline" class="chip" [label]="employeeLanguage.language"></kendo-chip>
+            </div>
+            <div *ngIf="!viewState.isEmployeeLanguagesViewState" class="k-block chips">
+                <ng-container *ngIf="!viewState.isLoadingOnPostForLanguages; else pulsingLoader">
+                    <kendo-chip *ngFor="let employeeLanguage of viewState.employeeSkillsAndLanguagesView.languages" rounded="full" fillMode="outline"  class="chip center" [label]="employeeLanguage.language" removeIcon="k-icon k-i-close" [removable]="true" (remove)="deleteEmployeeLanguageButtonClickEvent(employeeLanguage)"></kendo-chip>
+                </ng-container>
+            </div>
+            <div *ngIf="!viewState.isEmployeeLanguagesViewState" class="edit-form">
+                <form [formGroup]="employeeLanguagesForm">
+                    <kendo-formfield>
+                        <kendo-label [for]="language" text="{{viewState.employmentModuleResourceModel.language}}"></kendo-label>
+                        <kendo-textbox formControlName="language" [clearButton]="true" #language></kendo-textbox>
+                        <kendo-formerror>{{viewState.employmentErrorResourceModel.language}}</kendo-formerror>
+                    </kendo-formfield>
+                    <kendo-dialog-actions>
+                        <button kendoButton themeColor="primary" (click)="saveEmployeeLanguageClickEvent(employeeLanguagesForm.value)">{{viewState.employmentModuleResourceModel.save}}</button>
+                        <button kendoButton (click)="cancelEmployeeLanguagesButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+                    </kendo-dialog-actions>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="between">
+        <div class="resume">
+            <div class="employee-profile-tab-header">
+                <h2 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.resume}}</h2>
+                <kendo-button *ngIf="viewState.isEmployeeResumeViewState && viewState.actionPermissions.editSkillsAndLanguages || viewState.isMyProfile" size="small" rounded="full" icon="edit" (click)="employeeResumeEditFormButtonClickEvent()"></kendo-button>
+            </div>
+            <ng-container *ngIf="viewState.isEmployeeResumeViewState">
+                <div class="information-form-row">
+                    <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.resume}}</h3>
+                    <p class="information-form-row-description">
+                    <span 
+                    class="k-icon file-exists"
+                    [ngClass]="getFileClassByExtension(viewState.employeeSkillsAndLanguagesView.resume?.type)"
+                    (click)="openFileButtonClickEvent(viewState.employeeSkillsAndLanguagesView.resume)"></span>
+                    </p>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!viewState.isEmployeeResumeViewState">
+                <form class="employee-profile-tab-edit-information-form">
+                    <div class="custom-file-input">
+                        <h3>{{viewState.employmentModuleResourceModel.resume}}</h3>
+                        <div class="custom-file-input-right">
+                        <ng-container *ngIf="viewState.resumeSelectedFile; else resumeFileExist">
+                            <span 
+                            class="k-icon"
+                            [ngClass]="getFileClassByExtension(viewState.resumeFileExtensionOnUpload)"></span>
+                        </ng-container>
+                        <ng-template #resumeFileExist>
+                            <ng-container *ngIf="viewState.employeeSkillsAndLanguagesView.resume?.type">
+                            <span 
+                            class="k-icon"
+                            [ngClass]="getFileClassByExtension(viewState.employeeSkillsAndLanguagesView.resume?.type)"></span>
+                            </ng-container>
+                        </ng-template>
+                        <label for="resume">{{viewState.employmentModuleResourceModel.upload}}</label>
+                        <input id="resume" type="file" (change)="employeeResumeFileSelectedButtonCliekEvent($event)">
+                        <kendo-button *ngIf="viewState.resumeSelectedFile || viewState.employeeSkillsAndLanguagesView.resume?.name" size="small" rounded="full" icon="delete" (click)="deleteBloodGroupFileButtonClickEvent()"></kendo-button>
+                        </div>
+                    </div>
+                    <kendo-dialog-actions>
+                        <button kendoButton themeColor="primary" [disabled]="employeeResumeValueChecker()" (click)="saveEmployeeResumeClickEvent()">{{viewState.employmentModuleResourceModel.save}}
+                        </button>
+                        <button kendoButton (click)="cancelEmployeeResumeButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+                    </kendo-dialog-actions>
+                </form>
+            </ng-container>
+        </div>
+    </div>
+   
+</ng-container>
+
+<ng-template #pulsingLoader>
+    <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

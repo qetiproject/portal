@@ -1,0 +1,114 @@
+.container {
+  max-width: 550px;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
+.page-title {
+  margin: 30px 0px 36px;
+}
+
+:host ::ng-deep .k-breadcrumb-root-link:active,
+.k-breadcrumb-root-link.k-active {
+  border: 1px solid #652574;
+  background: rgba(103, 38, 117, 0.1);
+}
+
+.layout {
+  border-radius: 8px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #dbdbdb;
+}
+
+.layout-title {
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 27px;
+}
+
+.view-container {
+  padding-bottom: 48px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.kendo-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+kendo-button {
+  padding: 10px;
+}
+
+//ongoing btn
+:host ::ng-deep .kendo-dialog-actions kendo-button span.k-button-text {
+  color: #f2c94c !important;
+}
+
+:host ::ng-deep .k-button:active,
+.k-button.k-active {
+  --INTERNAL--kendo-button-text: none;
+  --INTERNAL--kendo-button-bg: rgba(103, 38, 117, 0.1);
+  --INTERNAL--kendo-button-border: 1px solid #652574;
+}
+
+.redirect-dialog-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.redirecting-title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+:host ::ng-deep .redirect-form kendo-formfield.k-form-field {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 0 0 24px 0;
+}
+
+:host ::ng-deep .redirect-form .k-form-field-wrap {
+    width: calc(80% - 30px);
+}
+:host ::ng-deep .redirect-form kendo-label {
+  width: 20%;
+  color: #323130;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.custom-file-input kendo-button {
+    padding: 3px;
+}
+.custom-file-input {
+    min-height: 28px;
+}
+
+.k-switch:focus::after,
+.k-switch.k-focus::after {
+  outline: none;
+}
+
+.timeOffRequestRecievedHistoryForm {
+  margin-bottom: 8px;
+  gap: 16px;
+}
+
+:host
+  ::ng-deep
+  .hasFile
+  kendo-icon.k-i-file.k-panelbar-item-icon.k-icon.ng-star-inserted {
+  color: red;
+}

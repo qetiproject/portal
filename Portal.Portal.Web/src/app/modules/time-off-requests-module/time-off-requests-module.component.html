@@ -1,0 +1,259 @@
+<div class="container">
+    <div class="between">
+      <h1 class="page-title">{{viewState.timeOffRequestModuleResourceModel.timeOffRequests}}</h1>
+      <button class="k-button-lg" themeColor="primary" [size]="viewState.buttonSize" [rounded]="viewState.rounded" kendoButton (click)="createTimeOffRequestClickEvent()">{{viewState.timeOffRequestModuleResourceModel.createTimeOffRequest}}</button>
+    </div>
+    
+    <kendo-tabstrip (tabSelect)="tabSelectButtonClickEvent($event)">
+      <kendo-tabstrip-tab *ngIf="viewState.actionPermissions.allTimeOffRequests" title={{viewState.timeOffRequestModuleResourceModel.all}} [selected]="viewState.activeAllTab">
+        <ng-template kendoTabContent *ngIf="viewState.isTimeOffRequestAllViewState">
+          <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.timeOffRequestAllViewModel.timeOffRequests" [data]="viewState.timeOffRequestAllViewModel.timeOffRequests" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="timeOffRequestPageChangeButtonClickEvent($event)">
+            <ng-template kendoGridToolbarTemplate>
+              <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder={{viewState.timeOffRequestModuleResourceModel.search}} (input)="timeOffAllFilterInputClickEvent($event)"></kendo-textbox>
+              </div>
+            </ng-template>
+              <kendo-grid-column [width]="100" field="number" title="#"></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="title" title={{viewState.timeOffRequestModuleResourceModel.title}}></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="date" title={{viewState.timeOffRequestModuleResourceModel.dateCreated}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  {{ timeOffRequest.date | date: 'dd.MM.yyyy' }}
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="150" field="sender" title={{viewState.timeOffRequestModuleResourceModel.sender}}></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="receiver" title={{viewState.timeOffRequestModuleResourceModel.receiver}}></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="contais" title={{viewState.timeOffRequestModuleResourceModel.content}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <div class="content">
+                    <span
+                      class="k-icon file-exists"
+                      [ngClass]="getFileClassByExtension(timeOffRequest.content?.file?.type)" (click)="openFileButtonClickEvent(timeOffRequest.content.file)"></span>
+                    <p kendoTooltip position="bottom" title="{{timeOffRequest.content.descriptionHover}}">
+                      {{ timeOffRequest.content.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="150" field="status" title={{viewState.timeOffRequestModuleResourceModel.status}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning">{{viewState.timeOffRequestModuleResourceModel.inProgress}}</kendo-chip>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['Confirmed'] " size="small" rounded="full" themeColor="success">{{viewState.timeOffRequestModuleResourceModel.confirmed}}</kendo-chip>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['Rejected'] " size="small" rounded="full" themeColor="error">{{viewState.timeOffRequestModuleResourceModel.rejected}}</kendo-chip>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-command-column [width]="100" [columnMenu]="false">
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <button size="large" [primary]="true" class="employee-view-button" kendoGridEditCommand [routerLink]="['/management/time-off-requests/all-request-history', timeOffRequest.number]">{{viewState.timeOffRequestModuleResourceModel.details}}</button>
+                </ng-template>
+              </kendo-grid-command-column>
+        </kendo-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab title={{viewState.timeOffRequestModuleResourceModel.sent}} [selected]="viewState.activeSentTab">
+        <ng-template kendoTabContent *ngIf="viewState.isTimeOffRequestSentViewState">
+          <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.timeOffRequestSentViewModel.timeOffRequests" [data]="viewState.timeOffRequestSentViewModel.timeOffRequests" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="timeOffRequestSentPageChangeButtonClickEvent($event)">
+            <ng-template kendoGridToolbarTemplate>
+              <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder="search" (input)="timeOffFSentFilterInputEvent($event)"></kendo-textbox>
+              </div>
+            </ng-template>
+              <kendo-grid-column [width]="100" field="number" title="#"></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="title" title={{viewState.timeOffRequestModuleResourceModel.title}}></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="date" title={{viewState.timeOffRequestModuleResourceModel.dateCreated}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  {{ timeOffRequest.date | date: 'dd.MM.yyyy' }}
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="150" field="receiver" title={{viewState.timeOffRequestModuleResourceModel.receiver}}></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="contais" title={{viewState.timeOffRequestModuleResourceModel.content}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <div class="content">
+                    <span
+                      class="k-icon file-exists"
+                      [ngClass]="getFileClassByExtension(timeOffRequest.content?.file?.type)" (click)="openFileButtonClickEvent(timeOffRequest.content.file)"></span>
+                    <p kendoTooltip position="bottom" title="{{timeOffRequest.content.descriptionHover}}">
+                      {{ timeOffRequest.content.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="status" title={{viewState.timeOffRequestModuleResourceModel.status}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning">{{viewState.timeOffRequestModuleResourceModel.inProgress}}</kendo-chip>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['Confirmed'] " size="small" rounded="full" themeColor="success">{{viewState.timeOffRequestModuleResourceModel.confirmed}}</kendo-chip>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['Rejected'] " size="small" rounded="full" themeColor="error">{{viewState.timeOffRequestModuleResourceModel.rejected}}</kendo-chip>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-command-column [width]="100" [columnMenu]="false">
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <button size="large" [primary]="true" class="employee-view-button" kendoGridEditCommand  [routerLink]="['/management/time-off-requests/sent-request-history', timeOffRequest.number]">{{viewState.timeOffRequestModuleResourceModel.details}}</button>
+                </ng-template>
+              </kendo-grid-command-column>
+        </kendo-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+      <kendo-tabstrip-tab title={{viewState.timeOffRequestModuleResourceModel.received}} [selected]="viewState.activeRecievedTab">
+        <ng-template kendoTabContent *ngIf="viewState.isTimeOffRequestRecievedViewState">
+          <kendo-grid *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="grid-height" [rowClass]="rowStyling" [kendoGridBinding]="viewState.timeOffRequestRecievedViewModel.timeOffRequests" [data]="viewState.timeOffRequestRecievedViewModel.timeOffRequests" [sortable]="viewState.gridList.sortable" [columnMenu]="{ filter: viewState.gridList.filter}" [pageSize]="viewState.gridList.variablesForPageSizes.pageSize" [skip]="viewState.gridList.variablesForPageSizes.skip" [pageable]="{ buttonCount: viewState.gridList.variablesForPageSizes.buttonCount, pageSizes: viewState.gridList.variablesForPageSizes.pageSizes}" (pageChange)="timeOffRequestRecievedPageChangeButtonClickEvent($event)">
+            <ng-template kendoGridToolbarTemplate>
+              <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <kendo-textbox [style.width.px]="215" class="search-textbox" [rounded]="viewState.roundedSearch" kendoTextBox  placeholder="search" (input)="timeOffRecievedFilterInputEvent($event)"></kendo-textbox>
+              </div>
+            </ng-template>
+              <kendo-grid-column [width]="100" field="number" title="#"></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="title" title={{viewState.timeOffRequestModuleResourceModel.title}}></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="date" title={{viewState.timeOffRequestModuleResourceModel.dateCreated}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  {{ timeOffRequest.date | date: 'dd.MM.yyyy' }}
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="150" field="sender" title={{viewState.timeOffRequestModuleResourceModel.sender}}></kendo-grid-column>
+              <kendo-grid-column [width]="150" field="contais" title={{viewState.timeOffRequestModuleResourceModel.content}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <div class="content">
+                    <span
+                      class="k-icon file-exists"
+                      [ngClass]="getFileClassByExtension(timeOffRequest.content?.file?.type)" (click)="openFileButtonClickEvent(timeOffRequest.content.file)"></span>
+                    <p kendoTooltip position="bottom" title="{{timeOffRequest.content.descriptionHover}}">
+                      {{ timeOffRequest.content.description }}
+                    </p>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column [width]="100" field="status" title={{viewState.timeOffRequestModuleResourceModel.status}}>
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['InProgress'] " size="small" rounded="full" themeColor="warning" (click)="statusChangeViewState(timeOffRequest.number, timeOffRequest.isStatusChanger)">{{viewState.timeOffRequestModuleResourceModel.inProgress}}</kendo-chip>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['Confirmed'] " size="small" rounded="full" themeColor="success">{{viewState.timeOffRequestModuleResourceModel.confirmed}}</kendo-chip>
+                  <kendo-chip *ngIf="timeOffRequest.status == viewState.statuses['Rejected'] " size="small" rounded="full" themeColor="error">{{viewState.timeOffRequestModuleResourceModel.rejected}}</kendo-chip>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-command-column [width]="100" [columnMenu]="false">
+                <ng-template kendoGridCellTemplate let-timeOffRequest>
+                  <button size="large" [primary]="true" class="employee-view-button" kendoGridEditCommand [routerLink]="['/management/time-off-requests/recieved-request-history', timeOffRequest.number]">{{viewState.timeOffRequestModuleResourceModel.details}}</button>
+                </ng-template>
+              </kendo-grid-command-column>
+        </kendo-grid>
+        </ng-template>
+      </kendo-tabstrip-tab>
+    </kendo-tabstrip>
+</div>
+
+<kendo-dialog *ngIf="viewState.isActiveCreateDialogViewState" [width]="450" (close)="closeTimeOffRequestFormClickEvent()">
+  <kendo-dialog-titlebar>{{viewState.timeOffRequestModuleResourceModel.createTimeOffRequest}}</kendo-dialog-titlebar>
+  <div *ngIf="viewState.serverErrorsModel.length > 0" class="k-messagebox k-messagebox-error auth-messagebox-errors">
+    <div class="between">
+      <div class="auth-messagebox-errors-title">
+        <span class="k-icon k-i-close-outline"></span>
+        {{viewState.errorResourceModel.pleaseFillTheFollowingFields}}
+      </div>
+      <span class="k-icon k-i-close" (click)="clearErrorsMessageboxClickEvent()"></span>
+    </div>
+    <ul>
+      <li *ngFor="let error of viewState.serverErrorsModel" class="auth-messagebox-error">{{ error }}</li>
+    </ul>
+  </div>
+
+  <form novalidate [formGroup]="addTimeOffRequestForm">
+    <kendo-formfield>
+      <kendo-label [for]="type" text={{viewState.timeOffRequestModuleResourceModel.requestType}}></kendo-label>
+      <kendo-dropdownlist [data]="viewState.typesView" formControlName="type" textField="text" valueField="value"  #type [defaultItem]="{ text: viewState.timeOffRequestModuleResourceModel.custom, value: 'Custom'}" (valueChange)="typeViewValueChangeEvent($event)"></kendo-dropdownlist>
+    </kendo-formfield>
+    <kendo-formfield *ngIf="viewState.isTitleFieldViewState ">
+      <kendo-label [for]="title" text={{viewState.timeOffRequestModuleResourceModel.title}}></kendo-label>
+      <kendo-textbox formControlName="title" #title></kendo-textbox>
+      <kendo-formerror>{{viewState.errorResourceModel.title}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label class="k-radio-label" [for]="recipient" text={{viewState.timeOffRequestModuleResourceModel.recipient}}></kendo-label>
+      <ul class="k-radio-list k-list-horizontal" >
+        <li *ngIf="viewState.hasHR" class="k-radio-item">
+          <input kendoRadioButton #recipient type="radio" value="{{viewState.recipient['HR']}}" formControlName="recipient" (click)="recipientChangeValue(viewState.recipient['HR'])"/>
+          <kendo-label class="k-radio-label" [for]="recipient" text={{viewState.timeOffRequestModuleResourceModel.hr}} ></kendo-label>
+        </li>
+        <li *ngIf="viewState.hasSupervisor" class="k-radio-item">
+          <input kendoRadioButton #recipient type="radio" value="{{viewState.recipient['Supervisor']}}" formControlName="recipient" (click)="recipientChangeValue(viewState.recipient['Supervisor'])"/>
+          <kendo-label class="k-radio-label" [for]="recipient" text={{viewState.timeOffRequestModuleResourceModel.supervisor}} ></kendo-label>
+        </li>
+        <li class="k-radio-item">
+          <input  kendoRadioButton #recipient type="radio" value="{{viewState.recipient['Other']}}" formControlName="recipient" (click)="recipientChangeValue(viewState.recipient['Other'])"/>
+          <kendo-label class="k-radio-label" [for]="recipient" text={{viewState.timeOffRequestModuleResourceModel.other}} ></kendo-label>
+        </li>
+      </ul>
+    </kendo-formfield>
+    <kendo-formfield *ngIf="viewState.isRecieverFieldViewState">
+      <kendo-label [for]="reciever" text={{viewState.timeOffRequestModuleResourceModel.receiver}}></kendo-label>
+      <kendo-autocomplete #reciever formControlName="reciever" [data]="viewState.recieverDataView" [filterable]="true"  (input)="recieverFilterEvent($event)"></kendo-autocomplete>
+      <kendo-formerror>{{viewState.errorResourceModel.receiver}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield orientation="horizontal">
+      <kendo-label [for]="deadline" text={{viewState.timeOffRequestModuleResourceModel.deadLIne}}></kendo-label>
+      <kendo-datepicker [rounded]="viewState.rounded" #deadline formControlName="deadline"></kendo-datepicker>
+    </kendo-formfield>
+    <div *ngIf="viewState.isFromIncludingFieldViewState" class="between">
+      <kendo-formfield orientation="horizontal">
+        <kendo-label [for]="from" text={{viewState.timeOffRequestModuleResourceModel.from}}></kendo-label>
+        <kendo-datepicker [rounded]="viewState.rounded" #from formControlName="from"></kendo-datepicker>
+        <kendo-formerror>{{viewState.errorResourceModel.from}}</kendo-formerror>
+      </kendo-formfield>
+      <kendo-formfield orientation="horizontal">
+        <kendo-label [for]="to" text={{viewState.timeOffRequestModuleResourceModel.including}}></kendo-label>
+        <kendo-datepicker [rounded]="viewState.rounded" #to formControlName="to"></kendo-datepicker>
+        <kendo-formerror>{{viewState.errorResourceModel.to}}</kendo-formerror>
+      </kendo-formfield>
+    </div>
+    <kendo-formfield  *ngIf="viewState.isFromFieldViewState" orientation="horizontal">
+      <kendo-label [for]="from" text={{viewState.timeOffRequestModuleResourceModel.from}}></kendo-label>
+      <kendo-datepicker [rounded]="viewState.rounded" #from formControlName="from"></kendo-datepicker>
+      <kendo-formerror>{{viewState.errorResourceModel.from}}</kendo-formerror>
+    </kendo-formfield>
+    <kendo-formfield>
+      <kendo-label [for]="description" text={{viewState.timeOffRequestModuleResourceModel.description}}></kendo-label>
+      <kendo-textarea [style.height.px]="100" resizable="auto" formControlName="description" #description></kendo-textarea>
+    </kendo-formfield>
+    <kendo-fileselect [multiple]="false" (select)="selectedFileClickEvent($event)"></kendo-fileselect>  
+  </form>
+  <kendo-dialog-actions>
+    <button kendoButton themeColor="primary" (click)="createTimeOffButtonClickEvent(addTimeOffRequestForm.value)">
+      <kendo-loader *ngIf="viewState.isLoadingOnPost" themeColor="inverse" size="small"></kendo-loader>
+      {{viewState.timeOffRequestModuleResourceModel.create}}
+    </button>
+    <button kendoButton (click)="cancelTimeOffRequestClickEvent()">{{viewState.timeOffRequestModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog *ngIf="viewState.openTimeOffRecievedRequestStatusChangeDialogViewState" [minWidth]="250" [width]="450" title="{{viewState.timeOffRequestModuleResourceModel.changeTimeOffRequestStatus }}" (close)="closeTimeOffRecievedRequestStatusChangeDialogView()">
+  <form class="timeOffRequestRecievedHistoryForm" [formGroup]="timeOffRequestRecievedHistoryForm">
+      <kendo-formfield orientation="horizontal">
+          <kendo-label text={{viewState.timeOffRequestModuleResourceModel.status}}></kendo-label>
+          <ul class="k-radio-list k-list-horizontal" >
+              <li class="k-radio-item" >
+                  <input kendoRadioButton #statusConfirmed type="radio" value="{{viewState.statuses['Confirmed']}}"  formControlName="status" />
+                  <kendo-label class="k-radio-label" [for]="statusConfirmed" text={{viewState.timeOffRequestModuleResourceModel.confirmed}}></kendo-label>
+              </li>
+              <li class="k-radio-item" >
+                  <input kendoRadioButton #statusRejected type="radio" value="{{viewState.statuses['Rejected']}}"  formControlName="status" />
+                  <kendo-label class="k-radio-label" [for]="statusRejected" text={{viewState.timeOffRequestModuleResourceModel.rejected}}></kendo-label>
+              </li>
+          </ul>
+          <kendo-formerror>{{viewState.errorResourceModel.status}}</kendo-formerror>
+      </kendo-formfield>
+      <kendo-formfield>
+          <kendo-label [for]="comment" text={{viewState.timeOffRequestModuleResourceModel.comment}}></kendo-label>
+          <kendo-textarea [style.height.px]="100"  resizable="auto" formControlName="comment" [clearButton]="true" #comment></kendo-textarea>
+      </kendo-formfield>
+      <kendo-fileselect [multiple]="false" id="medical-certificate" (select)="statusChangeFileSelectButtonClickEvent($event)"></kendo-fileselect>     
+  </form>
+  <kendo-dialog-actions>
+      <button kendoButton themeColor="primary" (click)="saveTimeOffRequestRecievedHistoryFormButtonClickEvent(timeOffRequestRecievedHistoryForm.value)">
+          <kendo-loader *ngIf="viewState.loaderVisible" themeColor="inverse" size="small"></kendo-loader>
+          {{viewState.timeOffRequestModuleResourceModel.save}}</button>
+      <button kendoButton  (click)="cancelTimeOffRequestRecievedHistoryFormButtonClickEvent()">{{viewState.timeOffRequestModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

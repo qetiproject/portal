@@ -1,0 +1,6 @@
+<div *ngIf="isLoggedIn">
+    <app-auth-layout></app-auth-layout>
+</div>
+<div *ngIf="!isLoggedIn">
+    <app-not-auth-layout></app-not-auth-layout>
+</div>

@@ -1,0 +1,84 @@
+.container {
+  max-width: 550px;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
+.page-title {
+  margin: 30px 0px 36px;
+}
+
+:host ::ng-deep .k-breadcrumb-root-link:active, .k-breadcrumb-root-link.k-active {
+  border: 1px solid #652574;
+  background: rgba(103, 38, 117, 0.1);
+}
+
+// kendo-breadcrumb
+
+:host::ng-deep {
+  kendo-panelbar {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-top: 1px solid var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+  }
+  kendo-panelbar-item {
+    border-bottom: 1px solid var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+  }
+  .k-panelbar > .k-item > .k-link.k-selected:before,
+  .k-panelbar > .k-panelbar-header > .k-link.k-selected:before {
+    display: none;
+  }
+  .k-panelbar > .k-item > .k-link,
+  .k-panelbar > .k-panelbar-header > .k-link {
+    color: #323130;
+  }
+  .k-panelbar > .k-item > .k-link.k-selected,
+  .k-panelbar > .k-panelbar-header > .k-link.k-selected {
+    color: #323130;
+    font-weight: 400;
+    background-color: transparent;
+  }
+  .k-panelbar > .k-item > .k-link.k-selected.k-focus,
+  .k-panelbar > .k-panelbar-header > .k-link.k-selected.k-focus {
+    box-shadow: none;
+  }
+  .k-panelbar-content {
+    border-top: 1px solid var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+    padding: 16px 16px 0px;
+  }
+}
+
+.layout {
+  border-radius: 8px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #DBDBDB;
+}
+
+.layout-title {
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 27px;
+}
+
+.view-container {
+  padding-bottom: 48px;
+  border-bottom: 1px solid #DBDBDB;
+}
+
+:host ::ng-deep .hasFile kendo-icon.k-i-file.k-panelbar-item-icon.k-icon.ng-star-inserted {
+  color: red;
+}
+
+.inProgress-btn {
+  color: #F2C94C;
+}
+.confirmed-btn {
+  color: #219653;
+}
+.rejected-btn {
+  color: #D92D20;
+}

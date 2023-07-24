@@ -1,0 +1,91 @@
+<div class="container">
+    <kendo-breadcrumb [items]="viewState.breadItems" (itemClick)="breadItemsViewState($event)"></kendo-breadcrumb>
+    <h1>{{layoutResource.nonComplianceResources.sentNonComplianceDetails}}</h1>
+    <div *ngIf="!viewState.isLoadingOnGet; else pulsingLoader" class="layout">
+        <div class="view-container">
+            <h2 class="layout-title">{{viewState.nonCompilanceSentDetailsViewModel.group}}</h2>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.violator}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceSentDetailsViewModel.violator}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.dateCreated}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceSentDetailsViewModel.date | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.approvalDeadLine}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceSentDetailsViewModel.approvalDeadline | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div  class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.fine}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceSentDetailsViewModel.fine}}</p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.file}}</h3>
+                <p class="information-form-row-description">
+                    <span
+                    class="k-icon file-exists"
+                    [ngClass]="getFileClassByExtension(viewState.nonCompilanceSentDetailsViewModel.file?.type)" (click)="openFileButtonClickEvent(viewState.nonCompilanceSentDetailsViewModel.file)"></span>
+                </p>
+            </div>
+            <div class="information-form-row">
+                <h3 class="information-form-row-title">{{layoutResource.nonComplianceResources.description}}</h3>
+                <p class="information-form-row-description">{{viewState.nonCompilanceSentDetailsViewModel.description}}</p>
+            </div>
+        </div>
+        <ng-container class="redirect-container" *ngIf="viewState.nonCompilanceSentDetailsViewModel.redirects?.length > 0">
+            <h2 class="layout-title">{{layoutResource.nonComplianceResources.history}}</h2>
+            <kendo-panelbar>
+                <kendo-panelbar-item *ngFor="let redirect of viewState.nonCompilanceSentDetailsViewModel.redirects" title={{redirect.title}} icon="file" [ngClass]="
+                    redirect.hasFile ? 'hasFile' : ''
+                ">
+                    <ng-template kendoPanelBarContent>
+                        <div class="information-form-row">
+                            <h4 class="information-form-row-title">{{layoutResource.nonComplianceResources.file}}</h4>
+                            <p class="information-form-row-description">
+                                <span
+                                class="k-icon file-exists"
+                                [ngClass]="getFileClassByExtension(redirect.file?.type)" (click)="openFileButtonClickEvent(redirect.file)"></span>
+                            </p>
+                        </div>
+                        <div class="information-form-row">
+                            <h4 class="information-form-row-title">{{layoutResource.nonComplianceResources.comment}}</h4>
+                            <p class="information-form-row-description">{{redirect.comment}}</p>
+                        </div>
+                    </ng-template>
+                </kendo-panelbar-item>
+            </kendo-panelbar>
+        </ng-container>
+        <ng-container *ngIf="viewState.statusChangeView">
+            <h4 class="status-row-title">{{viewState.nonCompilanceSentDetailsViewModel.statusChanger}}</h4>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.status}}</h4>
+                <p class="information-form-row-description">
+                    <kendo-chip *ngIf="viewState.nonCompilanceSentDetailsViewModel.status == viewState.statuses['InProgress']  " size="small" rounded="full" themeColor="warning">{{layoutResource.nonComplianceResources.inProgress}}</kendo-chip>
+                    <kendo-chip *ngIf="viewState.nonCompilanceSentDetailsViewModel.status == viewState.statuses['Excusable']  " size="small" rounded="full" themeColor="success">{{layoutResource.nonComplianceResources.excusable}}</kendo-chip>
+                    <kendo-chip *ngIf="viewState.nonCompilanceSentDetailsViewModel.status == viewState.statuses['Inexcusable']  " size="small" rounded="full" themeColor="error">{{layoutResource.nonComplianceResources.inexcusable}}</kendo-chip>
+                </p>
+            </div>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.statusChangeDate}}</h4>
+                <p class="status-row-view-description">{{viewState.nonCompilanceSentDetailsViewModel.statusChangeDate | date: 'dd.MM.yyyy'}}</p>
+            </div>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.file}}</h4>
+                <p class="information-form-row-description">
+                    <span
+                    class="k-icon file-exists"
+                    [ngClass]="getFileClassByExtension(viewState.nonCompilanceSentDetailsViewModel?.statusFile?.type)" (click)="openFileButtonClickEvent(viewState.nonCompilanceSentDetailsViewModel.statusFile)"></span>
+                </p>
+            </div>
+            <div class="status-row-view">
+                <h4 class="status-row-view-title">{{layoutResource.nonComplianceResources.comment}}</h4>
+                <p>{{viewState.nonCompilanceSentDetailsViewModel.statusComment}}</p>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #pulsingLoader>
+    <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

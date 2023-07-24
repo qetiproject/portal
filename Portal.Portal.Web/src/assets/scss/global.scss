@@ -1,0 +1,587 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: $layout-bg-color;
+  color: #323130;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 0 auto;
+  width: 95%;
+}
+
+// input
+.k-input-solid,
+.k-button-solid-base {
+  border-color: $border-color;
+}
+
+.k-button.k-selected {
+  color: #652574;
+  background: rgba(101, 37, 116, 0.1);
+}
+
+//paging
+.k-pager-numbers .k-button {
+  color: #652574;
+}
+
+.k-picker-solid {
+  border-color: $border-color;
+}
+
+.k-pager-info {
+  color: $pager-info-color;
+}
+
+.k-pager-sizes {
+  color: $pager-sizes-color;
+}
+
+//grid
+.k-grid-toolbar {
+  background-color: $white;
+}
+
+.k-grid {
+  border-radius: 8px;
+  border-color: $border-color;
+}
+
+.k-table-thead,
+.k-table-header {
+  font-size: 12px;
+  background: $border-color;
+}
+
+tr.grey {
+  background-color: #fafafa;
+}
+
+td.k-table-td.k-touch-action-auto {
+  border-right: 1px solid $border-color;
+}
+
+.grid-height {
+  height: calc(100vh - 215px);
+  min-height: 400px;
+}
+
+//stepper
+.k-stepper .k-step-label .k-step-text {
+  overflow: visible;
+}
+
+.center {
+  @include center;
+}
+
+.between {
+  @include between;
+}
+
+.vertical-between {
+  @include vertical-between;
+}
+
+.verticalCenter {
+  // width: 100%;
+  @include verticalCenter;
+}
+
+.flexRow {
+  @include flexRow;
+}
+
+.employee-profile-tab-header, .admin-chips-header {
+  @include flexRow;
+  min-height: 38px;
+  margin: 0 0 24px 0;
+  kendo-button {
+    padding: 9px;
+    background: rgba(101, 37, 116, 0.1);
+    border: none;
+    .k-icon {
+      color: #652574;
+    }
+  }
+}
+
+.employee-profile-tab-header-title, .admin-chips-header-title {
+  margin: 0;
+  color: #323130;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.information-form-row,
+.status-row-view {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin: 0 0 24px 0;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+  color: #323130;
+}
+.information-form-row-title,
+.status-row-view-title {
+  width: 30%;
+  min-width: 20%;
+  margin: 0;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  opacity: 0.7;
+}
+.information-form-row-description,
+.status-row-view-description {
+  margin: 0 !important;
+}
+
+.statement-status-row-title {
+  padding-top: 16px;
+  padding-bottom: 26px;
+  font-size: 14px;
+}
+
+.employee-profile-tab-edit-information-form {
+  kendo-formfield {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 0 0 24px 0;
+    kendo-label {
+      width: 20%;
+      color: #323130;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
+  kendo-formfield > div {
+    width: 55%;
+  }
+
+  kendo-dialog-actions {
+    padding-top: 8px;
+    padding-bottom: 0px;
+    padding-left: calc(20% + 30px);
+    button {
+      max-width: 85px;
+    }
+  }
+  .datepicker-and-formerror-wrapper {
+    align-items: start;
+    kendo-label {
+      margin-top: 8px;
+    }
+    .datepicker-and-formerror {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+}
+
+.employee-secondary-information-header {
+  @include flexRow;
+  margin: 0 0 24px 0;
+  h2 {
+    margin: 0;
+    color: #323130;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  kendo-button {
+    padding: 9px;
+    background: rgba(101, 37, 116, 0.1);
+    border: none;
+    ::ng-deep {
+      .k-icon {
+        color: #652574;
+      }
+    }
+  }
+}
+
+.moduleListHeaderContaner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.word-icon {
+  color: #295699;
+}
+
+.excel-icon {
+  color: #1f7244;
+}
+
+.powerpoint-icon {
+  color: #be3819;
+}
+
+.pdf-icon {
+  color: #cb0606;
+}
+
+.jpg-icon {
+  color: #208895;
+}
+
+.png-icon {
+  color: #a066aa;
+}
+
+.heic-icon {
+  color: #0e95e2;
+}
+
+.file-icon {
+  color: #cc000b;
+}
+
+.file-exists {
+  cursor: pointer;
+}
+
+.file-not-exist {
+  color: #cccccc;
+  cursor: default !important;
+}
+
+.custom-file-input {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 0 0 24px 0;
+  h3 {
+    width: 20%;
+    margin: 0;
+    color: #323130;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  &-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    label {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      color: #652574;
+      cursor: pointer;
+    }
+    input {
+      display: none;
+    }
+    kendo-button {
+      background: #ffffff;
+      border: 1px solid #dbdbdb;
+      .k-icon {
+        color: #652574;
+        transform: scale(0.75);
+      }
+    }
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin: 0 0 24px 0;
+}
+
+.k-dialog-titlebar {
+  padding: 20px 24px;
+  border-top: 4px solid #672675;
+  border-radius: 0;
+  span {
+    color: #323130;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+.k-dialog-content {
+  kendo-formfield {
+    kendo-label {
+      color: #323130;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    kendo-textbox {
+      margin: 5px 0 0 0 !important;
+    }
+  }
+}
+
+.k-dialog {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .k-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px !important;
+    border-top: 1px solid #edebe9;
+    border-radius: 0;
+    button {
+      max-width: 120px;
+    }
+  }
+  .loader {
+    padding-bottom: 40px;
+  }
+}
+
+.delete-dialog {
+  .textarea {
+    margin: 0;
+  }
+  kendo-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px !important;
+    border-radius: 0;
+    button {
+      max-width: 85px;
+    }
+  }
+}
+
+.daterange {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.k-breadcrumb {
+  background-color: #f9fbfc;
+}
+
+.page-title {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 48px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin: 0 0 24px 0;
+  color: #323130;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.form-row-title {
+  width: 20%;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+// kendo-panelbar
+.k-panelbar {
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.k-panelbar > .k-item > .k-link:hover,
+.k-panelbar > .k-item > .k-link.k-hover,
+.k-panelbar > .k-panelbar-header > .k-link:hover,
+.k-panelbar > .k-panelbar-header > .k-link.k-hover,
+.k-panelbar > .k-item.k-expanded.k-level-0 > .k-link.k-selected,
+.k-panelbar > .k-panelbar-header.k-expanded.k-level-0 > .k-link.k-selected,
+.k-panelbar > .k-item > .k-link.k-selected,
+.k-panelbar > .k-panelbar-header > .k-link.k-selected,
+.k-panelbar > .k-item > .k-link.k-selected:hover,
+.k-panelbar > .k-item > .k-link.k-selected.k-hover,
+.k-panelbar > .k-panelbar-header > .k-link.k-selected:hover,
+.k-panelbar > .k-panelbar-header > .k-link.k-selected.k-hover {
+  --INTERNAL--kendo-panelbar-header-text: #323130 !important;
+  --INTERNAL--kendo-panelbar-header-bg: none !important;
+  --INTERNAL--kendo-panelbar-header-border: none !important;
+}
+
+.k-panelbar > .k-item > .k-link:focus,
+.k-panelbar > .k-item > .k-link.k-focus,
+.k-panelbar > .k-panelbar-header > .k-link:focus,
+.k-panelbar > .k-panelbar-header > .k-link.k-focus {
+  box-shadow: none;
+}
+
+.k-panelbar > .k-item > .k-link.k-selected:before,
+.k-panelbar > .k-panelbar-header > .k-link.k-selected:before {
+  display: none;
+}
+
+.k-panelbar > .k-item > .k-link,
+.k-panelbar > .k-panelbar-header > .k-link {
+  color: #323130;
+}
+
+// kendo-panelbar
+
+.k-button:hover,
+.k-button.k-hover,
+.k-button:focus,
+.k-button.k-focus,
+.k-button:hover,
+.k-button.k-hover,
+.k-button:focus::after,
+.k-button.k-focus::after {
+  --INTERNAL--kendo-button-border: none;
+  outline: none;
+}
+
+.loader {
+  width: 100%;
+  height: 100%;
+  @include center;
+}
+
+.messagebox-errors {
+  margin: 0 0 20px 0;
+  padding: 9px 13px;
+  border-radius: 4px;
+}
+
+.messagebox-errors-title,
+.messagebox-error {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.messagebox-errors-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-btn {
+  padding: 9px;
+  background: rgba(101, 37, 116, 0.1);
+  border: none;
+}
+
+.fine .k-input-inner::placeholder {
+  font-style: italic;
+}
+
+kendo-tabstrip {
+  font-size: 14px;
+  line-height: 20px;
+  .k-tabstrip-items-wrapper {
+    .k-item:hover {
+      border-radius: 4px;
+    }
+    .k-item:focus {
+      box-shadow: none;
+    }
+    .k-item::after {
+      display: none;
+    }
+    .k-link {
+      padding: 9px 10px;
+      color: #323130;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 20px;
+      background-color: #ffffff;
+      border: 1px solid #dbdbdb;
+      border-radius: 4px;
+    }
+    .k-active .k-link {
+      color: #652574;
+      background: rgba(103, 38, 117, 0.1);
+      border: 1px solid #652574;
+    }
+  }
+}
+
+kendo-grid thead.k-table-thead {
+  background: #fafafa;
+  th {
+    border-right: 1px solid #dbdbdb !important;
+    &:last-child {
+      border-right: none !important;
+    }
+  }
+}
+
+kendo-grid-list tbody tr:last-child .k-table-td {
+  border-bottom: 1px solid #dbdbdb !important;
+}
+
+kendo-pager.k-pager.k-pager-wrap.k-grid-pager {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+kendo-grid-toolbar.k-toolbar.k-grid-toolbar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+kendo-breadcrumb {
+  li:last-child span {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #323130 !important;
+  }
+}
+
+kendo-tooltip {
+  max-width: 300px;
+}
+
+.bordered-box {
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+}
+
+.view-button {
+  background: rgba(101, 37, 116, 0.1);
+  color: #652574;
+  border: none;
+}
+
+.k-checkbox {
+  margin: 10px;
+}
+
+
+// panelbar label margin
+
+.k-form .k-label, .k-form kendo-label, .k-form .k-form-label {
+  margin-block-end: 0 !important;
+}
+
+// panelbar label margin

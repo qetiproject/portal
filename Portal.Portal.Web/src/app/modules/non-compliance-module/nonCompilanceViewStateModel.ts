@@ -1,0 +1,51 @@
+import { ButtonSize } from "@progress/kendo-angular-buttons";
+import { InputRounded } from "@progress/kendo-angular-inputs";
+import { GridListModel } from "src/app/shared/infrastructure/Model/gridListModel";
+
+import { ActionPermissions, AllNonCompliancesModel, AllNonCompliancesResponse, ErrorResourceModel, FileType, GroupsListModel, MyNonCompliancesModel, MyNonCompliancesResponse, NonComplianceResourcesModel, NonComplianceStatus, ReceivedNonCompliancesModel, ReceivedNonCompliancesResponse, SentNonCompliancesModel, SentNonCompliancesResponse } from "src/app/shared/infrastructure/PortalHttpClient";
+
+export interface NonCompilanceViewStateModel {
+    basePath: string;
+    nonComplanceModuleResourceModel: NonComplianceResourcesModel;
+    errorResourceModel: ErrorResourceModel;
+    rounded: InputRounded;
+    buttonSize: ButtonSize;
+    roundedSearch: InputRounded;
+    tabSelectEventTitle: string;
+    isLoadingOnGet: boolean;
+    isLoadingOnPost: boolean;
+    initialNonCompilances: Array<AllNonCompliancesModel>;
+    nonCompilanceAllViewModel: AllNonCompliancesResponse;
+    gridList: GridListModel;
+    searchNonCompilanceValue: string;
+    isNonCompilanceAllViewState: boolean;
+    statuses: typeof NonComplianceStatus;
+    fileTypes: typeof FileType;
+    isActiveCreateDialogViewState: boolean;
+    violatorDataView: Array<string>;
+    filterViolatorData: string;
+    groupListViewData: Array<GroupsListModel>;
+    groupType: string;
+    serverErrorsModel: Array<string>;
+    isViewTitle: boolean;
+    selectedFile: Blob;
+    isNonCompilanceSentViewState: boolean;
+    initialSentNonCompilances: Array<SentNonCompliancesModel>;
+    nonCompilanceSentViewModel: SentNonCompliancesResponse;
+    initialReceivedNonCompilances: Array<ReceivedNonCompliancesModel>;
+    nonCompilanceRecievedViewModel: ReceivedNonCompliancesResponse;
+    isNonCompilanceRecievedViewState: boolean;
+    initialMyNonCompilances: Array<MyNonCompliancesModel>;
+    myNonCompilanceViewModel: MyNonCompliancesResponse;
+    isMyNonCompilanceViewState: boolean;
+    isLoadingRemoveGroup: boolean;
+    activeAllTab: boolean;
+    activeSentTab: boolean;
+    activeRecievedTab: boolean;
+    activeMyVolationsTab: boolean;
+    activateListItemNumber: string;
+    openStatusChangeDialogViewState: boolean;
+    statusChangeSelectedFile: Blob;
+    loaderVisible: boolean;
+    actionPermissions: ActionPermissions;
+}

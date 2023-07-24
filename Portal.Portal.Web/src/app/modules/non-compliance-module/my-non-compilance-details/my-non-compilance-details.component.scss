@@ -1,0 +1,115 @@
+.container {
+    max-width: 550px;
+    margin: auto;
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+  
+.page-title {
+    margin: 30px 0px 36px;
+}
+
+:host ::ng-deep .k-breadcrumb-root-link:active, .k-breadcrumb-root-link.k-active {
+    border: 1px solid #652574;
+    background: rgba(103, 38, 117, 0.1);
+  }
+  
+.layout {
+    border-radius: 8px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #DBDBDB;
+}
+
+.layout-title {
+  margin: 0px 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  &:last-child {
+      margin-top: 48px;
+  }
+}
+
+
+:host ::ng-deep .hasFile kendo-icon.k-i-file.k-panelbar-item-icon.k-icon.ng-star-inserted {
+    color: red;
+}
+:host::ng-deep {
+    kendo-panelbar {
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-top: 1px solid var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+    }
+    kendo-panelbar-item {
+      border-bottom: 1px solid var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+    }
+    .k-panelbar > .k-item > .k-link.k-selected:before,
+    .k-panelbar > .k-panelbar-header > .k-link.k-selected:before {
+      display: none;
+    }
+    .k-panelbar > .k-item > .k-link,
+    .k-panelbar > .k-panelbar-header > .k-link {
+      color: #323130;
+    }
+    .k-panelbar > .k-item > .k-link.k-selected,
+    .k-panelbar > .k-panelbar-header > .k-link.k-selected {
+      color: #323130;
+      font-weight: 400;
+      background-color: transparent;
+    }
+    .k-panelbar > .k-item > .k-link.k-selected.k-focus,
+    .k-panelbar > .k-panelbar-header > .k-link.k-selected.k-focus {
+      box-shadow: none;
+    }
+    .k-panelbar-content {
+      border-top: 1px solid var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+      padding: 16px 16px 0px;
+    }
+  }
+
+// add cmment form
+.redirect-dialog-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.redirecting-title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+}
+
+:host ::ng-deep .redirect-form kendo-formfield.k-form-field, .kendo-form-field {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 0 0 24px 0;
+}
+
+:host ::ng-deep .redirect-form .k-form-field-wrap {
+  width: calc(80% - 30px);
+}
+
+:host ::ng-deep .redirect-form kendo-label {
+  width: 20%;
+  color: #323130;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.custom-file-input kendo-button {
+  padding: 3px;
+}
+.custom-file-input {
+  min-height: 28px;
+}
+
+.redirect-dialog-actions button {
+  width: 83px;
+}
+// add cmment form

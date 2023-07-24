@@ -1,0 +1,130 @@
+<ng-container *ngIf="!viewState.isLoadingOnGet; else pulsingLoader">
+  <div class="employee-profile-tab-header">
+    <h2 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.education}}</h2>
+  </div>
+  <div class="education">
+      <div class="education-header">
+          <h3>{{viewState.employmentModuleResourceModel.training}}</h3>
+          <kendo-button *ngIf="viewState.actionPermissions.editEducation || viewState.isMyProfile" size="small" rounded="full" icon="plus" (click)="openEmployeeTrainingFormViewState()"></kendo-button>
+      </div>
+      <div class="education-body">
+          <div *ngFor="let training of viewState.employeeEducationViewModel.trainings" class="training">
+              <p>{{training.training}}</p>
+              <kendo-button *ngIf="viewState.actionPermissions.editEducation || viewState.isMyProfile" size="small" rounded="full" icon="edit" (click)="openEmployeeTrainingFormViewState(training)"></kendo-button>
+              <kendo-button *ngIf="viewState.actionPermissions.editEducation || viewState.isMyProfile" size="small" rounded="full" icon="delete" (click)="openEmployeeTrainingDeleteModal(training)"></kendo-button>
+          </div>
+      </div>
+  </div>
+  <div class="education">
+    <div class="education-header">    
+        <h3>{{viewState.employmentModuleResourceModel.university}}</h3>
+        <kendo-button *ngIf="viewState.actionPermissions.editEducation || viewState.isMyProfile" size="small" rounded="full" icon="plus" (click)="openEmployeeUniversityFormViewState()"></kendo-button>
+    </div>
+    <div class="education-body">
+      <div *ngFor="let university of viewState.employeeEducationViewModel.universities" class="university">
+          <div class="name">
+              <p>{{university.university}}</p>
+              <kendo-button *ngIf="viewState.actionPermissions.editEducation || viewState.isMyProfile" size="small" rounded="full" icon="edit" (click)="openEmployeeUniversityFormViewState(university)"></kendo-button>
+              <kendo-button *ngIf="viewState.actionPermissions.editEducation || viewState.isMyProfile" size="small" rounded="full" icon="delete" (click)="openEmployeeUniversityDeleteModal(university)"></kendo-button>
+          </div>
+          <div class="faculty">
+              <span>{{university.faculty}}</span><span>({{university.startDate.toString().slice(0,4)}}-{{university.endDate.toString().slice(0,4)}})</span>
+          </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<kendo-dialog *ngIf="viewState.isTrainingFormViewStateOpened" [minWidth]="250" [width]="450" title="{{viewState.isTrainingFormEditViewState ? viewState.employmentModuleResourceModel.editTraining : viewState.employmentModuleResourceModel.addTraining}}" (close)="closeEmployeeTrainingFormViewState('cancel')">
+  <form *ngIf="!viewState.isLoadingOnPost" [formGroup]="employeeTrainingForm">
+    <kendo-formfield>
+        <kendo-label [for]="training" text="{{viewState.employmentModuleResourceModel.training}}"></kendo-label>
+        <kendo-textbox formControlName="training" [clearButton]="true" #training></kendo-textbox>
+        <kendo-formerror>{{viewState.employmentErrorResourceModel.training}}</kendo-formerror>
+      </kendo-formfield>
+      <div class="custom-file-input">
+        <h3>certificate</h3>
+        <div class="custom-file-input-right">
+            <ng-container *ngIf="viewState.certificateSelectedFile; else certificateFileExist">
+                <span 
+                  class="k-icon"
+                  [ngClass]="getFileClassByExtension(viewState.certificateFileExtensionOnUpload)"
+                ></span>
+            </ng-container>
+            <ng-template #certificateFileExist>
+              <!-- <ng-container  *ngIf="viewState.employeeEducationViewModel.cerificate?.type">
+                <span 
+                  class="k-icon"
+                  [ngClass]="getFileClassByExtension(viewState.employeeEducationViewModel.cerificate.type)"
+                ></span>
+                </ng-container> -->
+            </ng-template>
+            <label for="resume">{{viewState.employmentModuleResourceModel.upload}}</label>
+            <input id="resume" type="file" (change)="employeeCertificateFileSelectedButtonCliekEvent($event)">
+            <!-- <kendo-button *ngIf="viewState.certificateSelectedFile || viewState.employeeEducationViewModel.cerificate?.name" size="small" rounded="full" icon="delete" (click)="deleteCertificateFileButtonClickEvent()"></kendo-button> -->
+        </div>
+    </div>
+  </form>
+  <kendo-dialog-actions *ngIf="!viewState.isLoadingOnPost; else pulsingLoader">
+      <button kendoButton themeColor="primary" (click)="closeEmployeeTrainingFormViewState('save')">{{viewState.employmentModuleResourceModel.save}}</button>
+      <button kendoButton (click)="closeEmployeeTrainingFormViewState('cancel')">{{viewState.employmentModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog *ngIf="viewState.isTrainingDeleteModalOpened" [minWidth]="250" [width]="450" class="delete-dialog" title="{{viewState.employmentModuleResourceModel.deleteTraining}}" (close)="closeEmployeeTrainingDeleteModal('cancel')" >
+  <p *ngIf="!viewState.isLoadingOnPost;" class="textarea">
+    {{viewState.employmentModuleResourceModel.deleteTrainingText}}
+  </p>
+  <kendo-dialog-actions *ngIf="!viewState.isLoadingOnPost; else pulsingLoader">
+      <button kendoButton themeColor="error" (click)="closeEmployeeTrainingDeleteModal('delete')">{{viewState.employmentModuleResourceModel.deleteText}}</button>
+      <button kendoButton (click)="closeEmployeeTrainingDeleteModal('cancel')">{{viewState.employmentModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+
+<kendo-dialog *ngIf="viewState.isUniversityFormViewStateOpened" [minWidth]="250" [width]="450" title="{{viewState.isUniversityFormEditViewState ? viewState.employmentModuleResourceModel.editUniversity : viewState.employmentModuleResourceModel.addUniversity}}" (close)="closeEmployeeUniversityFormViewState('cancel')">
+  <form *ngIf="!viewState.isLoadingOnPost" [formGroup]="employeeUniversityForm">
+      <kendo-formfield>
+        <kendo-label [for]="university" text="{{viewState.employmentModuleResourceModel.university}}"></kendo-label>
+        <kendo-textbox formControlName="university" [clearButton]="true" #university></kendo-textbox>
+          <kendo-formerror>{{viewState.employmentErrorResourceModel.university}}</kendo-formerror>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="faculty" text="{{viewState.employmentModuleResourceModel.faculty}}"></kendo-label>
+        <kendo-textbox formControlName="faculty" [clearButton]="true" #faculty></kendo-textbox>
+        <kendo-formerror>{{viewState.employmentErrorResourceModel.faculty}}</kendo-formerror>
+      </kendo-formfield>
+      <div class="daterange">
+        <kendo-formfield>
+          <kendo-label [for]="startDate" text="{{viewState.employmentModuleResourceModel.start}}"></kendo-label>
+          <kendo-datepicker formControlName="startDate" bottomView="decade" topView="century"format="yyyy" #startDate></kendo-datepicker>
+          <kendo-formerror *ngIf="employeeUniversityForm.controls['startDate']?.errors?.['required']">{{viewState.employmentErrorResourceModel.startYear}}</kendo-formerror>
+          <kendo-formerror *ngIf="employeeUniversityForm.controls['startDate']?.errors?.['dateIsForbidden']">{{viewState.employmentErrorResourceModel.endDateGreaterThanStartDate}}</kendo-formerror>
+        </kendo-formfield>
+        <kendo-formfield>
+          <kendo-label [for]="endDate" text="{{viewState.employmentModuleResourceModel.end}}"></kendo-label>
+          <kendo-datepicker formControlName="endDate" bottomView="decade" topView="century"format="yyyy" #endDate></kendo-datepicker>
+        <kendo-formerror *ngIf="employeeUniversityForm.controls['endDate']?.errors?.['required']">{{viewState.employmentErrorResourceModel.endYear}}</kendo-formerror>
+        <kendo-formerror *ngIf="employeeUniversityForm.controls['endDate']?.errors?.['dateIsForbidden']">{{viewState.employmentErrorResourceModel.endDateGreaterThanStartDate}}</kendo-formerror>
+        </kendo-formfield>
+      </div>
+  </form>
+  <kendo-dialog-actions *ngIf="!viewState.isLoadingOnPost; else pulsingLoader">
+      <button kendoButton themeColor="primary" (click)="closeEmployeeUniversityFormViewState('save')">{{viewState.employmentModuleResourceModel.save}}</button>
+      <button kendoButton (click)="closeEmployeeUniversityFormViewState('cancel')">{{viewState.employmentModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog *ngIf="viewState.isUniversityDeleteModalOpened" [minWidth]="250" [width]="450" class="delete-dialog" title="{{viewState.employmentModuleResourceModel.deleteUniversity}}" (close)="closeEmployeeUniversityDeleteModal('cancel')" >
+    <p *ngIf="!viewState.isLoadingOnPost" class="textarea">
+      {{viewState.employmentModuleResourceModel.deleteUniversityText}}
+    </p>
+  <kendo-dialog-actions *ngIf="!viewState.isLoadingOnPost; else pulsingLoader">
+      <button kendoButton themeColor="error" (click)="closeEmployeeUniversityDeleteModal('delete')">{{viewState.employmentModuleResourceModel.deleteText}}</button>
+      <button kendoButton (click)="closeEmployeeUniversityDeleteModal('cancel')">{{viewState.employmentModuleResourceModel.cancel}}</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

@@ -1,0 +1,171 @@
+<ng-container *ngIf="!viewState.isLoadingOnGet; else pulsingLoader">
+  <div class="employee-profile-tab-header">
+      <h2 class="employee-profile-tab-header-title">{{viewState.employmentModuleResourceModel.employmentHistory}}</h2>
+      <kendo-button *ngIf="viewState.isEmployeeEmploymentHistoryView && viewState.actionPermissions.editEmploymentHistory" size="small" rounded="full" icon="edit" (click)="employeeEmploymentHistoryEditButtonClickEvent()"></kendo-button>
+  </div>
+  <ng-container *ngIf="viewState.isEmployeeEmploymentHistoryView">
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.contractType}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeEmploymentHistoryViewModel.contractType}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.jobStartDate}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeEmploymentHistoryViewModel.jobStartDate?.toString().split('T')[0]}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.contract}}</h3>
+      <p class="information-form-row-description">
+        <span 
+        class="k-icon file-exists"
+        [ngClass]="getFileClassByExtension(viewState.employeeEmploymentHistoryViewModel.contract?.type)"
+        (click)="openFileButtonClickEvent(viewState.employeeEmploymentHistoryViewModel.contract)"></span>
+      </p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.contractExpirationDate}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeEmploymentHistoryViewModel.contractExpirationDate?.toString().split('T')[0]}}</p>
+    </div>
+    <div class="information-form-row">
+      <h3 class="information-form-row-title">{{viewState.employmentModuleResourceModel.supervisor}}</h3>
+      <p class="information-form-row-description">{{viewState.employeeEmploymentHistoryViewModel.supervisorName}}</p>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!viewState.isEmployeeEmploymentHistoryView">
+    <form class="employee-profile-tab-edit-information-form" [formGroup]="employeeEmploymentHistoryForm">
+      <kendo-formfield>
+        <kendo-label [for]="contractType" text="{{viewState.employmentModuleResourceModel.contractType}}"></kendo-label>
+        <kendo-dropdownlist [data]="viewState.contractTypes" formControlName="contractType" #contractType></kendo-dropdownlist>
+        <kendo-formerror>{{viewState.employmentErrorResourceModel.contractType}}</kendo-formerror>
+      </kendo-formfield>
+      <kendo-formfield class="datepicker-and-formerror-wrapper">
+        <kendo-label [for]="jobStartDate" text={{viewState.employmentModuleResourceModel.jobStartDate}}></kendo-label>
+        <div class="datepicker-and-formerror">
+          <kendo-datepicker formControlName="jobStartDate" format="dd/MM/yyyy" #jobStartDate></kendo-datepicker>
+          <kendo-formerror *ngIf="employeeEmploymentHistoryForm.controls['jobStartDate']?.errors?.['dateIsForbidden']">{{viewState.employmentErrorResourceModel.contractTermGreaterThanJobStartDate}}</kendo-formerror>
+        </div>
+      </kendo-formfield>
+      <div class="custom-file-input">
+        <h3>{{viewState.employmentModuleResourceModel.contract}}</h3>
+        <div class="custom-file-input-right">
+          <ng-container *ngIf="viewState.contractSelectedFile; else contractFileExist">
+            <span 
+            class="k-icon"
+            [ngClass]="getFileClassByExtension(viewState.contractFileExtensionOnUpload)"></span>
+          </ng-container>
+          <ng-template #contractFileExist>
+            <ng-container *ngIf="viewState.employeeEmploymentHistoryViewModel.contract?.type">
+              <span 
+              class="k-icon"
+              [ngClass]="getFileClassByExtension(viewState.employeeEmploymentHistoryViewModel.contract?.type)"></span>
+            </ng-container>
+          </ng-template>
+          <label for="contract">{{viewState.employmentModuleResourceModel.upload}}</label>
+          <input id="contract" type="file" (change)="employeeEmploymentHistoryContractFileSelectedButtonCliekEvent($event)">
+          <kendo-button *ngIf="viewState.contractSelectedFile || viewState.employeeEmploymentHistoryViewModel.contract?.name" size="small" rounded="full" icon="delete" (click)="employeeEmploymentHistoryContractFileDeleteButtonCliekEvent()"></kendo-button>
+        </div>
+      </div>
+      <kendo-formfield class="datepicker-and-formerror-wrapper">
+        <kendo-label [for]="contractExpirationDate" text={{viewState.employmentModuleResourceModel.contractExpirationDate}}></kendo-label>
+        <div class="datepicker-and-formerror">
+          <kendo-datepicker formControlName="contractExpirationDate" format="dd/MM/yyyy" #contractExpirationDate></kendo-datepicker>
+          <kendo-formerror *ngIf="employeeEmploymentHistoryForm.controls['contractExpirationDate']?.errors?.['dateIsForbidden']">{{viewState.employmentErrorResourceModel.contractTermGreaterThanJobStartDate}}</kendo-formerror>
+        </div>
+      </kendo-formfield>
+      <kendo-formfield>
+        <kendo-label [for]="supervisor" text={{viewState.employmentModuleResourceModel.supervisor}}></kendo-label>
+        <kendo-autocomplete #supervisor formControlName="supervisor" [data]="viewState.supervisorDataView" valueField="email" [filterable]="true" (input)="supervisorFilterEvent($event)" ></kendo-autocomplete>
+      </kendo-formfield>
+      <kendo-dialog-actions>
+        <button kendoButton themeColor="primary" [disabled]="employeeEmploymentHistoryFormValueChecker(employeeEmploymentHistoryForm.value)" (click)="saveEmployeeEmploymentHistoryButtonClickEvent()">{{viewState.employmentModuleResourceModel.save}}</button>
+        <button kendoButton (click)="cancelEmployeeEmploymentHistoryButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+      </kendo-dialog-actions>
+    </form>
+  </ng-container>
+
+  <div class="employee-profile-tab-header">
+    <h2 class="employee-profile-tab-header-subTitle">{{viewState.employmentModuleResourceModel.employeeRole}}</h2>
+    <kendo-button *ngIf="viewState.isEmployeeRoleView && viewState.actionPermissions.editEmploymentHistory" size="small" rounded="full" icon="edit" (click)="employeeRoleEditButtonView()"></kendo-button>
+  </div>
+  <div *ngIf="viewState.isEmployeeRoleView" class="k-block chips">
+    <kendo-chip *ngFor="let employeeRole of viewState.employeeEmploymentHistoryViewModel.roles" rounded="full" fillMode="outline" class="chip" [label]="employeeRole.name"></kendo-chip>
+  </div>
+  <div *ngIf="!viewState.isEmployeeRoleView" class="k-block chips">
+    <ng-container *ngIf="!viewState.isLoadingOnPostRole; else pulsingLoader">
+        <kendo-chip *ngFor="let employeeRole of viewState.employeeEmploymentHistoryViewModel.roles" rounded="full" fillMode="outline" class="chip center" [label]="employeeRole.name" removeIcon="k-icon k-i-close" [removable]="true" (remove)="deleteEmployeeRoleButtonClickEvent(employeeRole)"></kendo-chip>
+    </ng-container>
+  </div>
+  <div *ngIf="!viewState.isEmployeeRoleView" class="edit-form">
+      <form [formGroup]="employeeRoleForm">
+          <kendo-formfield orientation="vertical">
+            <kendo-label [for]="role" text={{viewState.employmentModuleResourceModel.employeeRole}}></kendo-label>
+            <kendo-dropdownlist 
+              [data]="viewState.employeeRoles"  [defaultItem]="{ name: viewState.employeeRoleName, id: viewState.employeeRoleId }" [textField]="'name'"  [valueField]="'id'"  formControlName="employeeRole" (valueChange)="roleValueChangeEvent($event)" #role>
+            </kendo-dropdownlist>
+          </kendo-formfield>
+          <kendo-dialog-actions>
+              <button kendoButton themeColor="primary" (click)="saveEmployeeRoleButtonClickEvent(employeeRoleForm.value)">{{viewState.employmentModuleResourceModel.save}}</button>
+              <button kendoButton (click)="cancelEmployeeRoleButtonClickEvent()">{{viewState.employmentModuleResourceModel.cancel}}</button>
+          </kendo-dialog-actions>
+      </form>
+  </div>
+  <div class="former-positions">
+      <div class="former-positions-header">    
+          <h2 class="employee-profile-tab-header-subTitle">{{viewState.employmentModuleResourceModel.formerPositions}}</h2>
+          <kendo-button size="small" rounded="full" icon="plus" (click)="openEmployeeFormerPositionFormViewState()"></kendo-button>
+      </div>
+      <div class="former-positions-body">
+        <div *ngFor="let formerPosition of viewState.employeeEmploymentHistoryViewModel.formerPositions" class="former-position">
+            <div class="former-position-title">
+                <p>{{formerPosition.title}}</p>
+                <kendo-button size="small" rounded="full" icon="edit" (click)="openEmployeeFormerPositionFormViewState(formerPosition)"></kendo-button>
+                <kendo-button size="small" rounded="full" icon="delete" (click)="openEmployeeFormerPositionDeleteModal(formerPosition)"></kendo-button>
+            </div>
+            <div class="former-position-date-range">
+                <span>{{this.viewState.monthsResourceModel?.[formerPosition.startDate.getMonth()]}} {{formerPosition.startDate.getFullYear()}} - {{this.viewState.monthsResourceModel?.[formerPosition.endDate.getMonth()]}} {{formerPosition.endDate.getFullYear()}}</span>
+            </div>
+        </div>
+      </div>
+  </div>
+</ng-container>
+
+  <kendo-dialog *ngIf="viewState.isFormerPositionFormViewStateOpened" [minWidth]="250" [width]="450" title="{{viewState.isFormerPositionFormEditViewState ? viewState.employmentModuleResourceModel.editFormerPosition : viewState.employmentModuleResourceModel.addFormerPosition}}" (close)="closeEmployeeFormerPositionFormViewState('cancel')">
+    <form *ngIf="!viewState.isLoadingOnPost" class="former-position-form" [formGroup]="employeeFormerPositionForm">
+        <kendo-formfield>
+          <kendo-label [for]="title" text="{{viewState.employmentModuleResourceModel.formerPosition}}"></kendo-label>
+          <kendo-textbox formControlName="title" [clearButton]="true" #title></kendo-textbox>
+            <kendo-formerror>{{viewState.employmentErrorResourceModel.formerPosition}}</kendo-formerror>
+        </kendo-formfield>
+        <div class="daterange">
+          <kendo-formfield>
+            <kendo-label [for]="startDate" text="{{viewState.employmentModuleResourceModel.start}}"></kendo-label>
+            <kendo-datepicker formControlName="startDate" bottomView="decade" topView="century"format="yyyy" #startDate></kendo-datepicker>
+            <kendo-formerror *ngIf="employeeFormerPositionForm.controls['endDate']?.errors?.['required']">{{viewState.employmentErrorResourceModel.startYear}}</kendo-formerror>
+            <kendo-formerror *ngIf="employeeFormerPositionForm.controls['startDate']?.errors?.['dateIsForbidden']">{{viewState.employmentErrorResourceModel.endDateGreaterThanStartDate}}</kendo-formerror>
+          </kendo-formfield>
+          <kendo-formfield>
+            <kendo-label [for]="endDate" text="{{viewState.employmentModuleResourceModel.end}}"></kendo-label>
+            <kendo-datepicker formControlName="endDate" bottomView="decade" topView="century"format="yyyy" #endDate></kendo-datepicker>
+            <kendo-formerror *ngIf="employeeFormerPositionForm.controls['endDate']?.errors?.['required']">{{viewState.employmentErrorResourceModel.endYear}}</kendo-formerror>
+            <kendo-formerror *ngIf="employeeFormerPositionForm.controls['endDate']?.errors?.['dateIsForbidden']">{{viewState.employmentErrorResourceModel.endDateGreaterThanStartDate}}</kendo-formerror>
+          </kendo-formfield>
+        </div>
+    </form>
+    <kendo-dialog-actions *ngIf="!viewState.isLoadingOnPost; else pulsingLoader">
+        <button kendoButton themeColor="primary" (click)="closeEmployeeFormerPositionFormViewState('save')">{{viewState.employmentModuleResourceModel.save}}</button>
+        <button kendoButton (click)="closeEmployeeFormerPositionFormViewState('cancel')">{{viewState.employmentModuleResourceModel.cancel}}</button>
+    </kendo-dialog-actions>
+  </kendo-dialog>
+
+  <kendo-dialog *ngIf="viewState.isFormerPositionDeleteModalOpened" [minWidth]="250" [width]="450" class="delete-dialog" title="{{viewState.employmentModuleResourceModel.deleteFormerPosition}}" (close)="closeEmployeeFormerPositionDeleteModal('cancel')" >
+      <p *ngIf="!viewState.isLoadingOnPost" class="textarea">
+        {{viewState.employmentModuleResourceModel.deleteFormerPositionText}}
+      </p>
+    <kendo-dialog-actions *ngIf="!viewState.isLoadingOnPost; else pulsingLoader">
+        <button kendoButton themeColor="error" (click)="closeEmployeeFormerPositionDeleteModal('delete')">{{viewState.employmentModuleResourceModel.deleteText}}</button>
+        <button kendoButton (click)="closeEmployeeFormerPositionDeleteModal('cancel')">{{viewState.employmentModuleResourceModel.cancel}}</button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<ng-template #pulsingLoader>
+  <kendo-loader class="loader" themeColor="primary"size="large"></kendo-loader>
+</ng-template>

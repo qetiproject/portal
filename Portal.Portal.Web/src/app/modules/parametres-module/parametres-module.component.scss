@@ -1,0 +1,132 @@
+.container {
+  padding-bottom: 30px;
+}
+
+:host::ng-deep {
+  kendo-panelbar {
+    background-color: transparent;
+    border: none;
+  }
+  kendo-panelbar-item {
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid
+      var(--kendo-panelbar-border, var(--kendo-component-border, initial)) !important;
+  }
+  .k-panelbar > .k-item > .k-link.k-selected:before,
+  .k-panelbar > .k-panelbar-header > .k-link.k-selected:before {
+    display: none;
+  }
+  .k-panelbar > .k-item > .k-link,
+  .k-panelbar > .k-panelbar-header > .k-link {
+    padding: 16px;
+    border-radius: 4px;
+    color: #323130;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 20px;
+  }
+  .k-panelbar > .k-item > .k-link.k-selected,
+  .k-panelbar > .k-panelbar-header > .k-link.k-selected {
+      background-color: transparent;
+      color: #323130;
+      font-weight: 600;
+  }
+  .k-panelbar > .k-item > .k-link.k-selected.k-focus,
+  .k-panelbar > .k-panelbar-header > .k-link.k-selected.k-focus {
+    box-shadow: none;
+  }
+  .k-panelbar-content {
+    padding: 24px;
+    border-radius: 4px;
+  }
+}
+
+kendo-tilelayout {
+  gap: 24px !important;
+  padding: 0 !important;
+  background-color: white;
+}
+kendo-tilelayout-item {
+  box-shadow: none;
+}
+kendo-tilelayout-item-body {
+  padding: 0;
+}
+
+.admin-chips {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+}
+.admin-chips-header {
+  margin-bottom: 32px;
+  justify-content: space-between;
+  kendo-button {
+    transform: scale(0.9);
+  }
+}
+.admin-chips-header-title {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 140%;
+}
+
+.chips {
+  display: flex;
+  row-gap: 16px;
+  column-gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  color: #323130;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid #dbdbdb;
+  cursor: default;
+  &:hover {
+    background-color: inherit;
+  }
+  &:focus::after {
+    outline: none;
+  }
+  ::ng-deep {
+    .k-chip-action.k-chip-remove-action {
+      z-index: 2;
+      color: #605e5c;
+      cursor: pointer;
+    }
+  }
+}
+
+.edit-form {
+    margin-top: 32px;
+    kendo-label {
+      color: #323130;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+    }
+    kendo-textbox {
+      margin-top: 5px;
+    }
+    kendo-dialog-actions {
+      display: block;
+      padding: 16px 0 0 0;
+      button {
+        max-width: 85px;
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .bordered-box {
+    padding: 16px;
+    .between {
+        gap: 10px;
+    }
+  }
