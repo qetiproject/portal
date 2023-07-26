@@ -5,10 +5,9 @@ import { firstValueFrom } from 'rxjs';
 
 import { AllNonCompilanceModuleDetailsModel } from './allNonCompilanceModuleDetailsModel';
 
-import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, ResourceResponse } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { assignFileTypeForUpload, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, ResourceResponse } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-all-non-compilance--details',

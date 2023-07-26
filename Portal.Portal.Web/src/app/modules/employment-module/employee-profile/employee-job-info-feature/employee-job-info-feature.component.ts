@@ -1,12 +1,11 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import { EmployeeJobInfoViewStateModel } from './employeeJobInfoiewModel';
-
-import { BASE_PATH, EmployeeProfileService, FileType, ResourceService } from 'src/app/shared/infrastructure/PortalHttpClient';
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, EmployeeProfileService, FileType } from 'src/app/shared/infrastructure/PortalHttpClient';
 import { assignFileTypeForUpload, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
 
 @Component({

@@ -3,10 +3,9 @@ import { FormGroup } from '@angular/forms';
 
 import { JobType } from 'src/app/shared/infrastructure/PortalHttpClient';
 
-import { EmployeeInformationViewStateModel } from './employeeInformationViewStateModel';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { enumToArray } from 'src/app/shared/infrastructure/Utils/utils';
+import { EmployeeInformationViewStateModel } from './employeeInformationViewStateModel';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 
 
 @Component({

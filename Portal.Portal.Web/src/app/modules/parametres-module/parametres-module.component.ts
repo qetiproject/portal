@@ -2,11 +2,9 @@ import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
-import { BASE_PATH, ParametresService, ResourceResponse, UpdateTimeOffRequestPanelRequests } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
-
 import { ParametreViewStateModel } from './parametreViewStateModel';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, ParametresService, ResourceResponse, UpdateTimeOffRequestPanelRequests } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-parametre-module',

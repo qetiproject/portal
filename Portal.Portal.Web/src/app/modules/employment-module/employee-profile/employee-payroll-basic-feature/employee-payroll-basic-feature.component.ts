@@ -1,18 +1,13 @@
 import { firstValueFrom } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { Residency } from 'src/app/shared/infrastructure/PortalHttpClient/model/residency';
-import { ParticipationInPension } from 'src/app/shared/infrastructure/PortalHttpClient';
-import { BankModel } from 'src/app/shared/infrastructure/PortalHttpClient/model/bankModel';
-
-import { EmployeePayrollBasicViewStateModel } from './employeePayrollBasicViewStateModel';
-
-import { EmployeeProfileService } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { enumToArray } from 'src/app/shared/infrastructure/Utils/utils';
+import { EmployeePayrollBasicViewStateModel } from './employeePayrollBasicViewStateModel';
+import { ParticipationInPension, EmployeeProfileService } from 'src/app/shared/infrastructure/PortalHttpClient';
+import { Residency } from 'src/app/shared/infrastructure/PortalHttpClient/model/residency';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 
 @Component({
   selector: 'app-employee-payroll-basic-feature',

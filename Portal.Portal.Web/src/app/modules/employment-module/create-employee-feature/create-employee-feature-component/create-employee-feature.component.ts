@@ -5,12 +5,9 @@ import { firstValueFrom } from 'rxjs';
 import { StepperActivateEvent } from '@progress/kendo-angular-layout';
 
 import { EmployeeService } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { CancelButtonClickEvent, EventBus, OkButtonClickEvent } from 'src/app/shared/infrastructure/CustomApi/event.bus';
-
-import { CreateEmployeeViewStateModel } from 'src/app/modules/employment-module/create-employee-feature/create-employee-feature-component/createEmployeeViewStateModel';
-
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { CancelButtonClickEvent, EventBus, OkButtonClickEvent } from 'src/app/shared/infrastructure/CustomApi/event.bus';
+import { CreateEmployeeViewStateModel } from 'src/app/modules/employment-module/create-employee-feature/create-employee-feature-component/createEmployeeViewStateModel';
 
 @Component({
   selector: 'app-create-employee-feature',

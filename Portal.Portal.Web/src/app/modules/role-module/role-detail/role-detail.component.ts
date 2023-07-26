@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 import { RoleDetailViewStateModel } from './roleDetailViewStateModel';
-
-import { AddEmployeeRequest, DeleteEmployeeRequest, EditRoleRequest, ResourceResponse, RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { AddEmployeeRequest, DeleteEmployeeRequest, EditRoleRequest, ResourceResponse, RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-role-detail',

@@ -1,17 +1,15 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { Subscription, firstValueFrom } from 'rxjs';
+import { Location } from '@angular/common';
 
 import { DrawerSelectEvent } from '@progress/kendo-angular-layout';
 
-import { GlobalResourceService } from '../../infrastructure/CustomApi/global-resource.service';
-
-import { AuthService } from '../../infrastructure/CustomApi/auth.service';
-
 import { LayoutViewStateModel } from './layoutViewStateModel';
 import { LanguageModel } from '../../infrastructure/Model/languageModel';
+import { AuthService } from '../../infrastructure/CustomApi/auth.service';
 import { BASE_PATH, LogInService } from '../../infrastructure/PortalHttpClient';
+import { GlobalResourceService } from '../../infrastructure/CustomApi/global-resource.service';
 import { EventBus, UpdateUserPhotoButtonClickEvent } from '../../infrastructure/CustomApi/event.bus';
 
 @Component({
@@ -81,13 +79,6 @@ export class AuthLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
         { text: this.viewState.layoutResourceModel.nonCompliance, icon: "k-i-warning", path: 'non-compliance', isShow: true},
         { text: this.viewState.layoutResourceModel.roles, icon: "k-i-tell-a-friend", path: 'roles', isShow: this.viewState.actionPermissions.viewRoles},
         { text: this.viewState.layoutResourceModel.parametres, icon: "k-i-gears", path: 'parametres', isShow: this.viewState.actionPermissions.viewAdminPanel},
-        // { text: this.viewState.layoutResourceModel.dashboard, icon: "k-i-table", path: ''},
-        // { text: this.viewState.layoutResourceModel.schedule, icon: "k-i-calendar", path: ''},
-        // { text: this.viewState.layoutResourceModel.log, icon: "k-i-parameter-date-time", path: ''},
-        // { text: this.viewState.layoutResourceModel.checklists, icon: "k-i-check-outline", path: ''},
-        // { text: this.viewState.layoutResourceModel.tasks, icon: "k-i-paste-plain-text", path: ''},
-        // { text: this.viewState.layoutResourceModel.devices, icon: "k-i-toggle-full-screen-mode", path: ''},
-        // { text: this.viewState.layoutResourceModel.contacts, icon: "k-i-dictionary-add", path: ''}
       ];
 
       this.viewState.avatarClickViewStateData =[

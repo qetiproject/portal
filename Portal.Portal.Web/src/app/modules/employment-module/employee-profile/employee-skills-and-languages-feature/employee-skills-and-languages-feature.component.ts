@@ -3,11 +3,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
-import { BASE_PATH, EmployeeProfileService, FileType, LoginResponse } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { SkillsAndLanguagesViewStateModel } from './skillsAndLanguagesViewStateModel';
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, EmployeeProfileService, FileType } from 'src/app/shared/infrastructure/PortalHttpClient';
 import { assignFileTypeForUpload, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+
 @Component({
   selector: 'app-employee-skills-and-languages-feature',
   templateUrl: './employee-skills-and-languages-feature.component.html',

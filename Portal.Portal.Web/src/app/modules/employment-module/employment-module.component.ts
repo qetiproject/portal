@@ -3,13 +3,10 @@ import { firstValueFrom } from 'rxjs';
 
 import { PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
 
-import { BASE_PATH, EmployeeService, EmployeeStatus } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { EmployeeModuleViewStateModel } from './employmentModuleViewStateModel';
-
-import { CancelButtonClickEvent, CreateEmployeeButtonClickEvent, EventBus, OkButtonClickEvent } from 'src/app/shared/infrastructure/CustomApi/event.bus';
-
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, EmployeeService, EmployeeStatus } from 'src/app/shared/infrastructure/PortalHttpClient';
+import { CancelButtonClickEvent, CreateEmployeeButtonClickEvent, EventBus, OkButtonClickEvent } from 'src/app/shared/infrastructure/CustomApi/event.bus';
 
 @Component({
   selector: 'app-employment-module',

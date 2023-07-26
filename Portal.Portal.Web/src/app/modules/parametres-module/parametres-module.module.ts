@@ -3,18 +3,13 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { DropDownsModule } from "@progress/kendo-angular-dropdowns";
-import { 
-  TileLayoutModule,
-  LayoutModule, 
-} from '@progress/kendo-angular-layout';
-import { ButtonsModule } from '@progress/kendo-angular-buttons';
-import { InputsModule } from '@progress/kendo-angular-inputs';
 import { LabelModule } from '@progress/kendo-angular-label';
-
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
+import { DropDownsModule } from "@progress/kendo-angular-dropdowns";
+import { TileLayoutModule, LayoutModule } from '@progress/kendo-angular-layout';
 
 import { ParametreModuleComponent } from './parametres-module.component';
-
 import { ParametresService } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 let angularModules = [

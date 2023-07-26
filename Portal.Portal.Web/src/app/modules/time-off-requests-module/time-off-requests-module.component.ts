@@ -1,17 +1,15 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { firstValueFrom } from 'rxjs';
 import { Component, Inject, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { firstValueFrom } from 'rxjs';
 
 import { PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
-
-import { TimeOffRequestsModuleViewStateModel, TypeViewModel } from './timeOffRequestsModuleViewStateModel';
-
-import { BASE_PATH, FileType, Recipient, TimeOffRequestService, TimeOffRequestStatus, TimeOffRequestType } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { SelectEvent } from '@progress/kendo-angular-layout';
-import { DatePipe } from '@angular/common';
+
 import { getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { TimeOffRequestsModuleViewStateModel, TypeViewModel } from './timeOffRequestsModuleViewStateModel';
+import { BASE_PATH, FileType, Recipient, TimeOffRequestService, TimeOffRequestStatus, TimeOffRequestType } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-time-off-requests-module',

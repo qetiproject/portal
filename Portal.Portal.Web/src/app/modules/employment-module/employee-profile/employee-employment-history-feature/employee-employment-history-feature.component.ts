@@ -5,9 +5,9 @@ import { Subscription, firstValueFrom } from 'rxjs';
 
 import { employeeEmploymentHistoryVIewModel } from './employeeEmploymentHistoryVIewModel';
 
-import { AddEmployeeToRoleRequest, BASE_PATH, DeleteEmployeeRequest, EmployeeProfileService, EmployeeRolesListModel, EmployeeService, FileType, FormerPositionModel, RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { assignFileTypeForUpload, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { AddEmployeeToRoleRequest, BASE_PATH, DeleteEmployeeRequest, EmployeeProfileService, EmployeeRolesListModel, EmployeeService, FileType, FormerPositionModel, RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-employee-employment-history-feature',

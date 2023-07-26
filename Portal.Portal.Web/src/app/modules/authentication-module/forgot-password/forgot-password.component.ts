@@ -3,10 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 import { ForgotPassowrdViewStateModel } from './forgotPasswordViewStateModel';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
-
 import { ForgotPasswordRequest, LogInService } from 'src/app/shared/infrastructure/PortalHttpClient';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 
 @Component({
   selector: 'app-forgot-password',

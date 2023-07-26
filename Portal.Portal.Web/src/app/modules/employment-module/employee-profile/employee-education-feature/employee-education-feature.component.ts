@@ -4,12 +4,9 @@ import { Subscription, firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { EmployeeEducationViewModel } from './employeeEducationViewModel';
-
-import { EmployeeProfileService, EmployeeTrainingModel, EmployeeUniversityModel } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
-
 import { assignFileTypeForUpload, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { EmployeeProfileService, EmployeeTrainingModel, EmployeeUniversityModel } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-employee-education-feature',

@@ -6,11 +6,9 @@ import { firstValueFrom } from 'rxjs';
 
 import { ResetPassowrdViewStateModel } from './resetPassowrdViewStateModel';
 
-import { LogInService, ResetPasswordRequest } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
-
 import { mustMatch } from 'src/app/shared/infrastructure/Utils/validators.fn';
+import { LogInService, ResetPasswordRequest } from 'src/app/shared/infrastructure/PortalHttpClient';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 
 @Component({
   selector: 'app-reset-password',

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 
 import { EmployeeRoleViewStateModel } from './employeeRoleViewStateModel';
 
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { EmployeeRolesListModel, EmployeeService, RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-employee-role',

@@ -1,13 +1,12 @@
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-
-import { BASE_PATH, FileType, ResourceResponse, TimeOffRequestService, TimeOffRequestStatus, TimeOffRequestType } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 import { TimeOffRequestRecievedHistoryViewModel } from './timeOffRequestRecievedHistoryViewModel';
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { assignFileTypeForUpload, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { BASE_PATH, FileType, ResourceResponse, TimeOffRequestService, TimeOffRequestStatus, TimeOffRequestType } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 
 @Component({

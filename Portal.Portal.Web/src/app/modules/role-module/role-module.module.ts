@@ -14,12 +14,9 @@ import { LabelModule } from '@progress/kendo-angular-label';
 import { GridModule } from '@progress/kendo-angular-grid';
 
 import { RoleModuleComponent } from './role-module.component';
-
 import { RoleModuleRoutingModule } from './role-module-routing';
-
-import { RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { RoleDetailComponent } from './role-detail/role-detail.component';
+import { RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 
 let angularModules = [

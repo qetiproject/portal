@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { EmployeeOtherInfoViewStateModel } from './employeeOtherInfoViewStateModel';
-
-import { BASE_PATH, Conviction, EmployeeProfileService, FileType, Gender, MaritalStatus } from 'src/app/shared/infrastructure/PortalHttpClient';
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, Conviction, EmployeeProfileService, FileType, Gender, MaritalStatus } from 'src/app/shared/infrastructure/PortalHttpClient';
 import { assignFileTypeForUpload, enumToArray, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
 
 @Component({

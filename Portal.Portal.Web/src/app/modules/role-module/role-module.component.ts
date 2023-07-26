@@ -3,12 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 
 import { RoleViewStateModel } from './roleViewStateModel';
-
 import { PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
-
-import { CreateRoleRequest, ResourceResponse, RolesListModel, RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { CreateRoleRequest, ResourceResponse, RolesListModel, RolesService } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-role-module',

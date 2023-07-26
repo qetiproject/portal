@@ -6,13 +6,10 @@ import { firstValueFrom } from 'rxjs';
 import { PageChangeEvent, RowClassArgs } from '@progress/kendo-angular-grid';
 import { SelectEvent } from '@progress/kendo-angular-layout';
 
-import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, TimeOffRequestService } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
-
 import { NonCompilanceViewStateModel } from './nonCompilanceViewStateModel';
-
 import { getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, TimeOffRequestService } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-non-compliance-module',

@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { BASE_PATH, FileType, ResourceResponse, TimeOffRequestService, TimeOffRequestStatus, TimeOffRequestType } from 'src/app/shared/infrastructure/PortalHttpClient';
-import { TimeOffRequestAllHistoryViewModel } from './timeOffRequestAllHistoryViewModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+
 import { getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { TimeOffRequestAllHistoryViewModel } from './timeOffRequestAllHistoryViewModel';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, FileType, ResourceResponse, TimeOffRequestService, TimeOffRequestStatus, TimeOffRequestType } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-time-off-request-all-history',

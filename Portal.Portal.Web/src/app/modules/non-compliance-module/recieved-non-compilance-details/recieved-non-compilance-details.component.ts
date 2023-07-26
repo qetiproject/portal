@@ -1,14 +1,12 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
-
-import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, ResourceResponse } from 'src/app/shared/infrastructure/PortalHttpClient';
-
 import { RecievedNonCompilanceModuleDetailsModel } from './recievedNonCompilanceModuleDetailsModel';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { assignFileTypeForUpload, getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, ResourceResponse } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-recieved-non-compilance-details',

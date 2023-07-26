@@ -2,12 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
-import { SentNonCompilanceModuleDetailsModel } from './sentNonCompilanceModuleDetailsModel';
-
-import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, ResourceResponse } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { getFileClassByExtension } from 'src/app/shared/infrastructure/Utils/utils';
+import { SentNonCompilanceModuleDetailsModel } from './sentNonCompilanceModuleDetailsModel';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { BASE_PATH, FileType, NonComplianceService, NonComplianceStatus, ResourceResponse } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-sent-non-compilance-details',

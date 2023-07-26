@@ -1,17 +1,14 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { SelectEvent } from '@progress/kendo-angular-layout';
-
-import { EmployeePersonalInformationViewModel } from './employeePersonalInformationViewModel';
-
-import { BASE_PATH, EmployeeProfileService, EmployeeStatus, HideEmployeeProfilePhotoRequest, JobType } from 'src/app/shared/infrastructure/PortalHttpClient';
-
-import { EventBus, OkButtonClickEvent, UpdateUserPhotoButtonClickEvent } from 'src/app/shared/infrastructure/CustomApi/event.bus';
-import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
 import { enumToArray } from 'src/app/shared/infrastructure/Utils/utils';
+import { EmployeePersonalInformationViewModel } from './employeePersonalInformationViewModel';
+import { GlobalResourceService } from 'src/app/shared/infrastructure/CustomApi/global-resource.service';
+import { EventBus, OkButtonClickEvent, UpdateUserPhotoButtonClickEvent } from 'src/app/shared/infrastructure/CustomApi/event.bus';
+import { BASE_PATH, EmployeeProfileService, EmployeeStatus, HideEmployeeProfilePhotoRequest, JobType } from 'src/app/shared/infrastructure/PortalHttpClient';
 
 @Component({
   selector: 'app-employee-personal-information-feature',

@@ -5,11 +5,8 @@ import { firstValueFrom } from "rxjs";
 import { TextBoxComponent } from "@progress/kendo-angular-inputs";
 
 import { LoginFeatureViewStateModel } from "./loginFeatureViewStateModel";
-
-import { LogInService, LoginRequest } from "src/app/shared/infrastructure/PortalHttpClient";
-
 import { AuthService } from "src/app/shared/infrastructure/CustomApi/auth.service";
-
+import { LogInService, LoginRequest } from "src/app/shared/infrastructure/PortalHttpClient";
 import { GlobalResourceService } from "src/app/shared/infrastructure/CustomApi/global-resource.service";
 
 @Component({
