@@ -35,4 +35,5 @@ export interface EmployeePersonalInformationViewModel {
     isLoadingOnPost: boolean;
     actionPermissions: ActionPermissions;
     isHideProfilePhoto: boolean;
+    phoneNumberMask: string;
 }

@@ -40,13 +40,15 @@ export class EmployeePersonalInformationFeatureComponent implements OnInit {
     isLoadingOnPost: false,
     actionPermissions: {},
     isHideProfilePhoto: null,
+    phoneNumberMask: "000-00-00-00",
   }
   
+
   employeePersonalInformationForm = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
     position: new FormControl('', [Validators.required]),
     jobType: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{9}$")]),
     email: new FormControl('', [Validators.required, Validators.email]),
     dateOfBirth: new FormControl(new Date(), [Validators.required]),
     personalId: new FormControl('', [Validators.required]),
@@ -101,6 +103,7 @@ export class EmployeePersonalInformationFeatureComponent implements OnInit {
   }
   
   breadItemsViewState(item: any): void {
+    console.log(item, 'item')
     this.viewState.selectedItemIndex = this.viewState.breadItems.findIndex((i) => i.text === item.text);
     this.viewState.employeeListUrl = this.viewState.breadItems
       .slice(0, this.viewState.selectedItemIndex + 1)

@@ -92,12 +92,14 @@
                 </kendo-formfield>
                 <kendo-formfield>
                   <kendo-label [for]="phoneNumber" text={{viewState.employmentModuleResourceModel.phoneNumber}}></kendo-label>
-                  <kendo-textbox formControlName="phoneNumber" [clearButton]="true" #phoneNumber></kendo-textbox>
-                  <kendo-formerror>{{viewState.errorResourceList.phoneNumber}}</kendo-formerror>
+                  <kendo-maskedtextbox formControlName="phoneNumber" #phoneNumber [mask]="viewState.phoneNumberMask"></kendo-maskedtextbox>
+                  <kendo-formerror *ngIf="employeePersonalInformationForm.controls['phoneNumber']?.errors?.['required']">{{viewState.errorResourceList.phoneNumber}}</kendo-formerror>
+                  <kendo-formerror *ngIf="employeePersonalInformationForm.controls['phoneNumber']?.errors?.['maxLength']">გთხოვთ შეიყვანოთ სწორი ფორმატის ტელეფონის ნომერი</kendo-formerror>
+                  <kendo-formerror *ngIf="employeePersonalInformationForm.controls['phoneNumber']?.errors?.['pattern']">გთხოვთ შეიყვანოთ სწორი ფორმატის ტელეფონის ნომერი</kendo-formerror>
                 </kendo-formfield>
                 <kendo-formfield>
                   <kendo-label [for]="email" text={{viewState.employmentModuleResourceModel.email}}></kendo-label>
-                  <kendo-textbox formControlName="email" [clearButton]="true" #email></kendo-textbox>
+                  <kendo-textbox formControlName="email" [clearButton]="true"  #email></kendo-textbox>
                   <kendo-formerror *ngIf="employeePersonalInformationForm.controls['email']?.errors?.['required']">{{viewState.errorResourceList.emailEmpty}}</kendo-formerror>
                   <kendo-formerror *ngIf="employeePersonalInformationForm.controls['email']?.errors?.['email']">{{viewState.errorResourceList.emailValid}}</kendo-formerror>
                 </kendo-formfield>
@@ -107,7 +109,7 @@
                 </kendo-formfield>
                 <kendo-formfield>
                   <kendo-label [for]="personalId" text={{viewState.employmentModuleResourceModel.personalId}}></kendo-label>
-                  <kendo-textbox formControlName="personalId" [clearButton]="true" #personalId></kendo-textbox>
+                  <kendo-maskedtextbox formControlName="personalId" mask="00000000000" #personalId></kendo-maskedtextbox>
                   <kendo-formerror>{{viewState.errorResourceList.personalId}}</kendo-formerror>
                 </kendo-formfield>
                 <kendo-dialog-actions>
